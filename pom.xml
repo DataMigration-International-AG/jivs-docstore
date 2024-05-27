@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.datamigration</groupId>
-  <artifactId>document-store</artifactId>
+  <artifactId>jivs-docstore</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
@@ -21,7 +21,7 @@
     <intellij.agent.options>${project.basedir}/.qodana/code-coverage/output.ic,true,true,true,false</intellij.agent.options>
   </properties>
   <scm>
-    <developerConnection>scm:git:https://github.com/DataMigration-International-AG/CHANGEME.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/DataMigration-International-AG/jivs-docstore.git</developerConnection>
   </scm>
 
   <distributionManagement>
