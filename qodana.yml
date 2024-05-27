@@ -1,0 +1,222 @@
+version: 1.0
+
+profile:
+  name: qodana.recommended
+failThreshold: 10000
+projectJDK: '21' #(Applied in CI/CD pipeline)
+linter: jetbrains/qodana-jvm:latest
+exclude:
+  - name: All
+    paths:
+      - qodana.yaml
+
+#bootstrap: cp .github/workflows/settings.xml ~/.m2/settings.xml
+
+include:
+  - name: CheckDependencyLicenses
+  - name: VulnerableLibrariesGlobal
+  - name: FieldCanBeLocal
+  - name: ParameterCanBeLocal
+  - name: ThrowablePrintStackTrace
+  - name: CommentedOutCode
+  - name: Deprecation
+  - name: DeprecatedIsStillUsed
+  - name: SizeReplaceableByIsEmpty
+  - name: FieldMayBeFinal
+  - name: UnnecessaryModifier
+  - name: UnnecessarySemicolon
+  - name: UNCHECKED_WARNING
+  - name: UnnecessaryLocalVariable
+  - name: DuplicateThrows
+  - name: UNUSED_IMPORT
+  - name: DanglingJavadoc
+  - name: JavadocReference
+  - name: JavadocDeclaration
+  - name: RegExpRedundantEscape
+  - name: StringBufferReplaceableByString
+  - name: ConditionCoveredByFurtherCondition
+  - name: SimplifyOptionalCallChains
+  - name: RedundantTypeArguments
+  - name: SimplifyStreamApiCallChains
+
+dependencyOverrides:
+  - name: "btf"
+    version: "1.2"
+    url: "https://github.com/fge/btf"
+    licenses:
+      - key: "APACHE-2.0"
+        url: ""
+  - name: "jackson-coreutils"
+    version: "1.6"
+    url: "https://github.com/fge/jackson-coreutils"
+    licenses:
+      - key: "APACHE-2.0"
+        url: ""
+  - name: "json-patch"
+    version: "1.9"
+    url: "https://github.com/java-json-tools/json-patch"
+    licenses:
+      - key: "APACHE-2.0"
+        url: ""
+  - name: "msg-simple"
+    version: "1.1"
+    url: "https://github.com/fge/msg-simple"
+    licenses:
+      - key: "APACHE-2.0"
+        url: ""
+  - name: "openpdf"
+    version: "1.3.25"
+    url: "https://github.com/LibrePDF/OpenPDF"
+    licenses:
+      - key: "MPL-2.0"
+        url: ""
+  - name: "c3p0"
+    version: "0.9.5.5"
+    url: "https://github.com/swaldman/c3p0"
+    licenses:
+      - key: "LGPL-2.1-only"
+        url: ""
+  - name: "mchange-commons-java"
+    version: "0.2.19"
+    url: "https://github.com/swaldman/mchange-commons-java"
+    licenses:
+      - key: "LGPL-2.1-only"
+        url: "https://github.com/swaldman/mchange-commons-java"
+  - name: "JavaBeans Activation Framework API jar"
+    version: "1.2.0"
+    url: "http://java.net/all/javax.activation-api/"
+    licenses:
+      - key: "GPL-2.0-with-classpath-exception"
+        url: ""
+  - name: "JavaMail API jar"
+    version: "1.6.2"
+    url: "http://javaee.github.io/javamail/javax.mail-api"
+    licenses:
+      - key: "GPL-2.0-with-classpath-exception"
+        url: ""
+  - name: "javax.persistence-api"
+    version: "2.2"
+    url: "https://github.com/javaee/jpa-spec"
+    licenses:
+      - key: "EPL-1.0"
+        url: ""
+  - name: "Java Servlet API"
+    version: "3.1.0"
+    url: "http://servlet-spec.java.net/"
+    licenses:
+      - key: "GPL-2.0-with-classpath-exception"
+        url: ""
+  - name: "JavaServer Pages(TM) API "
+    version: "2.2.1"
+    url: "http://jsp.java.net/"
+    licenses:
+      - key: "GPL-2.0-with-classpath-exception"
+        url: ""
+  - name: "javax.ws.rs-api"
+    version: "2.1.1"
+    url: "https://github.com/eclipse-ee4j/jaxrs-api"
+    licenses:
+      - key: "GPL-2.0-with-classpath-exception"
+        url: ""
+  - name: "jaxb-api"
+    version: ":2.3.1"
+    url: "https://github.com/javaee/jaxb-spec/jaxb-api"
+    licenses:
+      - key: "GPL-2.0-with-classpath-exception"
+        url: ""
+  - name: "jstl"
+    version: "1.2"
+    url: ""
+    licenses:
+      - key: "CDDL"
+        url: ""
+  - name: "Java Native Access"
+    version: "5.3.1"
+    url: "https://github.com/java-native-access/jna"
+    licenses:
+      - key: "APACHE-2.0"
+        url: ""
+  - name: "Java Native Access Platform"
+    version: "5.3.1"
+    url: "https://github.com/java-native-access/jna"
+    licenses:
+      - key: "APACHE-2.0"
+        url: ""
+  - name: "delight-rhino-sandbox"
+    version: "0.0.11"
+    url: "https://github.com/javadelight/delight-rhino-sandbox"
+    licenses:
+      - key: "MIT"
+        url: ""
+  - name: "Javassist"
+    version: "3.24.0-GA"
+    url: "http://www.javassist.org/"
+    licenses:
+      - key: "APACHE-2.0"
+        url: ""
+  - name: "JBoss Jakarta Annotations API"
+    version: "1.3" #?
+    url: "https://github.com/jboss/jboss-jakarta-"
+    licenses:
+      - key: "GPL-2.0-with-classpath-exception"
+        url: ""
+  - name: "Java Transaction API"
+    version: "1.2" #?
+    url: "http://www.jboss.org/jboss-transaction-"
+    licenses:
+      - key: "GPL-2.0-with-classpath-exception"
+        url: ""
+  - name: "jboss-jakarta-jaxrs-api_spec"
+    version: "2.1" #?
+    url: "http://www.jboss.org/jboss-jaxrs-api_2.1_spec"
+    licenses:
+      - key: "EPL-2.0"
+        url: ""
+  - name: "Java Architecture for XML Binding 2.3"
+    version: "2.3" #?
+    url: "http://www.jboss.org/jboss-jaxb-api_2.3_spec"
+    licenses:
+      - key: "GPL-2.0-with-classpath-exception"
+        url: ""
+  - name: "ESAPI"
+    version: "2.5.1.0"
+    url: "https://owasp.org/www-project-enterprise-security-api/"
+    licenses:
+      - key: "BSD"
+        url: ""
+  - name: "XML Commons External Components XML APIs"
+    version: "1.4.01"
+    url: "http://xml.apache.org/commons/components/ext"
+    licenses:
+      - key: "APACHE-2.0"
+        url: ""
+  - name: "MXP1: Xml Pull Parser 3rd Edition (XPP3)"
+    version: "1.1.4c"
+    url: "http://www.extreme.indiana.edu/xgws/xsoap/xpp"
+    licenses:
+      - key: "PDM"
+        url: ""
+  - name: "jQuery TableSorter"
+    version: "2.15.1"
+    url: "https://plugins.jquery.com/tablesorter"
+    licenses:
+      - key: "MIT"
+        url: ""
+
+licenseRules:
+  - keys:
+      - "PROPRIETARY-LICENSE"
+    allowed:
+      - "EPL-2.0"
+      - "MIT"
+      - "BSD-2-Clause"
+      - "BSD-3-Clause"
+      - "MPL-2.0"
+      - "APACHE-2.0"
+      - "LGPL-2.1-only"
+      - "LGPL-3.0-only"
+      - "GPL-2.0-with-classpathexception"
+      - "EPL-1.0"
+    prohibited:
+      - "GPL-2.0"
+      - "GPL-3.0"
