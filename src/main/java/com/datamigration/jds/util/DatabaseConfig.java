@@ -25,7 +25,7 @@ public class DatabaseConfig {
 	}
 
 	private DatabaseConfig(String dbUsername, String dbPassword, String dbUrl) {
-				this.dbUsername = dbUsername;
+		this.dbUsername = dbUsername;
 		this.dbPassword = dbPassword;
 		this.dbUrl = dbUrl;
 	}
@@ -46,7 +46,7 @@ public class DatabaseConfig {
 	 *
 	 * @param dbUsername username of the database
 	 * @param dbPassword password of the database
-	 * @param dbUrl url of the database
+	 * @param dbUrl      url of the database
 	 */
 	public static void getInstanceWithParameters(String dbUsername, String dbPassword, String dbUrl) {
 		if (INSTANCE == null) {
@@ -84,8 +84,8 @@ public class DatabaseConfig {
 		dbPassword = dbProperties.getProperty("jpe.mssql.password");
 		dbUrl = dbProperties.getProperty("jpe.mssql.url");
 
-		if ((dbUsername == null || dbUsername.isEmpty()) || (dbPassword == null || dbPassword.isEmpty()) || (dbUrl
-			== null || dbUrl.isEmpty())) {
+		if ((dbUsername == null || dbUsername.isEmpty()) || (dbPassword == null || dbPassword.isEmpty()) || (
+			dbUrl == null || dbUrl.isEmpty())) {
 			logger.error("Jivs-Process-Engine: Database properties not defined correctly!");
 			throw new RuntimeException("Jivs-Process-Engine: Database properties not defined correctly!");
 		}

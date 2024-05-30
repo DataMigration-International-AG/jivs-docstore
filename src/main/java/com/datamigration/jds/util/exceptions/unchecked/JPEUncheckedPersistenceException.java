@@ -4,7 +4,7 @@ package com.datamigration.jds.util.exceptions.unchecked;
 import com.datamigration.jds.util.exceptions.ErrorCode;
 import java.io.Serial;
 
-public class JPEUncheckedPersistenceException extends JPEUncheckedException{
+public class JPEUncheckedPersistenceException extends JPEUncheckedException {
 
 	@Serial
 	private static final long serialVersionUID = 7718828512143293558L;

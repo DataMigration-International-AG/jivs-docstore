@@ -1,8 +1,8 @@
 package com.datamigration.jds.persistence;
 
+import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
 import java.util.List;
 import java.util.Optional;
-import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
 
 /**
  * This interface defines the basic CRUD operations for a database entity.
@@ -39,4 +39,5 @@ public interface IDao<T, U> {
 	 * @throws JPEPersistenceException if an error occurs during persisting
 	 */
 	void update(T t) throws JPEPersistenceException;
+
 }

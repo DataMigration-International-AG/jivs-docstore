@@ -1,13 +1,14 @@
 package com.datamigration.jds.persistence.db;
 
-import com.datamigration.jds.persistence.AbstractDatabaseManager;
+import static com.datamigration.jds.persistence.DatabaseManager.connect;
+
 import com.datamigration.jds.util.exceptions.ErrorCode;
 import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DbDao extends AbstractDatabaseManager implements IDbDao {
+public class DbDao implements IDbDao {
 
 	@Override
 	public void createJPESchema() throws JPEPersistenceException {

@@ -3,7 +3,8 @@ package com.datamigration.jds.util.exceptions.unchecked;
 import com.datamigration.jds.util.exceptions.ErrorCode;
 import java.io.Serial;
 
-public abstract class JPEUncheckedException extends RuntimeException{
+public abstract class JPEUncheckedException extends RuntimeException {
+
 	@Serial
 	private static final long serialVersionUID = 1L;
 

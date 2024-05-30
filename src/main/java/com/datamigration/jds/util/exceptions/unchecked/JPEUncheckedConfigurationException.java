@@ -4,6 +4,7 @@ import com.datamigration.jds.util.exceptions.ErrorCode;
 import java.io.Serial;
 
 public class JPEUncheckedConfigurationException extends JPEUncheckedException {
+
 	@Serial
 	private static final long serialVersionUID = -7621608925601572329L;
 
