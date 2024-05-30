@@ -20,5 +20,5 @@ public interface IDocumentDao extends IDao<DocumentDTO, UUID> {
 	 * @param id the id of the entity
 	 * @throws JPEPersistenceException if an error occurs during persisting
 	 */
-	boolean delete(UUID id) throws JPEPersistenceException;
+	boolean updateDeleteFlag(UUID id) throws JPEPersistenceException;
 }

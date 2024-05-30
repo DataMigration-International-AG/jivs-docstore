@@ -17,14 +17,16 @@ public class JivsDocument {
 	private boolean deleted;
 	private LocalDateTime created;
 
-	public JivsDocument(byte[] fileBin, String filename, String filetype, UUID creator, UUID customerFK,
-		boolean deleted) {
+	public JivsDocument(byte[] fileBin, String filename, String filetype, UUID creator, UUID customerFK, UUID systemFK,
+		UUID caseId, String params) {
 		this.fileBin = fileBin;
 		this.filename = filename;
 		this.filetype = filetype;
 		this.creator = creator;
 		this.customerFK = customerFK;
-		this.deleted = deleted;
+		this.systemFK = systemFK;
+		this.caseId = caseId;
+		this.params = params;
 	}
 
 	public UUID getId() {

@@ -27,8 +27,23 @@ public interface IDocumentSQLs {
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 		""";
 
-	String DELETE_DOCUMENT_SQL = """
-		DELETE FROM jds.JIVS_DOCSTORE
+	String SELECT_DOCUMENT_BY_ID = """
+		SELECT *
+		FROM jds.JIVS_DOCSTORE
 		WHERE ID = ?
+		""";
+
+	String SELECT_ALL_DOCUMENTS = """
+		SELECT *
+		FROM jds.JIVS_DOCSTORE
+		""";
+
+	String UPDATE_DELETE_FLAG_DOCUMENT_SQL = """
+		UPDATE jds.JIVS_DOCSTORE
+		SET DELETED = ?
+		WHERE ID = ?
+		""";
+
+	String UPDATE_DOCUMENT_SQL = """
 		""";
 }
