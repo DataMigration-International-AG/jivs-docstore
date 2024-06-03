@@ -27,7 +27,9 @@ public interface IDao<T, U> {
 	Optional<List<T>> getByCustomerId(UUID id) throws JPEPersistenceException;
 
 	Optional<List<T>> getBySystemId(UUID id) throws JPEPersistenceException;
-	
+
+	Optional<List<T>> getByCaseId(UUID id) throws JPEPersistenceException;
+
 	/**
 	 * Get all entities from the database. Returns an empty list if no entry was found.
 	 *

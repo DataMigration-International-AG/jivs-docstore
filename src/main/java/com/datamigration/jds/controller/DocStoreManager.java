@@ -70,6 +70,11 @@ public class DocStoreManager {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getBySystemId(id);
 		return documentDTOs.orElseGet(ArrayList::new);
 	}
+
+	public List<DocumentDTO> getByCaseId(UUID id) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCaseId(id);
+		return documentDTOs.orElseGet(ArrayList::new);
+	}
 	
 	public List<DocumentDTO> getAllAsList() throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getAllAsList();

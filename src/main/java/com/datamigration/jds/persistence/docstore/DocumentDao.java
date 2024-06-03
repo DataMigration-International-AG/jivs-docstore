@@ -207,6 +207,28 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
+	public Optional<List<DocumentDTO>> getByCaseId(UUID id) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> result;
+		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+			IDocumentSQLs.SELECT_DOCUMENT_BY_CASE_ID_SQL)) {
+			preparedStatement.setObject(1, id);
+			try (ResultSet rs = preparedStatement.executeQuery()) {
+				List<DocumentDTO> processList = new ArrayList<>();
+				while (rs.next()) {
+					DocumentDTO documentDTO = createDocumentDTO(rs);
+					processList.add(documentDTO);
+				}
+				result = Optional.of(processList);
+			} catch (SQLException e) {
+				throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+			}
+		} catch (SQLException e) {
+			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+		}
+		return result;
+	}
+
+	@Override
 	public Optional<List<DocumentDTO>> getAllAsList() throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(

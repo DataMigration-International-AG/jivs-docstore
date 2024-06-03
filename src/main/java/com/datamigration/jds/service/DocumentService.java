@@ -62,6 +62,11 @@ public class DocumentService {
 		return documentDTOs;
 	}
 
+	public Optional<List<DocumentDTO>> getByCaseId(UUID id) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCaseId(id);
+		return documentDTOs;
+	}
+
 	public Optional<List<DocumentDTO>> getAllAsList() throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentDao.getAllAsList();
 		return documentDTOs;
