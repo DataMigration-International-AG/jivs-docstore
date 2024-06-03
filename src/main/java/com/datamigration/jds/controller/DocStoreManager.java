@@ -4,6 +4,7 @@ import com.datamigration.jds.model.docstore.JivsDocument;
 import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.service.DocumentService;
 import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -46,6 +47,26 @@ public class DocStoreManager {
 	}
 
 	public DocumentDTO getByDocumentType(String documentType) throws JPEPersistenceException {
+		return null;
+	}
+
+	public DocumentDTO getByFileName(String fileName) throws JPEPersistenceException {
+		return null;
+	}
+
+	public DocumentDTO getByCreator(UUID id) throws JPEPersistenceException {
+		return null;
+	}
+
+	public DocumentDTO getByCreated(LocalDateTime dateTime) throws JPEPersistenceException {
+		return null;
+	}
+
+	public DocumentDTO getByCustomerId(UUID id) throws JPEPersistenceException {
+		return null;
+	}
+
+	public DocumentDTO getBySystemId(UUID id) throws JPEPersistenceException {
 		return null;
 	}
 

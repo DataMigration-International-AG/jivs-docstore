@@ -1,8 +1,10 @@
 package com.datamigration.jds.persistence;
 
 import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * This interface defines the basic CRUD operations for a database entity.
@@ -14,6 +16,18 @@ public interface IDao<T, U> {
 
 	Optional<T> getById(U id) throws JPEPersistenceException;
 
+	Optional<T> getByDocumentType(String documentType) throws JPEPersistenceException;
+
+	Optional<T> getByFileName(String fileName) throws JPEPersistenceException;
+
+	Optional<T> getByCreator(UUID id) throws JPEPersistenceException;
+
+	Optional<T> getByCreated(LocalDateTime dateTime) throws JPEPersistenceException;
+
+	Optional<T> getByCustomerId(UUID id) throws JPEPersistenceException;
+
+	Optional<T> getBySystemId(UUID id) throws JPEPersistenceException;
+	
 	/**
 	 * Get all entities from the database. Returns an empty list if no entry was found.
 	 *
@@ -39,5 +53,4 @@ public interface IDao<T, U> {
 	 * @throws JPEPersistenceException if an error occurs during persisting
 	 */
 	void update(T t) throws JPEPersistenceException;
-
 }

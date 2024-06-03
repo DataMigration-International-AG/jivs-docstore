@@ -89,10 +89,53 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
+	public Optional<DocumentDTO> getByDocumentType(String documentType) throws JPEPersistenceException {
+		Optional<DocumentDTO> result = Optional.empty();
+		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+			IDocumentSQLs.SELECT_DOCUMENT_BY_DOCUMENT_TYPE_SQL)) {
+			preparedStatement.setString(1, documentType);
+			try (ResultSet rs = preparedStatement.executeQuery()) {
+				if (rs.next()) {
+					DocumentDTO documentDTO = createDocumentDTO(rs);
+					result = Optional.of(documentDTO);
+				}
+			}
+		} catch (Exception e) {
+			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+		}
+		return result;
+	}
+
+	@Override
+	public Optional<DocumentDTO> getByFileName(String fileName) throws JPEPersistenceException {
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<DocumentDTO> getByCreator(UUID id) throws JPEPersistenceException {
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<DocumentDTO> getByCreated(LocalDateTime dateTime) throws JPEPersistenceException {
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<DocumentDTO> getByCustomerId(UUID id) throws JPEPersistenceException {
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<DocumentDTO> getBySystemId(UUID id) throws JPEPersistenceException {
+		return Optional.empty();
+	}
+
+	@Override
 	public Optional<List<DocumentDTO>> getAllAsList() throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
-			IDocumentSQLs.SELECT_ALL_DOCUMENTS)) {
+			IDocumentSQLs.SELECT_ALL_DOCUMENTS_SQL)) {
 			try (ResultSet rs = preparedStatement.executeQuery()) {
 				List<DocumentDTO> processList = new ArrayList<>();
 				while (rs.next()) {
