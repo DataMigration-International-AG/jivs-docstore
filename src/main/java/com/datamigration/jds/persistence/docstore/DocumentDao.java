@@ -12,11 +12,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+//TODO Join DOCSTORE and DOCSTORE_PARAM Tables to get the key/value entries for all getter methods
 
 public class DocumentDao implements IDocumentDao {
 
@@ -68,6 +72,11 @@ public class DocumentDao implements IDocumentDao {
 			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 		}
 		return result;
+	}
+
+	@Override
+	public void update(DocumentDTO documentDTO) throws JPEPersistenceException {
+
 	}
 
 	@Override
@@ -249,37 +258,24 @@ public class DocumentDao implements IDocumentDao {
 		return result;
 	}
 
-	@Override
-	public void update(DocumentDTO documentDTO) throws JPEPersistenceException {
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
-			IDocumentSQLs.UPDATE_DOCUMENT_PARAM_SQL)) {
-			preparedStatement.setBytes(1, documentDTO.fileBin());
-			preparedStatement.setString(2, documentDTO.fileName());
-			preparedStatement.setString(3, documentDTO.fileType());
-			preparedStatement.setObject(4, documentDTO.creator());
-			preparedStatement.setObject(5, documentDTO.customerFK());
-			preparedStatement.setObject(6, documentDTO.systemFk());
-			preparedStatement.setObject(7, documentDTO.caseId());
-			preparedStatement.setBoolean(8, documentDTO.deleted());
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
-		}
-	}
+//	@Override
+//	public void update(DocumentDTO documentDTO) throws JPEPersistenceException {
+//		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+//			IDocumentSQLs.UPDATE)) {
+//			preparedStatement.setBytes(1, documentDTO.fileBin());
+//			preparedStatement.setString(2, documentDTO.fileName());
+//			preparedStatement.setString(3, documentDTO.fileType());
+//			preparedStatement.setObject(4, documentDTO.creator());
+//			preparedStatement.setObject(5, documentDTO.customerFK());
+//			preparedStatement.setObject(6, documentDTO.systemFk());
+//			preparedStatement.setObject(7, documentDTO.caseId());
+//			preparedStatement.setBoolean(8, documentDTO.deleted());
+//			preparedStatement.executeUpdate();
+//		} catch (SQLException e) {
+//			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+//		}
+//	}
 
-	@Override
-	public boolean updateParams(UUID id, String params) throws JPEPersistenceException {
-		int result;
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
-			IDocumentSQLs.UPDATE_DOCUMENT_PARAM_SQL)) {
-			preparedStatement.setString(1, params);
-			preparedStatement.setObject(2, id);
-			result = preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
-		}
-		return result == 1;
-	}
 
 	@Override
 	public boolean updateDeleteFlag(UUID id) throws JPEPersistenceException {
@@ -303,6 +299,8 @@ public class DocumentDao implements IDocumentDao {
 	 * @throws SQLException Exception while extracting result
 	 */
 	private DocumentDTO createDocumentDTO(ResultSet rs) throws SQLException {
+		Map<String, String> params = new HashMap<>();
+
 		UUID id = UUID.fromString(rs.getString(1));
 		byte[] fileBin = rs.getBytes(2);
 		String fileName = rs.getString(3);
@@ -312,11 +310,13 @@ public class DocumentDao implements IDocumentDao {
 		UUID customerFK = UUID.fromString(rs.getString(6));
 		UUID systemFK = UUID.fromString(rs.getString(7));
 		UUID caseId = UUID.fromString(rs.getString(8));
-		String param = rs.getString(9);
-		boolean deleted = rs.getBoolean(10);
+		String key = rs.getString(9);
+		String value = rs.getString(10);
+	 	params.put(key, value);
+		boolean deleted = rs.getBoolean(11);
 
 		DocumentDTO documentDTO = new DocumentDTO(id, fileBin, fileName, fileType, creator, created, customerFK,
-			systemFK, caseId, param, deleted);
+			systemFK, caseId, params, deleted);
 
 		return documentDTO;
 	}

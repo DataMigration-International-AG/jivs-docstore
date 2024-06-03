@@ -3,6 +3,10 @@ package com.datamigration.jds.persistence;
 
 import com.datamigration.jds.persistence.db.DbDao;
 import com.datamigration.jds.persistence.db.IDbDao;
+import com.datamigration.jds.persistence.docstore.DocumentDao;
+import com.datamigration.jds.persistence.docstore.IDocumentDao;
+import com.datamigration.jds.persistence.param.DocumentParamDao;
+import com.datamigration.jds.persistence.param.IDocumentParamDao;
 import com.datamigration.jds.util.DatabaseConfig;
 import com.datamigration.jds.util.exceptions.ErrorCode;
 import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
@@ -17,6 +21,8 @@ public class DatabaseManager {
 	private static final Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
 	private static final DatabaseConfig databaseConfig = DatabaseConfig.getInstance();
 	private static final IDbDao dbDao = new DbDao();
+	private static final IDocumentDao documentDao = new DocumentDao();
+	private static final IDocumentParamDao documentParamDao = new DocumentParamDao();
 	private static DatabaseManager INSTANCE;
 
 	/**
@@ -70,6 +76,8 @@ public class DatabaseManager {
 	 */
 	public void createJPESchema() throws JPEPersistenceException {
 		dbDao.createJPESchema();
+		documentDao.createTables();
+		documentParamDao.createTables();
 	}
 
 	/**

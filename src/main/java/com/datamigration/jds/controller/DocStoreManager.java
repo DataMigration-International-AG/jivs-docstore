@@ -7,6 +7,7 @@ import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -85,14 +86,8 @@ public class DocStoreManager {
 		documentService.update(jivsDocument);
 	}
 
-	public boolean updateParams(UUID id, String params) throws JPEPersistenceException {
-		boolean updated = documentService.updateParams(id, params);
-
-		if (!updated) {
-			logger.debug("Could not delete document with id: {}", id);
-		}
-
-		return updated;
+	public void updateParams(UUID id, Map<String, String> params) throws JPEPersistenceException {
+		documentService.updateParams(id, params);
 	}
 
 	/*

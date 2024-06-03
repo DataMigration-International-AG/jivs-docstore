@@ -3,10 +3,12 @@ package com.datamigration.jds.service;
 import com.datamigration.jds.model.docstore.JivsDocument;
 import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.persistence.docstore.IDocumentDao;
+import com.datamigration.jds.persistence.param.IDocumentParamDao;
 import com.datamigration.jds.util.DTOUtil;
 import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -16,9 +18,11 @@ public class DocumentService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DocumentService.class);
 	private final IDocumentDao documentDao;
+	private final IDocumentParamDao documentParamDao;
 
-	public DocumentService(IDocumentDao documentDao) {
+	public DocumentService(IDocumentDao documentDao, IDocumentParamDao documentParamDao) {
 		this.documentDao = documentDao;
+		this.documentParamDao = documentParamDao;
 	}
 
 	public DocumentDTO insert(JivsDocument docStore) throws JPEPersistenceException {
@@ -77,9 +81,8 @@ public class DocumentService {
 		documentDao.update(documentDTO);
 	}
 
-	public boolean updateParams(UUID id, String params) throws JPEPersistenceException {
-		boolean updated = documentDao.updateParams(id, params);
-		return updated;
+	public void updateParams(UUID id, Map<String, String> params) throws JPEPersistenceException {
+		documentParamDao.updateParams(id, params);
 	}
 
 	public boolean delete(UUID id) throws JPEPersistenceException {

@@ -16,20 +16,6 @@ public interface IDao<T, U> {
 
 	Optional<T> getById(U id) throws JPEPersistenceException;
 
-	Optional<List<T>> getByDocumentType(String documentType) throws JPEPersistenceException;
-
-	Optional<T> getByFileName(String fileName) throws JPEPersistenceException;
-
-	Optional<List<T>> getByCreator(UUID id) throws JPEPersistenceException;
-
-	Optional<List<T>> getByCreatedAt(LocalDateTime dateTime) throws JPEPersistenceException;
-
-	Optional<List<T>> getByCustomerId(UUID id) throws JPEPersistenceException;
-
-	Optional<List<T>> getBySystemId(UUID id) throws JPEPersistenceException;
-
-	Optional<List<T>> getByCaseId(UUID id) throws JPEPersistenceException;
-
 	/**
 	 * Get all entities from the database. Returns an empty list if no entry was found.
 	 *

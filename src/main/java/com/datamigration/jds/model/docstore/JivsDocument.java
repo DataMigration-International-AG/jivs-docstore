@@ -1,6 +1,9 @@
 package com.datamigration.jds.model.docstore;
 
+import com.datamigration.jds.model.docstoreparam.JivsDocumentParam;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class JivsDocument {
@@ -11,14 +14,14 @@ public class JivsDocument {
 	private UUID caseId;
 	private UUID creator;
 	private byte[] fileBin;
+	private Map<String, String> params;
 	private String filename;
 	private String filetype;
-	private String params;
 	private boolean deleted;
 	private LocalDateTime created;
 
 	public JivsDocument(byte[] fileBin, String filename, String filetype, UUID creator, UUID customerFK, UUID systemFK,
-		UUID caseId, String params) {
+		UUID caseId, Map<String, String> params) {
 		this.fileBin = fileBin;
 		this.filename = filename;
 		this.filetype = filetype;
@@ -61,7 +64,7 @@ public class JivsDocument {
 		return filetype;
 	}
 
-	public String getParams() {
+	public Map<String, String> getParams() {
 		return params;
 	}
 
