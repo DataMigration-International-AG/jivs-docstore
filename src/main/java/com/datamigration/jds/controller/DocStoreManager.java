@@ -85,6 +85,16 @@ public class DocStoreManager {
 		documentService.update(jivsDocument);
 	}
 
+	public boolean updateParams(UUID id, String params) throws JPEPersistenceException {
+		boolean updated = documentService.updateParams(id, params);
+
+		if (!updated) {
+			logger.debug("Could not delete document with id: {}", id);
+		}
+
+		return updated;
+	}
+
 	/*
 	 * Does not delete the entity immediately. It sets the delete flag for the given entity
 	 * @param id the id of the entity

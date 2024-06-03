@@ -77,6 +77,11 @@ public class DocumentService {
 		documentDao.update(documentDTO);
 	}
 
+	public boolean updateParams(UUID id, String params) throws JPEPersistenceException {
+		boolean updated = documentDao.updateParams(id, params);
+		return updated;
+	}
+
 	public boolean delete(UUID id) throws JPEPersistenceException {
 		boolean deleted = documentDao.updateDeleteFlag(id);
 		return deleted;

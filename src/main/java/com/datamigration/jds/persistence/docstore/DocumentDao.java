@@ -252,7 +252,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public void update(DocumentDTO documentDTO) throws JPEPersistenceException {
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
-			IDocumentSQLs.UPDATE_DOCUMENT_SQL, Statement.RETURN_GENERATED_KEYS)) {
+			IDocumentSQLs.UPDATE_DOCUMENT_PARAM_SQL)) {
 			preparedStatement.setBytes(1, documentDTO.fileBin());
 			preparedStatement.setString(2, documentDTO.fileName());
 			preparedStatement.setString(3, documentDTO.fileType());
@@ -268,12 +268,26 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
+	public boolean updateParams(UUID id, String params) throws JPEPersistenceException {
+		int result;
+		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+			IDocumentSQLs.UPDATE_DOCUMENT_PARAM_SQL)) {
+			preparedStatement.setString(1, params);
+			preparedStatement.setObject(2, id);
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+		}
+		return result == 1;
+	}
+
+	@Override
 	public boolean updateDeleteFlag(UUID id) throws JPEPersistenceException {
 		int result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
-			IDocumentSQLs.UPDATE_DELETE_FLAG_DOCUMENT_SQL)) {
-			preparedStatement.setObject(1, id);
-			preparedStatement.setBoolean(2, true);
+			IDocumentSQLs.UPDATE_DOCUMENT_DELETE_FLAG_SQL)) {
+			preparedStatement.setBoolean(1, true);
+			preparedStatement.setObject(2, id);
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);

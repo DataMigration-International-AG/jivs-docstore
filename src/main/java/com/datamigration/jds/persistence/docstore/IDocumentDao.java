@@ -15,6 +15,15 @@ public interface IDocumentDao extends IDao<DocumentDTO, UUID> {
 	void createTables() throws JPEPersistenceException;
 
 	/**
+	 * Updates the params of the entity by the id in the database. Throws an exception if an error occurs.
+	 *
+	 * @param id the id of the entity
+	 * @param params the params of the entity
+	 * @throws JPEPersistenceException if an error occurs during persisting
+	 */
+	boolean updateParams(UUID id, String params) throws JPEPersistenceException;
+
+	/**
 	 * Deletes the entity by the id in the database. Throws an exception if an error occurs.
 	 *
 	 * @param id the id of the entity
