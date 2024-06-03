@@ -13,7 +13,7 @@ public class DbDao implements IDbDao {
 	@Override
 	public void createJPESchema() throws JPEPersistenceException {
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
-			IDbSQLs.CREATE_JDS_SCHEMA)) {
+			IDbSQLs.CREATE_JDS_SCHEMA_SQL)) {
 			preparedStatement.execute();
 		} catch (SQLException | JPEPersistenceException e) {
 			throw new JPEPersistenceException(e, ErrorCode.DB_CREATE_ERROR);
