@@ -41,35 +41,41 @@ public class DocStoreManager {
 		return documentDTO.get();
 	}
 
+	public DocumentDTO getByFileName(String fileName) throws JPEPersistenceException {
+		Optional<DocumentDTO> documentDTO = documentService.getByFileName(fileName);
+		return documentDTO.get();
+	}
+
+	public List<DocumentDTO> getByDocumentType(String documentType) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentService.getByDocumentType(documentType);
+		return documentDTOs.orElseGet(ArrayList::new);
+	}
+
+	public List<DocumentDTO> getByCreator(UUID id) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCreator(id);
+		return documentDTOs.orElseGet(ArrayList::new);
+	}
+
+	public List<DocumentDTO> getByCreatedAt(LocalDateTime dateTime) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCreatedAt(dateTime);
+		return documentDTOs.orElseGet(ArrayList::new);
+	}
+
+	public List<DocumentDTO> getByCustomerId(UUID id) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCustomerId(id);
+		return documentDTOs.orElseGet(ArrayList::new);
+	}
+
+	public List<DocumentDTO> getBySystemId(UUID id) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentService.getBySystemId(id);
+		return documentDTOs.orElseGet(ArrayList::new);
+	}
+	
 	public List<DocumentDTO> getAllAsList() throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getAllAsList();
 		return documentDTOs.orElseGet(ArrayList::new);
 	}
-
-	public DocumentDTO getByDocumentType(String documentType) throws JPEPersistenceException {
-		return null;
-	}
-
-	public DocumentDTO getByFileName(String fileName) throws JPEPersistenceException {
-		return null;
-	}
-
-	public DocumentDTO getByCreator(UUID id) throws JPEPersistenceException {
-		return null;
-	}
-
-	public DocumentDTO getByCreated(LocalDateTime dateTime) throws JPEPersistenceException {
-		return null;
-	}
-
-	public DocumentDTO getByCustomerId(UUID id) throws JPEPersistenceException {
-		return null;
-	}
-
-	public DocumentDTO getBySystemId(UUID id) throws JPEPersistenceException {
-		return null;
-	}
-
+	
 	public void update(JivsDocument jivsDocument) throws JPEPersistenceException {
 		documentService.update(jivsDocument);
 	}

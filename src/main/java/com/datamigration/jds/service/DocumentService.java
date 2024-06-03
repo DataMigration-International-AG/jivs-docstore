@@ -5,6 +5,7 @@ import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.persistence.docstore.IDocumentDao;
 import com.datamigration.jds.util.DTOUtil;
 import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,6 +30,36 @@ public class DocumentService {
 	public Optional<DocumentDTO> getById(UUID id) throws JPEPersistenceException {
 		Optional<DocumentDTO> documentDTO = documentDao.getById(id);
 		return documentDTO;
+	}
+
+	public Optional<DocumentDTO> getByFileName(String fileName) throws JPEPersistenceException {
+		Optional<DocumentDTO> documentDTO = documentDao.getByFileName(fileName);
+		return documentDTO;
+	}
+
+	public Optional<List<DocumentDTO>> getByDocumentType(String documentType) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByDocumentType(documentType);
+		return documentDTOs;
+	}
+
+	public Optional<List<DocumentDTO>> getByCreator(UUID id) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCreator(id);
+		return documentDTOs;
+	}
+
+	public Optional<List<DocumentDTO>> getByCreatedAt(LocalDateTime dateTime) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCreatedAt(dateTime);
+		return documentDTOs;
+	}
+
+	public Optional<List<DocumentDTO>> getByCustomerId(UUID id) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCustomerId(id);
+		return documentDTOs;
+	}
+
+	public Optional<List<DocumentDTO>> getBySystemId(UUID id) throws JPEPersistenceException {
+		Optional<List<DocumentDTO>> documentDTOs = documentDao.getBySystemId(id);
+		return documentDTOs;
 	}
 
 	public Optional<List<DocumentDTO>> getAllAsList() throws JPEPersistenceException {
