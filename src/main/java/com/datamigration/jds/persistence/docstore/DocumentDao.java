@@ -47,7 +47,7 @@ public class DocumentDao implements IDocumentDao {
 			IDocumentSQLs.INSERT_DOCUMENT_SQL, Statement.RETURN_GENERATED_KEYS)) {
 			preparedStatement.setBytes(1, documentDTO.fileBin());
 			preparedStatement.setString(2, documentDTO.fileName());
-			preparedStatement.setString(3, documentDTO.fileType());
+			preparedStatement.setString(3, documentDTO.documenType());
 			preparedStatement.setObject(4, documentDTO.creator());
 			preparedStatement.setObject(5, LocalDateTime.now());
 			preparedStatement.setObject(6, documentDTO.customerFK());
@@ -57,7 +57,7 @@ public class DocumentDao implements IDocumentDao {
 			try (ResultSet rs = preparedStatement.executeQuery()) {
 				if (rs.next()) {
 					UUID id = UUID.fromString(rs.getString(1));
-					result = new DocumentDTO(id, documentDTO.fileBin(), documentDTO.fileName(), documentDTO.fileType(),
+					result = new DocumentDTO(id, documentDTO.fileBin(), documentDTO.fileName(), documentDTO.documenType(),
 						documentDTO.creator(), documentDTO.created(), documentDTO.customerFK(), documentDTO.systemFk(),
 						documentDTO.caseId(), documentDTO.params(), documentDTO.deleted());
 				} else {
@@ -262,7 +262,7 @@ public class DocumentDao implements IDocumentDao {
 //			IDocumentSQLs.UPDATE)) {
 //			preparedStatement.setBytes(1, documentDTO.fileBin());
 //			preparedStatement.setString(2, documentDTO.fileName());
-//			preparedStatement.setString(3, documentDTO.fileType());
+//			preparedStatement.setString(3, documentDTO.documenType());
 //			preparedStatement.setObject(4, documentDTO.creator());
 //			preparedStatement.setObject(5, documentDTO.customerFK());
 //			preparedStatement.setObject(6, documentDTO.systemFk());
