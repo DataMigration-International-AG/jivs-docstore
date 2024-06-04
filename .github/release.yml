@@ -1,0 +1,20 @@
+changelog:
+  exclude:
+    labels:
+      - release
+  categories:
+    - title: Critical Changes 🛠
+      labels:
+        - critical change
+    - title: Exciting New Features 🎉
+      labels:
+        - feature
+    - title: Bug fixes
+      labels:
+        - bug
+    - title: Dependencies
+      labels:
+        - dependencies
+    - title: Other
+      labels:
+        - "*"
