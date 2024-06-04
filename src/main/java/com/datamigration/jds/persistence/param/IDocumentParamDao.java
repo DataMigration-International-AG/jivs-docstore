@@ -1,13 +1,13 @@
 package com.datamigration.jds.persistence.param;
 
-import com.datamigration.jds.model.dto.DocumentDTO;
+import com.datamigration.jds.model.docstoreparam.JivsDocumentParam;
 import com.datamigration.jds.persistence.IDao;
 import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface IDocumentParamDao extends IDao<DocumentDTO, UUID> {
+public interface IDocumentParamDao extends IDao<JivsDocumentParam, UUID> {
 
 	void createTables() throws JPEPersistenceException;
 

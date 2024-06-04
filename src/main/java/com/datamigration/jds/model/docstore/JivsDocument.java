@@ -1,7 +1,6 @@
 package com.datamigration.jds.model.docstore;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -74,5 +73,49 @@ public class JivsDocument {
 
 	public LocalDateTime getCreated() {
 		return created;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public void setCustomerFK(UUID customerFK) {
+		this.customerFK = customerFK;
+	}
+
+	public void setSystemFK(UUID systemFK) {
+		this.systemFK = systemFK;
+	}
+
+	public void setCaseId(UUID caseId) {
+		this.caseId = caseId;
+	}
+
+	public void setCreator(UUID creator) {
+		this.creator = creator;
+	}
+
+	public void setFileBin(byte[] fileBin) {
+		this.fileBin = fileBin;
+	}
+
+	public void setParams(Map<String, String> params) {
+		this.params = params;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public void setDocumentType(String documentType) {
+		this.documentType = documentType;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
 	}
 }

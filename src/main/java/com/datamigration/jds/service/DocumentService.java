@@ -1,6 +1,7 @@
 package com.datamigration.jds.service;
 
 import com.datamigration.jds.model.docstore.JivsDocument;
+import com.datamigration.jds.model.docstoreparam.JivsDocumentParam;
 import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.persistence.docstore.IDocumentDao;
 import com.datamigration.jds.persistence.param.IDocumentParamDao;
@@ -25,10 +26,17 @@ public class DocumentService {
 		this.documentParamDao = documentParamDao;
 	}
 
-	public DocumentDTO insert(JivsDocument docStore) throws JPEPersistenceException {
-		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(docStore);
+	public DocumentDTO insert(JivsDocument document) throws JPEPersistenceException {
+		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(document);
 		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
-		return insertedDocumentDTO;
+
+		if (!document.getParams().isEmpty()) {
+			JivsDocumentParam jivsDocumentParams = new JivsDocumentParam(insertedDocumentDTO.id(), document.getParams());
+			documentParamDao.insert(jivsDocumentParams);
+		}
+
+		document.setId(insertedDocumentDTO.id());
+		return DTOUtil.toDocumentDTO(document);
 	}
 
 	public Optional<DocumentDTO> getById(UUID id) throws JPEPersistenceException {

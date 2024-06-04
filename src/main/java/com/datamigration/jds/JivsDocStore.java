@@ -17,7 +17,7 @@ public class JivsDocStore {
 	 * @param configPath path to the configuration file
 	 * @throws JPEPersistenceException if an error occurs during the initialization of the database
 	 */
-	private static void initializeDatabase(String configPath) throws JPEPersistenceException {
+	public static void initializeDatabase(String configPath) throws JPEPersistenceException {
 		DatabaseConfig.getInstance(configPath);
 		DatabaseManager databaseManager = DatabaseManager.getInstance();
 		databaseManager.createJDSSchema();

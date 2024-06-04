@@ -76,8 +76,6 @@ public class DatabaseManager {
 	 */
 	public void createJDSSchema() throws JPEPersistenceException {
 		dbDao.createJDSSchema();
-		documentDao.createTables();
-		documentParamDao.createTables();
 	}
 
 	/**
@@ -86,6 +84,8 @@ public class DatabaseManager {
 	 * @throws JPEPersistenceException exception thrown if there is an issue with persistence
 	 */
 	public void createTables() throws JPEPersistenceException {
+		documentDao.createTables();
+		documentParamDao.createTables();
 		logger.debug("Tables created");
 	}
 

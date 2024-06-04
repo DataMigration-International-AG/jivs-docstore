@@ -2,13 +2,15 @@ package com.datamigration.jds.persistence.param;
 
 import static com.datamigration.jds.persistence.DatabaseManager.connect;
 
-import com.datamigration.jds.model.dto.DocumentDTO;
+import com.datamigration.jds.model.docstoreparam.JivsDocumentParam;
+import com.datamigration.jds.persistence.docstore.IDocumentSQLs;
 import com.datamigration.jds.util.exceptions.ErrorCode;
 import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,24 +31,58 @@ public class DocumentParamDao implements IDocumentParamDao {
 	}
 
 	@Override
-	public Optional<DocumentDTO> getById(UUID id) throws JPEPersistenceException {
+	public Optional<JivsDocumentParam> getById(UUID id) throws JPEPersistenceException {
 		return Optional.empty();
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getAllAsList() throws JPEPersistenceException {
+	public Optional<List<JivsDocumentParam>> getAllAsList() throws JPEPersistenceException {
 		return Optional.empty();
 	}
 
 	@Override
-	public DocumentDTO insert(DocumentDTO documentDTO) throws JPEPersistenceException {
-		return null;
+	public JivsDocumentParam insert(JivsDocumentParam jivsDocumentParam) throws JPEPersistenceException {
+		JivsDocumentParam insertedJivsDocumentParam = null;
+		UUID id = null;
+		Map<String, String> resultMap = new HashMap<>();
+
+		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+			IDocumentSQLs.INSERT_DOCUMENT_SQL, Statement.RETURN_GENERATED_KEYS)) {
+
+			for (Entry<String, String> entry : jivsDocumentParam.getParams().entrySet()) {
+				preparedStatement.setObject(1, jivsDocumentParam.getDocumentId());
+				preparedStatement.setString(2, entry.getKey());
+				preparedStatement.setString(3, entry.getValue());
+				try (ResultSet rs = preparedStatement.executeQuery()) {
+
+					if (rs.next()) {
+						id = UUID.fromString(rs.getString(1));
+						resultMap.put(entry.getKey(), entry.getValue());
+
+					} else {
+						throw new JPEPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
+					}
+				} catch (SQLException e) {
+					throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+				}
+			}
+
+		} catch (SQLException e) {
+			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+		}
+
+		if (id != null) {
+			insertedJivsDocumentParam = new JivsDocumentParam(id, jivsDocumentParam.getDocumentId(), resultMap);
+		}
+
+		return insertedJivsDocumentParam;
 	}
 
 	@Override
-	public void update(DocumentDTO documentDTO) throws JPEPersistenceException {
+	public void update(JivsDocumentParam jivsDocumentParam) throws JPEPersistenceException {
 
 	}
+
 
 	@Override
 	public void updateParams(UUID id, Map<String, String> params) throws JPEPersistenceException {
