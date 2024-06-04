@@ -26,8 +26,8 @@ jobs:
       - name: Run Tests
         run: mvn test
         env:
-          USER_NAME: ${{ secrets.USER_NAME }}
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          USER_NAME: ${{ secrets.GH_PIPELINE_USER_NAME }}
+          ACCESS_TOKEN: ${{ secrets.GH_PIPELINE_TOKEN }}
       - name: Archive coverage data
         uses: actions/upload-artifact@v2
         with:
@@ -39,4 +39,4 @@ jobs:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
           pr-mode: true
-          args: -e,USER_NAME=${{ secrets.USER_NAME }},-e,ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
+          args: -e,USER_NAME=${{ secrets.GH_PIPELINE_USER_NAME }},-e,ACCESS_TOKEN=${{ secrets.GH_PIPELINE_TOKEN }}
