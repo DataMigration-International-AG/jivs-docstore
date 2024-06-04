@@ -39,49 +39,75 @@ public class DocStoreManager {
 			return null;
 		}
 
-		return documentDTO.get();
+		DocumentDTO documentDTOWithParams = getDocumentParams(documentDTO.get());
+		return documentDTOWithParams;
 	}
 
 	public DocumentDTO getByFileName(String fileName) throws JPEPersistenceException {
 		Optional<DocumentDTO> documentDTO = documentService.getByFileName(fileName);
-		return documentDTO.get();
+
+		if (documentDTO.isEmpty()) {
+			logger.info("Document with name {} not found", fileName);
+			return null;
+		}
+
+		DocumentDTO documentDTOWithParams = getDocumentParams(documentDTO.get());
+		return documentDTOWithParams;
 	}
 
 	public List<DocumentDTO> getByDocumentType(String documentType) throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getByDocumentType(documentType);
-		return documentDTOs.orElseGet(ArrayList::new);
+		return getParamsForList(documentDTOs);
 	}
 
 	public List<DocumentDTO> getByCreator(UUID id) throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCreator(id);
-		return documentDTOs.orElseGet(ArrayList::new);
+		return getParamsForList(documentDTOs);
 	}
 
 	public List<DocumentDTO> getByCreatedAt(LocalDateTime dateTime) throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCreatedAt(dateTime);
-		return documentDTOs.orElseGet(ArrayList::new);
+		return getParamsForList(documentDTOs);
 	}
 
 	public List<DocumentDTO> getByCustomerId(UUID id) throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCustomerId(id);
-		return documentDTOs.orElseGet(ArrayList::new);
+		return getParamsForList(documentDTOs);
 	}
 
 	public List<DocumentDTO> getBySystemId(UUID id) throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getBySystemId(id);
-		return documentDTOs.orElseGet(ArrayList::new);
+		return getParamsForList(documentDTOs);
 	}
 
 	public List<DocumentDTO> getByCaseId(UUID id) throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCaseId(id);
-		return documentDTOs.orElseGet(ArrayList::new);
+		return getParamsForList(documentDTOs);
 	}
-	
+
 	public List<DocumentDTO> getAllAsList() throws JPEPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getAllAsList();
-		return documentDTOs.orElseGet(ArrayList::new);
+		return getParamsForList(documentDTOs);
 	}
-	
+
+	private List<DocumentDTO> getParamsForList(Optional<List<DocumentDTO>> documentDTOs)
+		throws JPEPersistenceException {
+		List<DocumentDTO> documentDTOList = new ArrayList<>();
+		if (documentDTOs.isPresent()) {
+			for (DocumentDTO documentDTO : documentDTOs.get()) {
+				DocumentDTO documentDTOWithParams = getDocumentParams(documentDTO);
+				documentDTOList.add(documentDTOWithParams);
+			}
+		}
+		return documentDTOList;
+	}
+
+	private DocumentDTO getDocumentParams(DocumentDTO documentDTO) throws JPEPersistenceException {
+		Optional<Map<String, String>> result = documentService.getParams(documentDTO.id());
+		result.ifPresent(map -> documentDTO.params().putAll(map));
+		return documentDTO;
+	}
+
 	public void update(JivsDocument jivsDocument) throws JPEPersistenceException {
 		documentService.update(jivsDocument);
 	}

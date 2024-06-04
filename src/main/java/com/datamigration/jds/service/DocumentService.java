@@ -81,12 +81,17 @@ public class DocumentService {
 		documentDao.update(documentDTO);
 	}
 
-	public void updateParams(UUID id, Map<String, String> params) throws JPEPersistenceException {
-		documentParamDao.updateParams(id, params);
-	}
-
 	public boolean delete(UUID id) throws JPEPersistenceException {
 		boolean deleted = documentDao.updateDeleteFlag(id);
 		return deleted;
+	}
+
+	public Optional<Map<String, String>> getParams(UUID id) throws JPEPersistenceException {
+		Optional<Map<String, String>> params = documentParamDao.getParams(id);
+		return params;
+	}
+
+	public void updateParams(UUID id, Map<String, String> params) throws JPEPersistenceException {
+		documentParamDao.updateParams(id, params);
 	}
 }

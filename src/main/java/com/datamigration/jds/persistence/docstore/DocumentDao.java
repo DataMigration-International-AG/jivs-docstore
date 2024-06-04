@@ -20,8 +20,6 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//TODO Join DOCSTORE and DOCSTORE_PARAM Tables to get the key/value entries for all getter methods
-
 public class DocumentDao implements IDocumentDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(DocumentDao.class);
@@ -299,8 +297,6 @@ public class DocumentDao implements IDocumentDao {
 	 * @throws SQLException Exception while extracting result
 	 */
 	private DocumentDTO createDocumentDTO(ResultSet rs) throws SQLException {
-		Map<String, String> params = new HashMap<>();
-
 		UUID id = UUID.fromString(rs.getString(1));
 		byte[] fileBin = rs.getBytes(2);
 		String fileName = rs.getString(3);
@@ -310,10 +306,8 @@ public class DocumentDao implements IDocumentDao {
 		UUID customerFK = UUID.fromString(rs.getString(6));
 		UUID systemFK = UUID.fromString(rs.getString(7));
 		UUID caseId = UUID.fromString(rs.getString(8));
-		String key = rs.getString(9);
-		String value = rs.getString(10);
-	 	params.put(key, value);
-		boolean deleted = rs.getBoolean(11);
+		boolean deleted = rs.getBoolean(9);
+		Map<String, String> params = new HashMap<>();
 
 		DocumentDTO documentDTO = new DocumentDTO(id, fileBin, fileName, fileType, creator, created, customerFK,
 			systemFK, caseId, params, deleted);

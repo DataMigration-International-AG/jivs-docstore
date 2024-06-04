@@ -3,12 +3,13 @@ package com.datamigration.jds.persistence.param;
 import static com.datamigration.jds.persistence.DatabaseManager.connect;
 
 import com.datamigration.jds.model.dto.DocumentDTO;
-import com.datamigration.jds.persistence.docstore.IDocumentSQLs;
 import com.datamigration.jds.util.exceptions.ErrorCode;
 import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -64,6 +65,27 @@ public class DocumentParamDao implements IDocumentParamDao {
 		} catch (SQLException e) {
 			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 		}
+	}
+
+	@Override
+	public Optional<Map<String, String>> getParams(UUID id) throws JPEPersistenceException {
+		Optional<Map<String, String>> params;
+		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+			IDocumentParamSQLs.SELECT_DOCUMENT_PARAMS_BY_ID)) {
+			preparedStatement.setObject(1, id);
+			try (ResultSet rs = preparedStatement.executeQuery()) {
+				Map<String, String> result = new HashMap<>();
+				while (rs.next()) {
+					String key = rs.getString(1);
+					String value = rs.getString(2);
+					result.put(key, value);
+				}
+				params = Optional.of(result);
+			}
+		} catch (Exception e) {
+			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+		}
+		return params;
 	}
 
 	private void deleteByDocumentId(UUID id) throws JPEPersistenceException {
