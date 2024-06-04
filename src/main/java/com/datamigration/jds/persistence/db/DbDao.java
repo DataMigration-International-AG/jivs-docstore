@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class DbDao implements IDbDao {
 
 	@Override
-	public void createJPESchema() throws JPEPersistenceException {
+	public void createJDSSchema() throws JPEPersistenceException {
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDbSQLs.CREATE_JDS_SCHEMA_SQL)) {
 			preparedStatement.execute();

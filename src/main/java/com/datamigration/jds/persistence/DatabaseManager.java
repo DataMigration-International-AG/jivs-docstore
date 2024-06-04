@@ -70,12 +70,12 @@ public class DatabaseManager {
 	}
 
 	/**
-	 * Creates the JPE schema by delegating the call to the dbDao object.
+	 * Creates the JDS schema by delegating the call to the dbDao object.
 	 *
 	 * @throws JPEPersistenceException if there is an error during the creation of the JPE schema
 	 */
-	public void createJPESchema() throws JPEPersistenceException {
-		dbDao.createJPESchema();
+	public void createJDSSchema() throws JPEPersistenceException {
+		dbDao.createJDSSchema();
 		documentDao.createTables();
 		documentParamDao.createTables();
 	}

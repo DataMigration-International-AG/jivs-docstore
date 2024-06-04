@@ -20,7 +20,7 @@ public class JivsDocStore {
 	private static void initializeDatabase(String configPath) throws JPEPersistenceException {
 		DatabaseConfig.getInstance(configPath);
 		DatabaseManager databaseManager = DatabaseManager.getInstance();
-		databaseManager.createJPESchema();
+		databaseManager.createJDSSchema();
 		databaseManager.createTables();
 	}
 
