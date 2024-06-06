@@ -93,7 +93,7 @@ public class DocumentParamDao implements IDocumentParamDao {
 				preparedStatement.setObject(1, id);
 				preparedStatement.setString(2, entry.getKey());
 				preparedStatement.setString(3, entry.getValue());
-				preparedStatement.executeUpdate();
+				preparedStatement.executeQuery();
 			} catch (SQLException e) {
 				throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 			}

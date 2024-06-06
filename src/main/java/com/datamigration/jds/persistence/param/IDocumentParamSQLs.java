@@ -30,6 +30,6 @@ public interface IDocumentParamSQLs {
 
 	String DELETE_BY_DOCUMENT_ID_SQL = """
 		DELETE FROM [jds].[JIVS-DOCUMENT-PARAM]
-		WHERE ID = ?
+		WHERE [DOCUMENT-ID] = ?
 		""";
 }
