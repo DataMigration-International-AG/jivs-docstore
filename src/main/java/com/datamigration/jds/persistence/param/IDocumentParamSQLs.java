@@ -17,7 +17,7 @@ public interface IDocumentParamSQLs {
 		""";
 
 	String INSERT_PARAMS_SQL = """
-		INSERT INTO [jds].[JIVS-DOCUMENT-PARAM] (DOCUMENT-ID], KEY, VALUE)
+		INSERT INTO [jds].[JIVS-DOCUMENT-PARAM] ([DOCUMENT-ID], [KEY], [VALUE])
 		OUTPUT INSERTED.ID
 		VALUES (?, ?, ?)
 		""";

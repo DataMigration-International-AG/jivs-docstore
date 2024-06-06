@@ -14,4 +14,10 @@ public interface ITestSQLs {
 		FROM [jds].[JIVS-DOCSTORE]
 		WHERE ID = ?
 		""";
+
+	String SELECT_ALL_DOCUMENT_PARAMS_SQL = """
+		SELECT [DOCUMENT-ID], [KEY], [VALUE]
+		FROM [jds].[JIVS-DOCUMENT-PARAM]
+		WHERE [DOCUMENT-ID] = ?
+		""";
 }

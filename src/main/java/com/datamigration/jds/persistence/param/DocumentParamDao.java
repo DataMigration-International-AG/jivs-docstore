@@ -43,20 +43,18 @@ public class DocumentParamDao implements IDocumentParamDao {
 	@Override
 	public JivsDocumentParam insert(JivsDocumentParam jivsDocumentParam) throws JPEPersistenceException {
 		JivsDocumentParam insertedJivsDocumentParam = null;
-		UUID id = null;
 		Map<String, String> resultMap = new HashMap<>();
 
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
-			IDocumentSQLs.INSERT_DOCUMENT_SQL, Statement.RETURN_GENERATED_KEYS)) {
+		for (Entry<String, String> entry : jivsDocumentParam.getParams().entrySet()) {
+			try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+				IDocumentParamSQLs.INSERT_PARAMS_SQL, Statement.RETURN_GENERATED_KEYS)) {
 
-			for (Entry<String, String> entry : jivsDocumentParam.getParams().entrySet()) {
 				preparedStatement.setObject(1, jivsDocumentParam.getDocumentId());
 				preparedStatement.setString(2, entry.getKey());
 				preparedStatement.setString(3, entry.getValue());
 				try (ResultSet rs = preparedStatement.executeQuery()) {
 
 					if (rs.next()) {
-						id = UUID.fromString(rs.getString(1));
 						resultMap.put(entry.getKey(), entry.getValue());
 
 					} else {
@@ -65,14 +63,14 @@ public class DocumentParamDao implements IDocumentParamDao {
 				} catch (SQLException e) {
 					throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 				}
-			}
 
-		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+			} catch (SQLException e) {
+				throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+			}
 		}
 
-		if (id != null) {
-			insertedJivsDocumentParam = new JivsDocumentParam(id, jivsDocumentParam.getDocumentId(), resultMap);
+		if (!resultMap.isEmpty()) {
+			insertedJivsDocumentParam = new JivsDocumentParam(jivsDocumentParam.getDocumentId(), resultMap);
 		}
 
 		return insertedJivsDocumentParam;
@@ -88,19 +86,19 @@ public class DocumentParamDao implements IDocumentParamDao {
 	public void updateParams(UUID id, Map<String, String> params) throws JPEPersistenceException {
 		deleteByDocumentId(id);
 
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
-			IDocumentParamSQLs.INSERT_PARAMS_SQL)) {
+		for (Entry<String, String> entry : params.entrySet()) {
 
-			for (Entry<String, String> entry : params.entrySet()) {
+			try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+				IDocumentParamSQLs.INSERT_PARAMS_SQL)) {
 				preparedStatement.setObject(1, id);
 				preparedStatement.setString(2, entry.getKey());
 				preparedStatement.setString(3, entry.getValue());
 				preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 			}
-
-		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 		}
+
 	}
 
 	@Override
