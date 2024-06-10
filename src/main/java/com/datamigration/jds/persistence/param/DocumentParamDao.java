@@ -1,8 +1,7 @@
 package com.datamigration.jds.persistence.param;
 
-import static com.datamigration.jds.persistence.DatabaseManager.connect;
-
 import com.datamigration.jds.model.entity.docstoreparam.JivsDocumentParam;
+import com.datamigration.jds.persistence.DatabaseManager;
 import com.datamigration.jds.util.exceptions.ErrorCode;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.sql.Connection;
@@ -25,7 +24,8 @@ public class DocumentParamDao implements IDocumentParamDao {
 
 	@Override
 	public void createTables() throws JDSPersistenceException {
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager
+			.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentParamSQLs.CREATE_DOCUMENT_PARAMS_TABLE_SQL)) {
 			preparedStatement.execute();
 			logger.info("JIVS-DOCUMENT-PARAM table created.");
@@ -51,7 +51,8 @@ public class DocumentParamDao implements IDocumentParamDao {
 		Map<String, String> resultMap = new HashMap<>();
 
 		for (Entry<String, String> entry : jivsDocumentParam.getParams().entrySet()) {
-			try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+			try (Connection connection = DatabaseManager
+				.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 				IDocumentParamSQLs.INSERT_PARAMS_SQL, Statement.RETURN_GENERATED_KEYS)) {
 
 				preparedStatement.setObject(1, jivsDocumentParam.getDocumentId());
@@ -94,7 +95,8 @@ public class DocumentParamDao implements IDocumentParamDao {
 
 		for (Entry<String, String> entry : params.entrySet()) {
 
-			try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+			try (Connection connection = DatabaseManager
+				.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 				IDocumentParamSQLs.INSERT_PARAMS_SQL)) {
 				preparedStatement.setObject(1, id);
 				preparedStatement.setString(2, entry.getKey());
@@ -112,7 +114,8 @@ public class DocumentParamDao implements IDocumentParamDao {
 	@Override
 	public Map<String, String> getParams(UUID id) throws JDSPersistenceException {
 		Map<String, String> params = new HashMap<>();
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection = DatabaseManager
+			.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentParamSQLs.SELECT_DOCUMENT_PARAMS_BY_ID)) {
 			preparedStatement.setObject(1, id);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -130,7 +133,8 @@ public class DocumentParamDao implements IDocumentParamDao {
 	}
 
 	private void deleteByDocumentId(UUID id) throws JDSPersistenceException {
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection = DatabaseManager
+			.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentParamSQLs.DELETE_BY_DOCUMENT_ID_SQL)) {
 
 			preparedStatement.setObject(1, id);

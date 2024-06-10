@@ -7,23 +7,31 @@ import com.datamigration.jds.persistence.docstore.DocumentDao;
 import com.datamigration.jds.persistence.docstore.IDocumentDao;
 import com.datamigration.jds.persistence.param.DocumentParamDao;
 import com.datamigration.jds.persistence.param.IDocumentParamDao;
-import com.datamigration.jds.util.DatabaseConfig;
 import com.datamigration.jds.util.exceptions.ErrorCode;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DatabaseManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
-	private static final DatabaseConfig databaseConfig = DatabaseConfig.getInstance();
-	private static final IDbDao dbDao = new DbDao();
-	private static final IDocumentDao documentDao = new DocumentDao();
-	private static final IDocumentParamDao documentParamDao = new DocumentParamDao();
 	private static DatabaseManager INSTANCE;
+	private static IDbDao dbDao;
+	private static IDocumentDao documentDao;
+	private static IDocumentParamDao documentParamDao;
+	private final Config config;
+
+	private DatabaseManager() {
+			dbDao = new DbDao();
+			documentDao = new DocumentDao();
+			documentParamDao = new DocumentParamDao();
+			config = ConfigProvider.getConfig();
+	}
 
 	/**
 	 * A description of the entire Java function.
@@ -50,17 +58,18 @@ public class DatabaseManager {
 	 * @return Connection object representing the established database connection
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 */
-	public static Connection connect() throws JDSPersistenceException {
+	public Connection connect() throws JDSPersistenceException {
 		Connection result;
 		try {
-			if (databaseConfig.getDbUrl() != null && databaseConfig.getDbUsername() != null
-				&& databaseConfig.getDbPassword() != null) {
-				result = DriverManager.getConnection(databaseConfig.getDbUrl(), databaseConfig.getDbUsername(),
-					databaseConfig.getDbPassword());
+			String dbUrl = config.getOptionalValue("jpe.mssql.url", String.class).orElse(null);
+			String dbUsername = config.getOptionalValue("jpe.mssql.username", String.class).orElse(null);
+			String dbPassword = config.getOptionalValue("jpe.mssql.password", String.class).orElse(null);
+			if (dbUrl != null && dbUsername != null && dbPassword != null) {
+				result = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 				logger.debug("Connected to {}", result.getMetaData().getURL());
 			} else {
 				logger.error("{} : dbUrl={}, dbUser={}, pwdWasSet={}", ErrorCode.DB_CONFIG_ERROR.getTitle(),
-					databaseConfig.getDbUrl(), databaseConfig.getDbUsername(), databaseConfig.getDbPassword() != null);
+					dbUrl, dbUsername, dbPassword != null);
 				throw new JDSPersistenceException(ErrorCode.DB_CONFIG_ERROR);
 			}
 		} catch (SQLException e) {

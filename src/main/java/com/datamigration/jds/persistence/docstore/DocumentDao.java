@@ -1,8 +1,7 @@
 package com.datamigration.jds.persistence.docstore;
 
-import static com.datamigration.jds.persistence.DatabaseManager.connect;
-
 import com.datamigration.jds.model.entity.docstore.JivsDocument;
+import com.datamigration.jds.persistence.DatabaseManager;
 import com.datamigration.jds.util.exceptions.ErrorCode;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.sql.Connection;
@@ -31,7 +30,9 @@ public class DocumentDao implements IDocumentDao {
 	 */
 	@Override
 	public void createTables() throws JDSPersistenceException {
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		
+		try (Connection connection =  DatabaseManager
+			.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.CREATE_DOCSTORE_TABLE_SQL)) {
 			preparedStatement.execute();
 			logger.info("JIVS-DOCTSTORE table created.");
@@ -45,7 +46,7 @@ public class DocumentDao implements IDocumentDao {
 	public JivsDocument insert(JivsDocument document) throws JDSPersistenceException {
 		JivsDocument result;
 
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.INSERT_DOCUMENT_SQL, Statement.RETURN_GENERATED_KEYS)) {
 			preparedStatement.setBytes(1, document.getFileBin());
 			preparedStatement.setString(2, document.getFilename());
@@ -84,7 +85,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public Optional<JivsDocument> getById(UUID id) throws JDSPersistenceException {
 		Optional<JivsDocument> result = Optional.empty();
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_ID)) {
 			preparedStatement.setObject(1, id);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -103,7 +104,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public List<JivsDocument> getByDocumentType(String documentType) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_DOCUMENT_TYPE_SQL)) {
 			preparedStatement.setString(1, documentType);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -122,7 +123,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public Optional<JivsDocument> getByFileName(String fileName) throws JDSPersistenceException {
 		Optional<JivsDocument> result = Optional.empty();
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_FILENAME_SQL)) {
 			preparedStatement.setString(1, fileName);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -141,7 +142,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public List<JivsDocument> getByCreator(UUID id) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CREATOR_SQL)) {
 			preparedStatement.setObject(1, id);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -160,7 +161,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public List<JivsDocument> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CREATED_SQL)) {
 			preparedStatement.setObject(1, dateTime);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -179,7 +180,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public List<JivsDocument> getByCustomerId(UUID id) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CUSTOMER_FK_SQL)) {
 			preparedStatement.setObject(1, id);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -198,7 +199,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public List<JivsDocument> getBySystemId(UUID id) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_SYSTEM_FK_SQL)) {
 			preparedStatement.setObject(1, id);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -217,7 +218,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public List<JivsDocument> getByCaseId(UUID id) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CASE_ID_SQL)) {
 			preparedStatement.setObject(1, id);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -239,7 +240,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public List<JivsDocument> getAllAsList() throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_ALL_DOCUMENTS_SQL)) {
 			try (ResultSet rs = preparedStatement.executeQuery()) {
 				while (rs.next()) {
@@ -266,7 +267,7 @@ public class DocumentDao implements IDocumentDao {
 	@Override
 	public boolean setDeleteFlagTrue(UUID id) throws JDSPersistenceException {
 		int result;
-		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
+		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.UPDATE_DOCUMENT_DELETE_FLAG_SQL)) {
 			preparedStatement.setBoolean(1, true);
 			preparedStatement.setObject(2, id);

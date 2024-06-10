@@ -216,6 +216,11 @@
       <artifactId>resteasy-undertow</artifactId>
       <version>${version.resteasy}</version>
     </dependency>
+    <dependency>
+      <groupId>com.datamigration</groupId>
+      <artifactId>jivs-config</artifactId>
+      <version>1.2.1</version>
+    </dependency>
 
     <!-- Test dependencies -->
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->

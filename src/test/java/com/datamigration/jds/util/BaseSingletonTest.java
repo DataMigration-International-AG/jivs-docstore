@@ -7,7 +7,7 @@ public abstract class BaseSingletonTest extends JDSTest {
 
 	static {
 		try {
-			JivsDocStore.initializeDatabase("config.properties");
+			JivsDocStore.initializeDatabase();
 		} catch (JDSException e) {
 			throw new RuntimeException(e);
 		}

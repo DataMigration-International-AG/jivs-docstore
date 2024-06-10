@@ -14,11 +14,9 @@ public class JivsDocStore {
 	/**
 	 * Load configuration and create required tables in the database.
 	 *
-	 * @param configPath path to the configuration file
 	 * @throws JDSPersistenceException if an error occurs during the initialization of the database
 	 */
-	public static void initializeDatabase(String configPath) throws JDSPersistenceException {
-		DatabaseConfig.getInstance(configPath);
+	public static void initializeDatabase() throws JDSPersistenceException {
 		DatabaseManager databaseManager = DatabaseManager.getInstance();
 		databaseManager.createJDSSchema();
 		databaseManager.createTables();
@@ -26,7 +24,7 @@ public class JivsDocStore {
 
 	public static void main(String[] args) {
 		try {
-			initializeDatabase("config.properties");
+			initializeDatabase();
 		} catch (JDSException e) {
 			logger.error("Error running main class", e);
 		}
