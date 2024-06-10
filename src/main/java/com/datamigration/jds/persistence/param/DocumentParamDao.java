@@ -30,6 +30,7 @@ public class DocumentParamDao implements IDocumentParamDao {
 			preparedStatement.execute();
 			logger.info("JIVS-DOCUMENT-PARAM table created.");
 		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_CREATE_ERROR);
 		}
 	}
@@ -57,18 +58,19 @@ public class DocumentParamDao implements IDocumentParamDao {
 				preparedStatement.setString(2, entry.getKey());
 				preparedStatement.setString(3, entry.getValue());
 				try (ResultSet rs = preparedStatement.executeQuery()) {
-
 					if (rs.next()) {
 						resultMap.put(entry.getKey(), entry.getValue());
-
 					} else {
+						logger.error("No params inserted for document {}", jivsDocumentParam.getDocumentId());
 						throw new JDSPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
 					}
 				} catch (SQLException e) {
+					logger.error(e.getMessage(), e);
 					throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 				}
 
 			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
 				throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 			}
 		}
@@ -99,6 +101,7 @@ public class DocumentParamDao implements IDocumentParamDao {
 				preparedStatement.setString(3, entry.getValue());
 				preparedStatement.executeQuery();
 			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
 				throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 			}
 		}
@@ -120,6 +123,7 @@ public class DocumentParamDao implements IDocumentParamDao {
 				}
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return params;
@@ -133,6 +137,7 @@ public class DocumentParamDao implements IDocumentParamDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 		}
 	}

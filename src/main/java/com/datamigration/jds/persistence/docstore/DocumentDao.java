@@ -36,6 +36,7 @@ public class DocumentDao implements IDocumentDao {
 			preparedStatement.execute();
 			logger.info("JIVS-DOCTSTORE table created.");
 		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_CREATE_ERROR);
 		}
 	}
@@ -61,12 +62,15 @@ public class DocumentDao implements IDocumentDao {
 					document.setId(id);
 					result = document;
 				} else {
+					logger.error("Document could not be inserted.");
 					throw new JDSPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
 				}
 			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
 				throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 			}
 		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 		}
 		return result;
@@ -90,6 +94,7 @@ public class DocumentDao implements IDocumentDao {
 				}
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
@@ -108,6 +113,7 @@ public class DocumentDao implements IDocumentDao {
 				}
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
@@ -126,6 +132,7 @@ public class DocumentDao implements IDocumentDao {
 				}
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
@@ -144,6 +151,7 @@ public class DocumentDao implements IDocumentDao {
 				}
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
@@ -162,6 +170,7 @@ public class DocumentDao implements IDocumentDao {
 				}
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
@@ -180,6 +189,7 @@ public class DocumentDao implements IDocumentDao {
 				}
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
@@ -198,6 +208,7 @@ public class DocumentDao implements IDocumentDao {
 				}
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
@@ -215,9 +226,11 @@ public class DocumentDao implements IDocumentDao {
 					result.add(document);
 				}
 			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
 				throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 			}
 		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
@@ -234,13 +247,16 @@ public class DocumentDao implements IDocumentDao {
 					result.add(document);
 				}
 			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
 				throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 			}
 		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 
 		if (result.isEmpty()) {
+			logger.error("No documents found");
 			throw new JDSPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
 		}
 
@@ -256,6 +272,7 @@ public class DocumentDao implements IDocumentDao {
 			preparedStatement.setObject(2, id);
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 		}
 		return result == 1;
