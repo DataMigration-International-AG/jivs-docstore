@@ -84,11 +84,6 @@ public class DocumentService {
 		return documentDTOs;
 	}
 
-	public void update(JivsDocument docStore) throws JPEPersistenceException {
-		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(docStore);
-		documentDao.update(documentDTO);
-	}
-
 	public boolean delete(UUID id) throws JPEPersistenceException {
 		boolean deleted = documentDao.updateDeleteFlag(id);
 		return deleted;

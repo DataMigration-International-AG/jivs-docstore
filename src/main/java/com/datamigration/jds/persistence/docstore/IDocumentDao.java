@@ -32,8 +32,7 @@ public interface IDocumentDao extends IDao<DocumentDTO, UUID> {
 	Optional<List<DocumentDTO>> getByCaseId(UUID id) throws JPEPersistenceException;
 
 	/**
-	 * Deletes the entity by the id in the database. Throws an exception if an error occurs.
-	 *
+	 * Soft delete, sets the deleted flag of  the entity by the id in the database.
 	 * @param id the id of the entity
 	 * @throws JPEPersistenceException if an error occurs during persisting
 	 */
