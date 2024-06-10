@@ -96,14 +96,13 @@ class DocumentServiceTest {
 		List<DocumentDTO> documentDTOList = new ArrayList<>();
 		documentDTOList.add(documentDTO);
 
-		when(documentDao.getByDocumentType(documentType)).thenReturn(Optional.of(documentDTOList));
+		when(documentDao.getByDocumentType(documentType)).thenReturn(documentDTOList);
 
-		Optional<List<DocumentDTO>> result = documentService.getByDocumentType(documentType);
+		List<DocumentDTO> result = documentService.getByDocumentType(documentType);
 
-		Assertions.assertTrue(result.isPresent());
-		Assertions.assertEquals(1, result.get().size());
-		Assertions.assertEquals(documentDTO.id(), result.get().getFirst().id());
-		Assertions.assertEquals(documentDTO.documenType(), result.get().getFirst().documenType());
+		Assertions.assertEquals(1, result.size());
+		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
+		Assertions.assertEquals(documentDTO.documenType(), result.getFirst().documenType());
 	}
 
 	@Test
@@ -116,14 +115,13 @@ class DocumentServiceTest {
 		List<DocumentDTO> documentDTOList = new ArrayList<>();
 		documentDTOList.add(documentDTO);
 
-		when(documentDao.getByCreator(creatorId)).thenReturn(Optional.of(documentDTOList));
+		when(documentDao.getByCreator(creatorId)).thenReturn(documentDTOList);
 
-		Optional<List<DocumentDTO>> result = documentService.getByCreator(creatorId);
+		List<DocumentDTO> result = documentService.getByCreator(creatorId);
 
-		Assertions.assertTrue(result.isPresent());
-		Assertions.assertEquals(1, result.get().size());
-		Assertions.assertEquals(documentDTO.id(), result.get().getFirst().id());
-		Assertions.assertEquals(documentDTO.creatorId(), result.get().getFirst().creatorId());
+		Assertions.assertEquals(1, result.size());
+		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
+		Assertions.assertEquals(documentDTO.creatorId(), result.getFirst().creatorId());
 	}
 
 	@Test
@@ -136,14 +134,13 @@ class DocumentServiceTest {
 		List<DocumentDTO> documentDTOList = new ArrayList<>();
 		documentDTOList.add(documentDTO);
 
-		when(documentDao.getByCreatedAt(createdAt)).thenReturn(Optional.of(documentDTOList));
+		when(documentDao.getByCreatedAt(createdAt)).thenReturn(documentDTOList);
 
-		Optional<List<DocumentDTO>> result = documentService.getByCreatedAt(createdAt);
+		List<DocumentDTO> result = documentService.getByCreatedAt(createdAt);
 
-		Assertions.assertTrue(result.isPresent());
-		Assertions.assertEquals(1, result.get().size());
-		Assertions.assertEquals(documentDTO.id(), result.get().getFirst().id());
-		Assertions.assertEquals(documentDTO.fileName(), result.get().getFirst().fileName());
+		Assertions.assertEquals(1, result.size());
+		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
+		Assertions.assertEquals(documentDTO.fileName(), result.getFirst().fileName());
 	}
 
 	@Test
@@ -156,14 +153,13 @@ class DocumentServiceTest {
 		List<DocumentDTO> documentDTOList = new ArrayList<>();
 		documentDTOList.add(documentDTO);
 
-		when(documentDao.getByCustomerId(customerId)).thenReturn(Optional.of(documentDTOList));
+		when(documentDao.getByCustomerId(customerId)).thenReturn(documentDTOList);
 
-		Optional<List<DocumentDTO>> result = documentService.getByCustomerId(customerId);
+		List<DocumentDTO> result = documentService.getByCustomerId(customerId);
 
-		Assertions.assertTrue(result.isPresent());
-		Assertions.assertEquals(1, result.get().size());
-		Assertions.assertEquals(documentDTO.id(), result.get().getFirst().id());
-		Assertions.assertEquals(documentDTO.customerId(), result.get().getFirst().customerId());
+		Assertions.assertEquals(1, result.size());
+		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
+		Assertions.assertEquals(documentDTO.customerId(), result.getFirst().customerId());
 	}
 
 	@Test
@@ -176,14 +172,13 @@ class DocumentServiceTest {
 		List<DocumentDTO> documentDTOList = new ArrayList<>();
 		documentDTOList.add(documentDTO);
 
-		when(documentDao.getBySystemId(systemId)).thenReturn(Optional.of(documentDTOList));
+		when(documentDao.getBySystemId(systemId)).thenReturn(documentDTOList);
 
-		Optional<List<DocumentDTO>> result = documentService.getBySystemId(systemId);
+		List<DocumentDTO> result = documentService.getBySystemId(systemId);
 
-		Assertions.assertTrue(result.isPresent());
-		Assertions.assertEquals(1, result.get().size());
-		Assertions.assertEquals(documentDTO.id(), result.get().getFirst().id());
-		Assertions.assertEquals(documentDTO.systemId(), result.get().getFirst().systemId());
+		Assertions.assertEquals(1, result.size());
+		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
+		Assertions.assertEquals(documentDTO.systemId(), result.getFirst().systemId());
 	}
 
 	@Test
@@ -196,14 +191,13 @@ class DocumentServiceTest {
 		List<DocumentDTO> documentDTOList = new ArrayList<>();
 		documentDTOList.add(documentDTO);
 
-		when(documentDao.getByCaseId(caseId)).thenReturn(Optional.of(documentDTOList));
+		when(documentDao.getByCaseId(caseId)).thenReturn(documentDTOList);
 
-		Optional<List<DocumentDTO>> result = documentService.getByCaseId(caseId);
+		List<DocumentDTO> result = documentService.getByCaseId(caseId);
 
-		Assertions.assertTrue(result.isPresent());
-		Assertions.assertEquals(1, result.get().size());
-		Assertions.assertEquals(documentDTO.id(), result.get().getFirst().id());
-		Assertions.assertEquals(documentDTO.caseId(), result.get().getFirst().caseId());
+		Assertions.assertEquals(1, result.size());
+		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
+		Assertions.assertEquals(documentDTO.caseId(), result.getFirst().caseId());
 	}
 
 	@Test
@@ -215,14 +209,12 @@ class DocumentServiceTest {
 		List<DocumentDTO> documentDTOList = new ArrayList<>();
 		documentDTOList.add(documentDTO);
 
-		when(documentDao.getAllAsList()).thenReturn(Optional.of(documentDTOList));
+		when(documentDao.getAllAsList()).thenReturn(documentDTOList);
 
-		Optional<List<DocumentDTO>> result = documentService.getAllAsList();
-
-		Assertions.assertTrue(result.isPresent());
-		Assertions.assertEquals(1, result.get().size());
-		Assertions.assertEquals(documentDTO.id(), result.get().getFirst().id());
-		Assertions.assertEquals(documentDTO.fileName(), result.get().getFirst().fileName());
+		List<DocumentDTO> result = documentService.getAllAsList();
+		Assertions.assertEquals(1, result.size());
+		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
+		Assertions.assertEquals(documentDTO.fileName(), result.getFirst().fileName());
 	}
 
 	@Test

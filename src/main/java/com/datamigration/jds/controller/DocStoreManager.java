@@ -74,8 +74,8 @@ public class DocStoreManager {
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
 	public List<DocumentDTO> getByDocumentType(String documentType) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentService.getByDocumentType(documentType);
-		return getParamsForList(documentDTOs);
+		List<DocumentDTO> documentDTOs = documentService.getByDocumentType(documentType);
+		return getDocumentWithParams(documentDTOs);
 	}
 
 	/**
@@ -85,8 +85,8 @@ public class DocStoreManager {
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
 	public List<DocumentDTO> getByCreator(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCreator(id);
-		return getParamsForList(documentDTOs);
+		List<DocumentDTO> documentDTOs = documentService.getByCreator(id);
+		return getDocumentWithParams(documentDTOs);
 	}
 
 	/**
@@ -96,8 +96,8 @@ public class DocStoreManager {
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
 	public List<DocumentDTO> getByCreatedAt(LocalDate date) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCreatedAt(date.atStartOfDay());
-		return getParamsForList(documentDTOs);
+		List<DocumentDTO> documentDTOs = documentService.getByCreatedAt(date.atStartOfDay());
+		return getDocumentWithParams(documentDTOs);
 	}
 
 	/**
@@ -107,8 +107,8 @@ public class DocStoreManager {
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
 	public List<DocumentDTO> getByCustomerId(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCustomerId(id);
-		return getParamsForList(documentDTOs);
+		List<DocumentDTO> documentDTOs = documentService.getByCustomerId(id);
+		return getDocumentWithParams(documentDTOs);
 	}
 
 	/**
@@ -118,8 +118,8 @@ public class DocStoreManager {
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
 	public List<DocumentDTO> getBySystemId(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentService.getBySystemId(id);
-		return getParamsForList(documentDTOs);
+		List<DocumentDTO> documentDTOs = documentService.getBySystemId(id);
+		return getDocumentWithParams(documentDTOs);
 	}
 
 	/**
@@ -129,8 +129,8 @@ public class DocStoreManager {
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
 	public List<DocumentDTO> getByCaseId(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCaseId(id);
-		return getParamsForList(documentDTOs);
+		List<DocumentDTO> documentDTOs = documentService.getByCaseId(id);
+		return getDocumentWithParams(documentDTOs);
 	}
 
 	/**
@@ -139,8 +139,8 @@ public class DocStoreManager {
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
 	public List<DocumentDTO> getAllAsList() throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentService.getAllAsList();
-		return getParamsForList(documentDTOs);
+		List<DocumentDTO> documentDTOs = documentService.getAllAsList();
+		return getDocumentWithParams(documentDTOs);
 	}
 
 	/**
@@ -168,16 +168,13 @@ public class DocStoreManager {
 		return deleted;
 	}
 
-	private List<DocumentDTO> getParamsForList(Optional<List<DocumentDTO>> documentDTOs)
-		throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOList = new ArrayList<>();
-		if (documentDTOs.isPresent()) {
-			for (DocumentDTO documentDTO : documentDTOs.get()) {
-				DocumentDTO documentDTOWithParams = getDocumentParams(documentDTO);
-				documentDTOList.add(documentDTOWithParams);
-			}
+	private List<DocumentDTO> getDocumentWithParams(List<DocumentDTO> documentDTOList) throws JDSPersistenceException {
+		List<DocumentDTO> result = new ArrayList<>();
+		for (DocumentDTO documentDTO : documentDTOList) {
+			DocumentDTO documentDTOWithParams = getDocumentParams(documentDTO);
+			result.add(documentDTOWithParams);
 		}
-		return documentDTOList;
+		return result;
 	}
 
 	private DocumentDTO getDocumentParams(DocumentDTO documentDTO) throws JDSPersistenceException {

@@ -96,18 +96,16 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getByDocumentType(String documentType) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> result;
+	public List<DocumentDTO> getByDocumentType(String documentType) throws JDSPersistenceException {
+		List<DocumentDTO> result = new ArrayList<>();
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_DOCUMENT_TYPE_SQL)) {
 			preparedStatement.setString(1, documentType);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
-				List<DocumentDTO> list = new ArrayList<>();
 				while (rs.next()) {
 					DocumentDTO documentDTO = createDocumentDTO(rs);
-					list.add(documentDTO);
+					result.add(documentDTO);
 				}
-				result = Optional.of(list);
 			}
 		} catch (Exception e) {
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
@@ -134,18 +132,16 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getByCreator(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> result;
+	public List<DocumentDTO> getByCreator(UUID id) throws JDSPersistenceException {
+		List<DocumentDTO> result = new ArrayList<>();
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CREATOR_SQL)) {
 			preparedStatement.setObject(1, id);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
-				List<DocumentDTO> list = new ArrayList<>();
 				while (rs.next()) {
 					DocumentDTO documentDTO = createDocumentDTO(rs);
-					list.add(documentDTO);
+					result.add(documentDTO);
 				}
-				result = Optional.of(list);
 			}
 		} catch (Exception e) {
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
@@ -154,18 +150,16 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> result;
+	public List<DocumentDTO> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException {
+		List<DocumentDTO> result = new ArrayList<>();
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CREATED_SQL)) {
 			preparedStatement.setObject(1, dateTime);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
-				List<DocumentDTO> list = new ArrayList<>();
 				while (rs.next()) {
 					DocumentDTO documentDTO = createDocumentDTO(rs);
-					list.add(documentDTO);
+					result.add(documentDTO);
 				}
-				result = Optional.of(list);
 			}
 		} catch (Exception e) {
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
@@ -174,18 +168,16 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getByCustomerId(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> result;
+	public List<DocumentDTO> getByCustomerId(UUID id) throws JDSPersistenceException {
+		List<DocumentDTO> result = new ArrayList<>();
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CUSTOMER_FK_SQL)) {
 			preparedStatement.setObject(1, id);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
-				List<DocumentDTO> list = new ArrayList<>();
 				while (rs.next()) {
 					DocumentDTO documentDTO = createDocumentDTO(rs);
-					list.add(documentDTO);
+					result.add(documentDTO);
 				}
-				result = Optional.of(list);
 			}
 		} catch (Exception e) {
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
@@ -194,18 +186,16 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getBySystemId(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> result;
+	public List<DocumentDTO> getBySystemId(UUID id) throws JDSPersistenceException {
+		List<DocumentDTO> result = new ArrayList<>();
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_SYSTEM_FK_SQL)) {
 			preparedStatement.setObject(1, id);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
-				List<DocumentDTO> list = new ArrayList<>();
 				while (rs.next()) {
 					DocumentDTO documentDTO = createDocumentDTO(rs);
-					list.add(documentDTO);
+					result.add(documentDTO);
 				}
-				result = Optional.of(list);
 			}
 		} catch (Exception e) {
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
@@ -214,18 +204,16 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getByCaseId(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> result;
+	public List<DocumentDTO> getByCaseId(UUID id) throws JDSPersistenceException {
+		List<DocumentDTO> result = new ArrayList<>();
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CASE_ID_SQL)) {
 			preparedStatement.setObject(1, id);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
-				List<DocumentDTO> processList = new ArrayList<>();
 				while (rs.next()) {
 					DocumentDTO documentDTO = createDocumentDTO(rs);
-					processList.add(documentDTO);
+					result.add(documentDTO);
 				}
-				result = Optional.of(processList);
 			} catch (SQLException e) {
 				throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 			}
@@ -241,18 +229,21 @@ public class DocumentDao implements IDocumentDao {
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_ALL_DOCUMENTS_SQL)) {
 			try (ResultSet rs = preparedStatement.executeQuery()) {
-				List<DocumentDTO> processList = new ArrayList<>();
 				while (rs.next()) {
 					DocumentDTO documentDTO = createDocumentDTO(rs);
-					processList.add(documentDTO);
+					result.add(documentDTO);
 				}
-				result = Optional.of(processList);
 			} catch (SQLException e) {
 				throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 			}
 		} catch (SQLException e) {
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
+
+		if (result.isEmpty()) {
+			throw new JDSPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
+		}
+
 		return result;
 	}
 

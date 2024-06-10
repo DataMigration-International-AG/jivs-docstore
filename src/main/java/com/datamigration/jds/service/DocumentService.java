@@ -75,11 +75,11 @@ public class DocumentService {
 	 * Gets an optional list of documents op by the document type.
 	 *
 	 * @param documentType the type of the document
-	 * @return an optional list of documents
+	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getByDocumentType(String documentType) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByDocumentType(documentType);
+	public List<DocumentDTO> getByDocumentType(String documentType) throws JDSPersistenceException {
+		List<DocumentDTO> documentDTOs = documentDao.getByDocumentType(documentType);
 		return documentDTOs;
 	}
 
@@ -87,11 +87,11 @@ public class DocumentService {
 	 * Gets an optional list of documents op by the creator id.
 	 *
 	 * @param id the creator id of the document
-	 * @return an optional list of documents
+	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getByCreator(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCreator(id);
+	public List<DocumentDTO> getByCreator(UUID id) throws JDSPersistenceException {
+		List<DocumentDTO> documentDTOs = documentDao.getByCreator(id);
 		return documentDTOs;
 	}
 
@@ -99,11 +99,11 @@ public class DocumentService {
 	 * Gets an optional list of documents by the creation date.
 	 *
 	 * @param dateTime the date of the document
-	 * @return  an optional list of documents
+	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCreatedAt(dateTime);
+	public List<DocumentDTO> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException {
+		List<DocumentDTO> documentDTOs = documentDao.getByCreatedAt(dateTime);
 		return documentDTOs;
 	}
 
@@ -111,11 +111,11 @@ public class DocumentService {
 	 * Gets an optional list of documents by the customer id.
 	 *
 	 * @param id the customer id of the document
-	 * @return an optional list of documents
+	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getByCustomerId(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCustomerId(id);
+	public List<DocumentDTO> getByCustomerId(UUID id) throws JDSPersistenceException {
+		List<DocumentDTO> documentDTOs = documentDao.getByCustomerId(id);
 		return documentDTOs;
 	}
 
@@ -123,11 +123,11 @@ public class DocumentService {
 	 * Gets an optional list of documents by the system id.
 	 *
 	 * @param id the system id of the document
-	 * @return an optional list of documents
+	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getBySystemId(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentDao.getBySystemId(id);
+	public List<DocumentDTO> getBySystemId(UUID id) throws JDSPersistenceException {
+		List<DocumentDTO> documentDTOs = documentDao.getBySystemId(id);
 		return documentDTOs;
 	}
 
@@ -135,22 +135,22 @@ public class DocumentService {
 	 * Gets an optional list of documents by the case is.
 	 *
 	 * @param id the case id of the document
-	 * @return an optional list of documents
+	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getByCaseId(UUID id) throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCaseId(id);
+	public List<DocumentDTO> getByCaseId(UUID id) throws JDSPersistenceException {
+		List<DocumentDTO> documentDTOs = documentDao.getByCaseId(id);
 		return documentDTOs;
 	}
 
 	/**
 	 * Gets an optional list of all documents.
 	 *
-	 * @return an optional list of documents
+	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getAllAsList() throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> documentDTOs = documentDao.getAllAsList();
+	public List<DocumentDTO> getAllAsList() throws JDSPersistenceException {
+		List<DocumentDTO> documentDTOs = documentDao.getAllAsList();
 		return documentDTOs;
 	}
 
