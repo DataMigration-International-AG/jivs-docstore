@@ -58,12 +58,11 @@ class DocumentDaoTest extends BaseSingletonTest {
 		throws JDSPersistenceException, NoDriverFoundException, SQLException {
 
 		JivsDocument jivsDocument = createDocument();
-		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
-		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
-		Assertions.assertNotNull(insertedDocumentDTO);
+		JivsDocument insertedDocument = documentDao.insert(jivsDocument);
+		Assertions.assertNotNull(insertedDocument);
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_ID_SQL);
-			preparedStatement.setObject(1, insertedDocumentDTO.id());
+			preparedStatement.setObject(1, insertedDocument.getId());
 			ResultSet rs = preparedStatement.executeQuery();
 			if (rs.next()) {
 				UUID dbId = UUID.fromString(rs.getString(1));
@@ -71,9 +70,9 @@ class DocumentDaoTest extends BaseSingletonTest {
 				UUID creator = UUID.fromString(rs.getString(3));
 				boolean deleted = rs.getBoolean(4);
 
-				Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
-				Assertions.assertEquals(insertedDocumentDTO.fileName(), fileName);
-				Assertions.assertEquals(insertedDocumentDTO.creatorId(), creator);
+				Assertions.assertEquals(insertedDocument.getId(), dbId);
+				Assertions.assertEquals(insertedDocument.getFilename(), fileName);
+				Assertions.assertEquals(insertedDocument.getCreatorId(), creator);
 				Assertions.assertFalse(deleted);
 			}
 		}
@@ -84,31 +83,30 @@ class DocumentDaoTest extends BaseSingletonTest {
 		throws JDSPersistenceException, NoDriverFoundException, SQLException {
 
 		JivsDocument jivsDocument = createDocumentWithParams();
-		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
-		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
-		Assertions.assertNotNull(insertedDocumentDTO);
+		JivsDocument insertedDocument = documentDao.insert(jivsDocument);
+		Assertions.assertNotNull(insertedDocument);
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_ID_SQL);
-			preparedStatement.setObject(1, insertedDocumentDTO.id());
+			preparedStatement.setObject(1, insertedDocument.getId());
 			ResultSet rs = preparedStatement.executeQuery();
 			if (rs.next()) {
 				UUID dbId = UUID.fromString(rs.getString(1));
 				String fileName = rs.getString(2);
-				UUID creator = UUID.fromString(rs.getString(3));
+				UUID creatorId = UUID.fromString(rs.getString(3));
 				boolean deleted = rs.getBoolean(4);
 
-				Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
-				Assertions.assertEquals(insertedDocumentDTO.fileName(), fileName);
-				Assertions.assertEquals(insertedDocumentDTO.creatorId(), creator);
+				Assertions.assertEquals(insertedDocument.getId(), dbId);
+				Assertions.assertEquals(insertedDocument.getFilename(), fileName);
+				Assertions.assertEquals(insertedDocument.getCreatorId(), creatorId);
 				Assertions.assertFalse(deleted);
 			}
 		}
 
-		documentParamDao.insert(new JivsDocumentParam(insertedDocumentDTO.id(), jivsDocument.getParams()));
+		documentParamDao.insert(new JivsDocumentParam(insertedDocument.getId(), jivsDocument.getParams()));
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_ALL_DOCUMENT_PARAMS_BY_DOCUMENT_ID_SQL);
-			preparedStatement.setObject(1, insertedDocumentDTO.id());
+			preparedStatement.setObject(1, insertedDocument.getId());
 			ResultSet rs = preparedStatement.executeQuery();
 			Map<String, String> dbParams = new HashMap<>();
 			UUID dbId = null;
@@ -117,7 +115,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 				dbParams.put(rs.getString(2), rs.getString(3));
 			}
 
-			Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
+			Assertions.assertEquals(insertedDocument.getId(), dbId);
 			Assertions.assertEquals(jivsDocument.getParams().size(), dbParams.size());
 			Assertions.assertEquals(true, dbParams.containsKey("paramKey1"));
 			Assertions.assertEquals(true, dbParams.containsKey("paramKey2"));
@@ -127,24 +125,23 @@ class DocumentDaoTest extends BaseSingletonTest {
 	@Test
 	void afterGetByFileName_thereShouldBeTheDocumentWithTheFileName() throws JDSPersistenceException, SQLException {
 		JivsDocument jivsDocument = createDocumentWithParams();
-		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
-		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
-		Assertions.assertNotNull(insertedDocumentDTO);
+		JivsDocument insertedDocument = documentDao.insert(jivsDocument);
+		Assertions.assertNotNull(insertedDocument);
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_FILE_NAME_SQL);
-			preparedStatement.setObject(1, insertedDocumentDTO.fileName());
+			preparedStatement.setObject(1, insertedDocument.getFilename());
 			ResultSet rs = preparedStatement.executeQuery();
 			if (rs.next()) {
 				UUID dbId = UUID.fromString(rs.getString(1));
 				String fileName = rs.getString(2);
-				UUID creator = UUID.fromString(rs.getString(3));
+				UUID creatorId = UUID.fromString(rs.getString(3));
 				boolean deleted = rs.getBoolean(4);
 
-				Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
-				Assertions.assertEquals(insertedDocumentDTO.fileName(), fileName);
-				Assertions.assertEquals(insertedDocumentDTO.creatorId(), creator);
-				Assertions.assertEquals(insertedDocumentDTO.deleted(), deleted);
+				Assertions.assertEquals(insertedDocument.getId(), dbId);
+				Assertions.assertEquals(insertedDocument.getFilename(), fileName);
+				Assertions.assertEquals(insertedDocument.getCreatorId(), creatorId);
+				Assertions.assertEquals(insertedDocument.isDeleted(), deleted);
 			}
 		}
 	}
@@ -154,15 +151,13 @@ class DocumentDaoTest extends BaseSingletonTest {
 		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
-		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
-		DocumentDTO insertedDocumentDTO1 = documentDao.insert(documentDTO1);
+		JivsDocument insertedDocument1 = documentDao.insert(jivsDocument1);
 
 		JivsDocument jivsDocument2 = createDocumentWithParams();
-		DocumentDTO documentDTO2 = DTOUtil.toDocumentDTO(jivsDocument2);
-		DocumentDTO insertedDocumentDTO2 = documentDao.insert(documentDTO2);
+		JivsDocument insertedDocument2 = documentDao.insert(jivsDocument2);
 
-		Assertions.assertNotNull(insertedDocumentDTO1);
-		Assertions.assertNotNull(insertedDocumentDTO2);
+		Assertions.assertNotNull(insertedDocument1);
+		Assertions.assertNotNull(insertedDocument2);
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_DOCUMENT_TYPE_SQL);
@@ -186,15 +181,13 @@ class DocumentDaoTest extends BaseSingletonTest {
 		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
-		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
-		DocumentDTO insertedDocumentDTO1 = documentDao.insert(documentDTO1);
+		JivsDocument insertedDocument1 = documentDao.insert(jivsDocument1);
 
 		JivsDocument jivsDocument2 = createDocumentWithParams();
-		DocumentDTO documentDTO2 = DTOUtil.toDocumentDTO(jivsDocument2);
-		DocumentDTO insertedDocumentDTO2 = documentDao.insert(documentDTO2);
+		JivsDocument insertedDocument2 = documentDao.insert(jivsDocument2);
 
-		Assertions.assertNotNull(insertedDocumentDTO1);
-		Assertions.assertNotNull(insertedDocumentDTO2);
+		Assertions.assertNotNull(insertedDocument1);
+		Assertions.assertNotNull(insertedDocument2);
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_CREATOR_SQL);
@@ -217,19 +210,17 @@ class DocumentDaoTest extends BaseSingletonTest {
 		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
-		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
-		DocumentDTO insertedDocumentDTO1 = documentDao.insert(documentDTO1);
+		JivsDocument insertedDocument1 = documentDao.insert(jivsDocument1);
 
 		JivsDocument jivsDocument2 = createDocumentWithParams();
-		DocumentDTO documentDTO2 = DTOUtil.toDocumentDTO(jivsDocument2);
-		DocumentDTO insertedDocumentDTO2 = documentDao.insert(documentDTO2);
+		JivsDocument insertedDocument2 = documentDao.insert(jivsDocument2);
 
-		Assertions.assertNotNull(insertedDocumentDTO1);
-		Assertions.assertNotNull(insertedDocumentDTO2);
+		Assertions.assertNotNull(insertedDocument1);
+		Assertions.assertNotNull(insertedDocument2);
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(IDocumentSQLs.SELECT_DOCUMENT_BY_CREATED_SQL);
-			preparedStatement.setObject(1, insertedDocumentDTO1.created());
+			preparedStatement.setObject(1, insertedDocument1.getCreatedAt());
 			ResultSet rs = preparedStatement.executeQuery();
 			List<UUID> ids = new ArrayList<>();
 			while (rs.next()) {
@@ -245,15 +236,13 @@ class DocumentDaoTest extends BaseSingletonTest {
 		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
-		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
-		DocumentDTO insertedDocumentDTO1 = documentDao.insert(documentDTO1);
+		JivsDocument insertedDocument1 = documentDao.insert(jivsDocument1);
 
 		JivsDocument jivsDocument2 = createDocumentWithParams();
-		DocumentDTO documentDTO2 = DTOUtil.toDocumentDTO(jivsDocument2);
-		DocumentDTO insertedDocumentDTO2 = documentDao.insert(documentDTO2);
+		JivsDocument insertedDocument2 = documentDao.insert(jivsDocument2);
 
-		Assertions.assertNotNull(insertedDocumentDTO1);
-		Assertions.assertNotNull(insertedDocumentDTO2);
+		Assertions.assertNotNull(insertedDocument1);
+		Assertions.assertNotNull(insertedDocument2);
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_CUSTOMER_FK_SQL);
@@ -276,15 +265,13 @@ class DocumentDaoTest extends BaseSingletonTest {
 		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
-		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
-		DocumentDTO insertedDocumentDTO1 = documentDao.insert(documentDTO1);
+		JivsDocument insertedDocument1 = documentDao.insert(jivsDocument1);
 
 		JivsDocument jivsDocument2 = createDocumentWithParams();
-		DocumentDTO documentDTO2 = DTOUtil.toDocumentDTO(jivsDocument2);
-		DocumentDTO insertedDocumentDTO2 = documentDao.insert(documentDTO2);
+		JivsDocument insertedDocument2 = documentDao.insert(jivsDocument2);
 
-		Assertions.assertNotNull(insertedDocumentDTO1);
-		Assertions.assertNotNull(insertedDocumentDTO2);
+		Assertions.assertNotNull(insertedDocument1);
+		Assertions.assertNotNull(insertedDocument2);
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_SYSTEM_FK_SQL);
@@ -307,19 +294,17 @@ class DocumentDaoTest extends BaseSingletonTest {
 		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
-		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
-		DocumentDTO insertedDocumentDTO1 = documentDao.insert(documentDTO1);
+		JivsDocument insertedDocument1 = documentDao.insert(jivsDocument1);
 
 		JivsDocument jivsDocument2 = createDocumentWithParams();
-		DocumentDTO documentDTO2 = DTOUtil.toDocumentDTO(jivsDocument2);
-		DocumentDTO insertedDocumentDTO2 = documentDao.insert(documentDTO2);
+		JivsDocument insertedDocument2 = documentDao.insert(jivsDocument2);
 
-		Assertions.assertNotNull(insertedDocumentDTO1);
-		Assertions.assertNotNull(insertedDocumentDTO2);
+		Assertions.assertNotNull(insertedDocument1);
+		Assertions.assertNotNull(insertedDocument2);
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_CASE_ID_SQL);
-			preparedStatement.setObject(1, insertedDocumentDTO1.caseId());
+			preparedStatement.setObject(1, insertedDocument1.getCaseId());
 			ResultSet rs = preparedStatement.executeQuery();
 			List<UUID> ids = new ArrayList<>();
 			while (rs.next()) {
@@ -327,7 +312,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 				ids.add(dbId);
 				UUID caseID = UUID.fromString(rs.getString(2));
 
-				Assertions.assertEquals(insertedDocumentDTO1.caseId(), caseID);
+				Assertions.assertEquals(insertedDocument1.getCaseId(), caseID);
 			}
 			Assertions.assertEquals(1, ids.size());
 		}
@@ -338,15 +323,13 @@ class DocumentDaoTest extends BaseSingletonTest {
 	throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
-		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
-		DocumentDTO insertedDocumentDTO1 = documentDao.insert(documentDTO1);
+		JivsDocument insertedDocument1 = documentDao.insert(jivsDocument1);
 
 		JivsDocument jivsDocument2 = createDocumentWithParams();
-		DocumentDTO documentDTO2 = DTOUtil.toDocumentDTO(jivsDocument2);
-		DocumentDTO insertedDocumentDTO2 = documentDao.insert(documentDTO2);
+		JivsDocument insertedDocument2 = documentDao.insert(jivsDocument2);
 
-		Assertions.assertNotNull(insertedDocumentDTO1);
-		Assertions.assertNotNull(insertedDocumentDTO2);
+		Assertions.assertNotNull(insertedDocument1);
+		Assertions.assertNotNull(insertedDocument2);
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(IDocumentSQLs.SELECT_ALL_DOCUMENTS_SQL);
@@ -365,18 +348,17 @@ class DocumentDaoTest extends BaseSingletonTest {
 		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument = createDocumentWithParams();
-		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
-		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
-		Assertions.assertNotNull(insertedDocumentDTO);
+		JivsDocument insertedDocument = documentDao.insert(jivsDocument);
+		Assertions.assertNotNull(insertedDocument);
 
 		Map<String, String> newParams = new HashMap<>();
 		newParams.put("paramKeyUpdated", "paramValueUpdated");
-		documentParamDao.insert(new JivsDocumentParam(insertedDocumentDTO.id(), jivsDocument.getParams()));
-		documentParamDao.updateParams(insertedDocumentDTO.id(), newParams);
+		documentParamDao.insert(new JivsDocumentParam(insertedDocument.getId(), jivsDocument.getParams()));
+		documentParamDao.updateParams(insertedDocument.getId(), newParams);
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_ALL_DOCUMENT_PARAMS_BY_DOCUMENT_ID_SQL);
-			preparedStatement.setObject(1, insertedDocumentDTO.id());
+			preparedStatement.setObject(1, insertedDocument.getId());
 			ResultSet rs = preparedStatement.executeQuery();
 			Map<String, String> dbParams = new HashMap<>();
 			UUID dbId = null;
@@ -385,7 +367,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 				dbParams.put(rs.getString(2), rs.getString(3));
 			}
 
-			Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
+			Assertions.assertEquals(insertedDocument.getId(), dbId);
 			Assertions.assertEquals(newParams.size(), dbParams.size());
 			Assertions.assertTrue(dbParams.containsKey("paramKeyUpdated"));
 			Assertions.assertFalse(dbParams.containsKey("paramKey1"));
@@ -398,23 +380,22 @@ class DocumentDaoTest extends BaseSingletonTest {
 		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument = createDocument();
-		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
-		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
-		Assertions.assertNotNull(insertedDocumentDTO);
-		Assertions.assertFalse(insertedDocumentDTO.deleted());
+		JivsDocument insertedDocument = documentDao.insert(jivsDocument);
+		Assertions.assertNotNull(insertedDocument);
+		Assertions.assertFalse(insertedDocument.isDeleted());
 
-		documentDao.setDeleteFlagTrue(insertedDocumentDTO.id());
+		documentDao.setDeleteFlagTrue(insertedDocument.getId());
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_ID_SQL);
-			preparedStatement.setObject(1, insertedDocumentDTO.id());
+			preparedStatement.setObject(1, insertedDocument.getId());
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
 				UUID id = UUID.fromString(rs.getString(1));
 				boolean deleted = rs.getBoolean(4);
 
-				Assertions.assertEquals(insertedDocumentDTO.id(), id);
+				Assertions.assertEquals(insertedDocument.getId(), id);
 				Assertions.assertTrue(deleted);
 			}
 		}

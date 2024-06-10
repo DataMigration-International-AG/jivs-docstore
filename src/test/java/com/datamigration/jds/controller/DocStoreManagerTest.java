@@ -3,7 +3,6 @@ package com.datamigration.jds.controller;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.datamigration.jds.model.entity.docstore.JivsDocument;
-import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.persistence.docstore.DocumentDao;
 import com.datamigration.jds.persistence.param.DocumentParamDao;
 import com.datamigration.jds.service.DocumentService;
@@ -42,85 +41,85 @@ class DocStoreManagerTest extends BaseSingletonTest {
 		truncateDb();
 	}
 
-	private DocumentDTO createAndInsertDocument() throws JDSPersistenceException {
+	private JivsDocument createAndInsertDocument() throws JDSPersistenceException {
 		JivsDocument jivsDocument = createDocument();
-		DocumentDTO createdDocument = docStoreManager.create(jivsDocument);
+		JivsDocument createdDocument = docStoreManager.create(jivsDocument);
 		assertNotNull(createdDocument);
-		assertNotNull(createdDocument.id());
+		assertNotNull(createdDocument.getId());
 		return createdDocument;
 	}
 
 	@Test
 	void testCreateDocument() throws JDSPersistenceException {
-		DocumentDTO createdDocument = createAndInsertDocument();
+		JivsDocument createdDocument = createAndInsertDocument();
 		assertNotNull(createdDocument);
-		assertNotNull(createdDocument.id());
+		assertNotNull(createdDocument.getId());
 	}
 
 	@Test
 	void testGetById() throws JDSPersistenceException {
-		DocumentDTO createdDocument = createAndInsertDocument();
-		DocumentDTO dbDocument =  docStoreManager.getById(createdDocument.id());
+		JivsDocument createdDocument = createAndInsertDocument();
+		JivsDocument dbDocument =  docStoreManager.getById(createdDocument.getId());
 		assertNotNull(dbDocument);
-		assertEquals(createdDocument.id(), dbDocument.id());
+		assertEquals(createdDocument.getId(), dbDocument.getId());
 	}
 
 	@Test
 	void testGetByFileName() throws JDSPersistenceException {
-		DocumentDTO createdDocument = createAndInsertDocument();
-		DocumentDTO dbDocument =  docStoreManager.getByFileName("Document1");
+		JivsDocument createdDocument = createAndInsertDocument();
+		JivsDocument dbDocument =  docStoreManager.getByFileName("Document1");
 		assertNotNull(dbDocument);
-		assertEquals(createdDocument.fileName(), "Document1");
+		assertEquals(createdDocument.getFilename(), "Document1");
 	}
 
 	@Test
 	void testGetByDocumentType() throws JDSPersistenceException {
 		createAndInsertDocument();
-		List<DocumentDTO> dbDocument =  docStoreManager.getByDocumentType("JIVSDOCUMENT");
+		List<JivsDocument> dbDocument =  docStoreManager.getByDocumentType("JIVSDOCUMENT");
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
 	void testGetByDocumentTypeNotFound() throws JDSPersistenceException {
-		List<DocumentDTO> dbDocument =  docStoreManager.getByDocumentType("some_kind_of_non_existent_document_type");
+		List<JivsDocument> dbDocument =  docStoreManager.getByDocumentType("some_kind_of_non_existent_document_type");
 		assertEquals(0, dbDocument.size());
 	}
 
 	@Test
 	void testGetByCreator() throws JDSPersistenceException {
-		DocumentDTO createdDocument = createAndInsertDocument();
+		JivsDocument createdDocument = createAndInsertDocument();
 		docStoreManager.create(createDocumentWithParams());
-		List<DocumentDTO> dbDocument =  docStoreManager.getByCreator(createdDocument.creatorId());
+		List<JivsDocument> dbDocument =  docStoreManager.getByCreator(createdDocument.getCreatorId());
 		assertEquals(2, dbDocument.size());
-		assertEquals(creatorId, dbDocument.getFirst().creatorId());
-		assertEquals(creatorId, dbDocument.getLast().creatorId());
+		assertEquals(creatorId, dbDocument.getFirst().getCreatorId());
+		assertEquals(creatorId, dbDocument.getLast().getCreatorId());
 	}
 
 	@Test
 	void testGetByCreatedAt() throws JDSPersistenceException {
 		createAndInsertDocument();
-		List<DocumentDTO> dbDocument =  docStoreManager.getByCreatedAt(LocalDate.now());
+		List<JivsDocument> dbDocument =  docStoreManager.getByCreatedAt(LocalDate.now());
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
 	void testGetByCustomerId() throws JDSPersistenceException {
-		DocumentDTO createdDocument = createAndInsertDocument();
-		List<DocumentDTO> dbDocument =  docStoreManager.getByCustomerId(createdDocument.customerId());
+		JivsDocument createdDocument = createAndInsertDocument();
+		List<JivsDocument> dbDocument =  docStoreManager.getByCustomerId(createdDocument.getCustomerId());
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
 	void testGetBySystemId() throws JDSPersistenceException {
-		DocumentDTO createdDocument = createAndInsertDocument();
-		List<DocumentDTO> dbDocument =  docStoreManager.getBySystemId(createdDocument.systemId());
+		JivsDocument createdDocument = createAndInsertDocument();
+		List<JivsDocument> dbDocument =  docStoreManager.getBySystemId(createdDocument.getSystemId());
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
 	void testGetByCaseId() throws JDSPersistenceException {
-		DocumentDTO createdDocument = createAndInsertDocument();
-		List<DocumentDTO> dbDocument =  docStoreManager.getByCaseId(createdDocument.caseId());
+		JivsDocument createdDocument = createAndInsertDocument();
+		List<JivsDocument> dbDocument =  docStoreManager.getByCaseId(createdDocument.getCaseId());
 		assertEquals(1, dbDocument.size());
 	}
 
@@ -128,26 +127,26 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	void testGetAllAsList() throws JDSPersistenceException {
 		createAndInsertDocument();
 		docStoreManager.create(createDocumentWithParams());
-		List<DocumentDTO> dbDocument =  docStoreManager.getAllAsList();
+		List<JivsDocument> dbDocument =  docStoreManager.getAllAsList();
 		assertEquals(2, dbDocument.size());
 	}
 
 	@Test
 	void testUpdateParams() throws JDSPersistenceException {
-		DocumentDTO createdDocument = docStoreManager.create(createDocumentWithParams());
+		JivsDocument createdDocument = docStoreManager.create(createDocumentWithParams());
 		Map<String, String> newParams = new HashMap<>();
 		newParams.put("paramKeyUpdated", "paramValueUpdated");
-		docStoreManager.updateParams(createdDocument.id(), newParams);
+		docStoreManager.updateParams(createdDocument.getId(), newParams);
 
-		DocumentDTO insertedDocument = docStoreManager.getById(createdDocument.id());
-		assertEquals(1, insertedDocument.params().size());
-		assertTrue(insertedDocument.params().containsKey("paramKeyUpdated"));
+		JivsDocument insertedDocument = docStoreManager.getById(createdDocument.getId());
+		assertEquals(1, insertedDocument.getParams().size());
+		assertTrue(insertedDocument.getParams().containsKey("paramKeyUpdated"));
 	}
 
 	@Test
 	void testDelete() throws JDSPersistenceException {
-		DocumentDTO createdDocument = docStoreManager.create(createDocumentWithParams());
-		boolean deleteFlag = docStoreManager.delete(createdDocument.id());
+		JivsDocument createdDocument = docStoreManager.create(createDocumentWithParams());
+		boolean deleteFlag = docStoreManager.delete(createdDocument.getId());
 		assertTrue(deleteFlag);
 	}
 }

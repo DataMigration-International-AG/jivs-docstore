@@ -1,7 +1,6 @@
 package com.datamigration.jds.controller;
 
 import com.datamigration.jds.model.entity.docstore.JivsDocument;
-import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.service.DocumentService;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.time.LocalDate;
@@ -26,121 +25,121 @@ public class DocStoreManager {
 		this.documentService = documentService;
 	}
 
-	public DocumentDTO create(JivsDocument jivsDocument) throws JDSPersistenceException {
-		DocumentDTO documentDTO = documentService.insert(jivsDocument);
-		return documentDTO;
+	public JivsDocument create(JivsDocument jivsDocument) throws JDSPersistenceException {
+		JivsDocument document = documentService.insert(jivsDocument);
+		return document;
 	}
 
 	/**
 	 * Gets the document by the given id
 	 * @param id the id of the document
-	 * @return DocumentDTO
+	 * @return Document
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public DocumentDTO getById(UUID id) throws JDSPersistenceException {
-		Optional<DocumentDTO> documentDTO = documentService.getById(id);
+	public JivsDocument getById(UUID id) throws JDSPersistenceException {
+		Optional<JivsDocument> document = documentService.getById(id);
 
-		if (documentDTO.isEmpty()) {
+		if (document.isEmpty()) {
 			logger.info("Document with id {} not found", id);
 			return null;
 		}
 
-		DocumentDTO documentDTOWithParams = addParamsToDocument(documentDTO.get());
-		return documentDTOWithParams;
+		JivsDocument documentWithParams = addParamsToDocument(document.get());
+		return documentWithParams;
 	}
 
 	/**
 	 * Gets the document by the given filename
-	 * @param fileName the fileName of the document
-	 * @return DocumentDTO
+	 * @param fileName the filename of the document
+	 * @return Document
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public DocumentDTO getByFileName(String fileName) throws JDSPersistenceException {
-		Optional<DocumentDTO> documentDTO = documentService.getByFileName(fileName);
+	public JivsDocument getByFileName(String fileName) throws JDSPersistenceException {
+		Optional<JivsDocument> document = documentService.getByFileName(fileName);
 
-		if (documentDTO.isEmpty()) {
+		if (document.isEmpty()) {
 			logger.info("Document with name {} not found", fileName);
 			return null;
 		}
 
-		DocumentDTO documentDTOWithParams = addParamsToDocument(documentDTO.get());
-		return documentDTOWithParams;
+		JivsDocument documentWithParams = addParamsToDocument(document.get());
+		return documentWithParams;
 	}
 
 	/**
 	 * Gets the documents for the provided document type
 	 * @param documentType the type of the document
-	 * @return List of DocumentDTOs
+	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getByDocumentType(String documentType) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentService.getByDocumentType(documentType);
-		return getDocumentWithParams(documentDTOs);
+	public List<JivsDocument> getByDocumentType(String documentType) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getByDocumentType(documentType);
+		return getDocumentWithParams(documents);
 	}
 
 	/**
 	 * Gets the documents for the provided creatorId id
 	 * @param id the creatorId id of the document
-	 * @return List of DocumentDTOs
+	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getByCreator(UUID id) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentService.getByCreator(id);
-		return getDocumentWithParams(documentDTOs);
+	public List<JivsDocument> getByCreator(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getByCreator(id);
+		return getDocumentWithParams(documents);
 	}
 
 	/**
 	 * Gets the documents which were created on the same day as the given date
 	 * @param date the date which to filter on
-	 * @return List of DocumentDTOs
+	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getByCreatedAt(LocalDate date) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentService.getByCreatedAt(date.atStartOfDay());
-		return getDocumentWithParams(documentDTOs);
+	public List<JivsDocument> getByCreatedAt(LocalDate date) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getByCreatedAt(date.atStartOfDay());
+		return getDocumentWithParams(documents);
 	}
 
 	/**
 	 * Gets the documents for the provided customer id
 	 * @param id the customer id of the document
-	 * @return List of DocumentDTOs
+	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getByCustomerId(UUID id) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentService.getByCustomerId(id);
-		return getDocumentWithParams(documentDTOs);
+	public List<JivsDocument> getByCustomerId(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getByCustomerId(id);
+		return getDocumentWithParams(documents);
 	}
 
 	/**
 	 * Gets the documents for the provided system id
 	 * @param id the system id of the document
-	 * @return List of DocumentDTOs
+	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getBySystemId(UUID id) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentService.getBySystemId(id);
-		return getDocumentWithParams(documentDTOs);
+	public List<JivsDocument> getBySystemId(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getBySystemId(id);
+		return getDocumentWithParams(documents);
 	}
 
 	/**
 	 * Gets the document for the provided case id
 	 * @param id the case id of the document
-	 * @return List of DocumentDTOs
+	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getByCaseId(UUID id) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentService.getByCaseId(id);
-		return getDocumentWithParams(documentDTOs);
+	public List<JivsDocument> getByCaseId(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getByCaseId(id);
+		return getDocumentWithParams(documents);
 	}
 
 	/**
 	 * Gets all documents
-	 * @return List of DocumentDTOs
+	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getAllAsList() throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentService.getAllAsList();
-		return getDocumentWithParams(documentDTOs);
+	public List<JivsDocument> getAllAsList() throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getAllAsList();
+		return getDocumentWithParams(documents);
 	}
 
 	/**
@@ -170,21 +169,21 @@ public class DocStoreManager {
 		return deleted;
 	}
 
-	private List<DocumentDTO> getDocumentWithParams(List<DocumentDTO> documentDTOList) throws JDSPersistenceException {
-		List<DocumentDTO> result = new ArrayList<>();
-		for (DocumentDTO documentDTO : documentDTOList) {
-			DocumentDTO documentDTOWithParams = addParamsToDocument(documentDTO);
-			result.add(documentDTOWithParams);
+	private List<JivsDocument> getDocumentWithParams(List<JivsDocument> documents) throws JDSPersistenceException {
+		List<JivsDocument> result = new ArrayList<>();
+		for (JivsDocument document : documents) {
+			JivsDocument documentWithParams = addParamsToDocument(document);
+			result.add(documentWithParams);
 		}
 		return result;
 	}
 
-	private DocumentDTO addParamsToDocument(DocumentDTO documentDTO) throws JDSPersistenceException {
-		Map<String, String> result = documentService.getParams(documentDTO.id());
+	private JivsDocument addParamsToDocument(JivsDocument document) throws JDSPersistenceException {
+		Map<String, String> result = documentService.getParams(document.getId());
 		if (!result.isEmpty()) {
-			documentDTO.params().putAll(result);
+			document.setParams(result);
 		}
-		return documentDTO;
+		return document;
 	}
 
 }

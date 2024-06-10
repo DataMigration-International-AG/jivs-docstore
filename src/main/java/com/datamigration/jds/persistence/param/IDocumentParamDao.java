@@ -4,7 +4,6 @@ import com.datamigration.jds.model.entity.docstoreparam.JivsDocumentParam;
 import com.datamigration.jds.persistence.IDao;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface IDocumentParamDao extends IDao<JivsDocumentParam, UUID> {

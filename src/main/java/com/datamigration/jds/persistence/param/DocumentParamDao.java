@@ -16,14 +16,19 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DocumentParamDao implements IDocumentParamDao {
+
+	private static final Logger logger = LoggerFactory.getLogger(DocumentParamDao.class);
 
 	@Override
 	public void createTables() throws JDSPersistenceException {
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentParamSQLs.CREATE_DOCUMENT_PARAMS_TABLE_SQL)) {
 			preparedStatement.execute();
+			logger.info("JIVS-DOCUMENT-PARAM table created.");
 		} catch (SQLException e) {
 			throw new JDSPersistenceException(e, ErrorCode.DB_CREATE_ERROR);
 		}

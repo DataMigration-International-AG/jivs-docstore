@@ -39,182 +39,187 @@ class DocumentServiceTest {
 		params.put("paramKey1", "paramValue1");
 		params.put("paramKey2", "paramValue2");
 
-		ArgumentCaptor<DocumentDTO> documentDTOCaptor = ArgumentCaptor.forClass(DocumentDTO.class);
+		ArgumentCaptor<JivsDocument> documentCaptor = ArgumentCaptor.forClass(JivsDocument.class);
 		JivsDocument jivsDocument = new JivsDocument("Document".getBytes(StandardCharsets.UTF_8),
 			"Document", "JivsDocument", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
 			UUID.randomUUID(), params);
-		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
 
-		when(documentDao.insert(documentDTOCaptor.capture())).thenReturn(documentDTO);
+		when(documentDao.insert(documentCaptor.capture())).thenReturn(jivsDocument);
 		when(documentParamDao.insert(any())).thenReturn(new JivsDocumentParam(UUID.randomUUID(), params));
 
 		documentService.insert(jivsDocument);
 
-		Assertions.assertEquals(documentDTO.id(), documentDTOCaptor.getValue().id());
-		Assertions.assertEquals(documentDTO.fileName(), documentDTOCaptor.getValue().fileName());
+		Assertions.assertEquals(jivsDocument.getId(), documentCaptor.getValue().getId());
+		Assertions.assertEquals(jivsDocument.getFilename(), documentCaptor.getValue().getFilename());
 	}
 
 	@Test
 	void testGetById() throws JDSPersistenceException {
 		UUID id = UUID.randomUUID();
-		DocumentDTO documentDTO = new DocumentDTO(id, "Document".getBytes(StandardCharsets.UTF_8),
-			"Document", "JivsDocument", UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
-			UUID.randomUUID(), null, false);
+		JivsDocument jivsDocument = new JivsDocument("Document".getBytes(StandardCharsets.UTF_8),
+			"Document", "JivsDocument", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+			UUID.randomUUID(), null);
 
-		when(documentService.getById(id)).thenReturn(Optional.of(documentDTO));
+		when(documentService.getById(id)).thenReturn(Optional.of(jivsDocument));
 
-		Optional<DocumentDTO> result = documentService.getById(id);
+		Optional<JivsDocument> result = documentService.getById(id);
 
 		Assertions.assertTrue(result.isPresent());
-		Assertions.assertEquals(documentDTO.id(), result.get().id());
-		Assertions.assertEquals(documentDTO.fileName(), result.get().fileName());
+		Assertions.assertEquals(jivsDocument.getId(), result.get().getId());
+		Assertions.assertEquals(jivsDocument.getFilename(), result.get().getFilename());
 	}
 
 	@Test
 	void testGetByFileName() throws JDSPersistenceException {
-		String fileName = "Document1";
-		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
-			fileName, "JivsDocument", UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
-			UUID.randomUUID(), null, false);
+		String filename = "Document1";
+		JivsDocument jivsDocument = new JivsDocument("Document".getBytes(StandardCharsets.UTF_8),
+			filename, "JivsDocument", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+			UUID.randomUUID(), null);
 
-		when(documentService.getByFileName(fileName)).thenReturn(Optional.of(documentDTO));
+		when(documentService.getByFileName(filename)).thenReturn(Optional.of(jivsDocument));
 
-		Optional<DocumentDTO> result = documentService.getByFileName(fileName);
+		Optional<JivsDocument> result = documentService.getByFileName(filename);
 
 		Assertions.assertTrue(result.isPresent());
-		Assertions.assertEquals(documentDTO.id(), result.get().id());
-		Assertions.assertEquals(documentDTO.fileName(), result.get().fileName());
+		Assertions.assertEquals(jivsDocument.getId(), result.get().getId());
+		Assertions.assertEquals(jivsDocument.getFilename(), result.get().getFilename());
 	}
 
 	@Test
 	void testGetByDocumentType() throws JDSPersistenceException {
 		String documentType = "JivsDocument";
-		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
-			"Document", documentType, UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
-			UUID.randomUUID(), null, false);
+		JivsDocument jivsDocument = new JivsDocument("Document".getBytes(StandardCharsets.UTF_8),
+			"Document", documentType, UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+			UUID.randomUUID(), null);
+		jivsDocument.setId(UUID.randomUUID());
 
-		List<DocumentDTO> documentDTOList = new ArrayList<>();
-		documentDTOList.add(documentDTO);
+		List<JivsDocument> documentList = new ArrayList<>();
+		documentList.add(jivsDocument);
 
-		when(documentDao.getByDocumentType(documentType)).thenReturn(documentDTOList);
+		when(documentDao.getByDocumentType(documentType)).thenReturn(documentList);
 
-		List<DocumentDTO> result = documentService.getByDocumentType(documentType);
+		List<JivsDocument> result = documentService.getByDocumentType(documentType);
 
 		Assertions.assertEquals(1, result.size());
-		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
-		Assertions.assertEquals(documentDTO.documenType(), result.getFirst().documenType());
+		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
+		Assertions.assertEquals(jivsDocument.getDocumentType(), result.getFirst().getDocumentType());
 	}
 
 	@Test
 	void testGetByCreator() throws JDSPersistenceException {
 		UUID creatorId = UUID.randomUUID();
-		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
-			"Document", "documentType", creatorId, LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
-			UUID.randomUUID(), null, false);
+		JivsDocument jivsDocument = new JivsDocument("Document".getBytes(StandardCharsets.UTF_8),
+			"Document", "documentType", creatorId, UUID.randomUUID(), UUID.randomUUID(),
+			UUID.randomUUID(), null);
+		jivsDocument.setId(UUID.randomUUID());
 
-		List<DocumentDTO> documentDTOList = new ArrayList<>();
-		documentDTOList.add(documentDTO);
+		List<JivsDocument> documentList = new ArrayList<>();
+		documentList.add(jivsDocument);
 
-		when(documentDao.getByCreator(creatorId)).thenReturn(documentDTOList);
+		when(documentDao.getByCreator(creatorId)).thenReturn(documentList);
 
-		List<DocumentDTO> result = documentService.getByCreator(creatorId);
+		List<JivsDocument> result = documentService.getByCreator(creatorId);
 
 		Assertions.assertEquals(1, result.size());
-		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
-		Assertions.assertEquals(documentDTO.creatorId(), result.getFirst().creatorId());
+		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
+		Assertions.assertEquals(jivsDocument.getCreatorId(), result.getFirst().getCreatorId());
 	}
 
 	@Test
 	void testGetByCreatedAt() throws JDSPersistenceException {
 		LocalDateTime createdAt = LocalDateTime.now();
-		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
-			"Document", "documentType", UUID.randomUUID(), createdAt, UUID.randomUUID(), UUID.randomUUID(),
-			UUID.randomUUID(), null, false);
+		JivsDocument jivsDocument = new JivsDocument("Document".getBytes(StandardCharsets.UTF_8),
+			"Document", "documentType", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+			UUID.randomUUID(), null);
+		jivsDocument.setId(UUID.randomUUID());
+		jivsDocument.setCreatedAt(createdAt);
 
-		List<DocumentDTO> documentDTOList = new ArrayList<>();
-		documentDTOList.add(documentDTO);
+		List<JivsDocument> documentList = new ArrayList<>();
+		documentList.add(jivsDocument);
 
-		when(documentDao.getByCreatedAt(createdAt)).thenReturn(documentDTOList);
 
-		List<DocumentDTO> result = documentService.getByCreatedAt(createdAt);
+		when(documentDao.getByCreatedAt(createdAt)).thenReturn(documentList);
+
+		List<JivsDocument> result = documentService.getByCreatedAt(createdAt);
 
 		Assertions.assertEquals(1, result.size());
-		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
-		Assertions.assertEquals(documentDTO.fileName(), result.getFirst().fileName());
+		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
+		Assertions.assertEquals(jivsDocument.getFilename(), result.getFirst().getFilename());
 	}
 
 	@Test
 	void testGetByCustomerId() throws JDSPersistenceException {
 		UUID customerId = UUID.randomUUID();
-		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
-			"Document", "documentType", UUID.randomUUID(), LocalDateTime.now(), customerId, UUID.randomUUID(),
-			UUID.randomUUID(), null, false);
+		JivsDocument jivsDocument = new JivsDocument("Document".getBytes(StandardCharsets.UTF_8),
+			"Document", "documentType", UUID.randomUUID(), customerId, UUID.randomUUID(),
+			UUID.randomUUID(), null);
+		jivsDocument.setId(UUID.randomUUID());
+		List<JivsDocument> documentList = new ArrayList<>();
+		documentList.add(jivsDocument);
 
-		List<DocumentDTO> documentDTOList = new ArrayList<>();
-		documentDTOList.add(documentDTO);
+		when(documentDao.getByCustomerId(customerId)).thenReturn(documentList);
 
-		when(documentDao.getByCustomerId(customerId)).thenReturn(documentDTOList);
-
-		List<DocumentDTO> result = documentService.getByCustomerId(customerId);
+		List<JivsDocument> result = documentService.getByCustomerId(customerId);
 
 		Assertions.assertEquals(1, result.size());
-		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
-		Assertions.assertEquals(documentDTO.customerId(), result.getFirst().customerId());
+		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
+		Assertions.assertEquals(jivsDocument.getCustomerId(), result.getFirst().getCustomerId());
 	}
 
 	@Test
 	void testGetBySystemId() throws JDSPersistenceException {
 		UUID systemId = UUID.randomUUID();
-		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
-			"Document", "documentType", UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), systemId,
-			UUID.randomUUID(), null, false);
+		JivsDocument jivsDocument = new JivsDocument("Document".getBytes(StandardCharsets.UTF_8),
+			"Document", "documentType", UUID.randomUUID(), UUID.randomUUID(), systemId,
+			UUID.randomUUID(), null);
+		jivsDocument.setId(UUID.randomUUID());
+		List<JivsDocument> documentList = new ArrayList<>();
+		documentList.add(jivsDocument);
 
-		List<DocumentDTO> documentDTOList = new ArrayList<>();
-		documentDTOList.add(documentDTO);
 
-		when(documentDao.getBySystemId(systemId)).thenReturn(documentDTOList);
+		when(documentDao.getBySystemId(systemId)).thenReturn(documentList);
 
-		List<DocumentDTO> result = documentService.getBySystemId(systemId);
+		List<JivsDocument> result = documentService.getBySystemId(systemId);
 
 		Assertions.assertEquals(1, result.size());
-		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
-		Assertions.assertEquals(documentDTO.systemId(), result.getFirst().systemId());
+		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
+		Assertions.assertEquals(jivsDocument.getSystemId(), result.getFirst().getSystemId());
 	}
 
 	@Test
 	void testGetByCaseId() throws JDSPersistenceException {
 		UUID caseId = UUID.randomUUID();
-		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
-			"Document", "documentType", UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
-			caseId, null, false);
+		JivsDocument jivsDocument = new JivsDocument("Document".getBytes(StandardCharsets.UTF_8),
+			"Document", "documentType", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+			caseId, null);
+		jivsDocument.setId(UUID.randomUUID());
+		List<JivsDocument> documentList = new ArrayList<>();
+		documentList.add(jivsDocument);
 
-		List<DocumentDTO> documentDTOList = new ArrayList<>();
-		documentDTOList.add(documentDTO);
+		when(documentDao.getByCaseId(caseId)).thenReturn(documentList);
 
-		when(documentDao.getByCaseId(caseId)).thenReturn(documentDTOList);
-
-		List<DocumentDTO> result = documentService.getByCaseId(caseId);
+		List<JivsDocument> result = documentService.getByCaseId(caseId);
 
 		Assertions.assertEquals(1, result.size());
-		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
-		Assertions.assertEquals(documentDTO.caseId(), result.getFirst().caseId());
+		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
+		Assertions.assertEquals(jivsDocument.getCaseId(), result.getFirst().getCaseId());
 	}
 
 	@Test
 	void testGetAllAsList() throws JDSPersistenceException {
-		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
-			"Document", "JivsDocument", UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
-			UUID.randomUUID(), null, false);
+		JivsDocument jivsDocument = new JivsDocument("Document".getBytes(StandardCharsets.UTF_8),
+			"Document", "documentType", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+			UUID.randomUUID(), null);
+		jivsDocument.setId(UUID.randomUUID());
+		List<JivsDocument> documentList = new ArrayList<>();
+		documentList.add(jivsDocument);
 
-		List<DocumentDTO> documentDTOList = new ArrayList<>();
-		documentDTOList.add(documentDTO);
+		when(documentDao.getAllAsList()).thenReturn(documentList);
 
-		when(documentDao.getAllAsList()).thenReturn(documentDTOList);
-
-		List<DocumentDTO> result = documentService.getAllAsList();
+		List<JivsDocument> result = documentService.getAllAsList();
 		Assertions.assertEquals(1, result.size());
-		Assertions.assertEquals(documentDTO.id(), result.getFirst().id());
-		Assertions.assertEquals(documentDTO.fileName(), result.getFirst().fileName());
+		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
+		Assertions.assertEquals(jivsDocument.getFilename(), result.getFirst().getFilename());
 	}
 
 	@Test

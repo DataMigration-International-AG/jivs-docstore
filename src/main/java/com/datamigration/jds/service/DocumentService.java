@@ -34,17 +34,15 @@ public class DocumentService {
 	 * @return the document
 	 * @throws JDSPersistenceException if an error occurs during persisting
 	 */
-	public DocumentDTO insert(JivsDocument document) throws JDSPersistenceException {
-		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(document);
-		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
+	public JivsDocument insert(JivsDocument document) throws JDSPersistenceException {
+		JivsDocument insertedDocument = documentDao.insert(document);
 
 		if (document.getParams() != null && !document.getParams().isEmpty()) {
-			JivsDocumentParam jivsDocumentParams = new JivsDocumentParam(insertedDocumentDTO.id(), document.getParams());
+			JivsDocumentParam jivsDocumentParams = new JivsDocumentParam(insertedDocument.getId(), document.getParams());
 			documentParamDao.insert(jivsDocumentParams);
 		}
 
-		document.setId(insertedDocumentDTO.id());
-		return DTOUtil.toDocumentDTO(document);
+		return insertedDocument;
 	}
 
 	/**
@@ -54,21 +52,21 @@ public class DocumentService {
 	 * @return the document
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<DocumentDTO> getById(UUID id) throws JDSPersistenceException {
-		Optional<DocumentDTO> documentDTO = documentDao.getById(id);
-		return documentDTO;
+	public Optional<JivsDocument> getById(UUID id) throws JDSPersistenceException {
+		Optional<JivsDocument> document = documentDao.getById(id);
+		return document;
 	}
 
 	/**
-	 * Gets a document by its fileName.
+	 * Gets a document by its filename.
 	 *
 	 * @param fileName the id of the document
 	 * @return the document
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<DocumentDTO> getByFileName(String fileName) throws JDSPersistenceException {
-		Optional<DocumentDTO> documentDTO = documentDao.getByFileName(fileName);
-		return documentDTO;
+	public Optional<JivsDocument> getByFileName(String fileName) throws JDSPersistenceException {
+		Optional<JivsDocument> document = documentDao.getByFileName(fileName);
+		return document;
 	}
 
 	/**
@@ -78,9 +76,9 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<DocumentDTO> getByDocumentType(String documentType) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentDao.getByDocumentType(documentType);
-		return documentDTOs;
+	public List<JivsDocument> getByDocumentType(String documentType) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getByDocumentType(documentType);
+		return documents;
 	}
 
 	/**
@@ -90,9 +88,9 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<DocumentDTO> getByCreator(UUID id) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentDao.getByCreator(id);
-		return documentDTOs;
+	public List<JivsDocument> getByCreator(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getByCreator(id);
+		return documents;
 	}
 
 	/**
@@ -102,9 +100,9 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<DocumentDTO> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentDao.getByCreatedAt(dateTime);
-		return documentDTOs;
+	public List<JivsDocument> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getByCreatedAt(dateTime);
+		return documents;
 	}
 
 	/**
@@ -114,9 +112,9 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<DocumentDTO> getByCustomerId(UUID id) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentDao.getByCustomerId(id);
-		return documentDTOs;
+	public List<JivsDocument> getByCustomerId(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getByCustomerId(id);
+		return documents;
 	}
 
 	/**
@@ -126,9 +124,9 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<DocumentDTO> getBySystemId(UUID id) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentDao.getBySystemId(id);
-		return documentDTOs;
+	public List<JivsDocument> getBySystemId(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getBySystemId(id);
+		return documents;
 	}
 
 	/**
@@ -138,9 +136,9 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<DocumentDTO> getByCaseId(UUID id) throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentDao.getByCaseId(id);
-		return documentDTOs;
+	public List<JivsDocument> getByCaseId(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getByCaseId(id);
+		return documents;
 	}
 
 	/**
@@ -149,9 +147,9 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<DocumentDTO> getAllAsList() throws JDSPersistenceException {
-		List<DocumentDTO> documentDTOs = documentDao.getAllAsList();
-		return documentDTOs;
+	public List<JivsDocument> getAllAsList() throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getAllAsList();
+		return documents;
 	}
 
 	/**

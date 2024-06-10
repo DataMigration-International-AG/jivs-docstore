@@ -16,7 +16,7 @@ public class JivsDocument {
 	private String filename;
 	private String documentType;
 	private boolean deleted;
-	private LocalDateTime created;
+	private LocalDateTime createdAt;
 
 	public JivsDocument(byte[] fileBin, String filename, String documentType, UUID creatorId, UUID customerId, UUID systemId,
 		UUID caseId, Map<String, String> params) {
@@ -28,7 +28,7 @@ public class JivsDocument {
 		this.systemId = systemId;
 		this.caseId = caseId;
 		this.params = params;
-		this.created = LocalDateTime.now();
+		this.createdAt = LocalDateTime.now();
 	}
 
 	public UUID getId() {
@@ -71,8 +71,8 @@ public class JivsDocument {
 		return deleted;
 	}
 
-	public LocalDateTime getCreated() {
-		return created;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
 	public void setId(UUID id) {
@@ -115,7 +115,7 @@ public class JivsDocument {
 		this.deleted = deleted;
 	}
 
-	public void setCreated(LocalDateTime created) {
-		this.created = created;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 }
