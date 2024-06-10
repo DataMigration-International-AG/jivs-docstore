@@ -10,7 +10,7 @@ import com.datamigration.jds.service.DocumentService;
 import com.datamigration.jds.util.BaseSingletonTest;
 import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,7 +99,7 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	@Test
 	void testGetByCreatedAt() throws JPEPersistenceException {
 		createAndInsertDocument();
-		List<DocumentDTO> dbDocument =  docStoreManager.getByCreatedAt(LocalDateTime.now());
+		List<DocumentDTO> dbDocument =  docStoreManager.getByCreatedAt(LocalDate.now());
 		assertEquals(1, dbDocument.size());
 	}
 

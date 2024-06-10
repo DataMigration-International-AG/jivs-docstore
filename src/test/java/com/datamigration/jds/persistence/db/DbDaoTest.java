@@ -1,7 +1,5 @@
 package com.datamigration.jds.persistence.db;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.datamigration.jds.persistence.DatabaseManager;
 import com.datamigration.jds.util.ITestSQLs;
 import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
