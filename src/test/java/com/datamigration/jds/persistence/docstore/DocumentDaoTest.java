@@ -74,7 +74,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 				Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
 				Assertions.assertEquals(insertedDocumentDTO.fileName(), fileName);
 				Assertions.assertEquals(insertedDocumentDTO.creator(), creator);
-				Assertions.assertEquals(false, deleted);
+				Assertions.assertFalse(deleted);
 			}
 		}
 	}
@@ -100,7 +100,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 				Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
 				Assertions.assertEquals(insertedDocumentDTO.fileName(), fileName);
 				Assertions.assertEquals(insertedDocumentDTO.creator(), creator);
-				Assertions.assertEquals(false, deleted);
+				Assertions.assertFalse(deleted);
 			}
 		}
 
@@ -387,9 +387,9 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 			Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
 			Assertions.assertEquals(newParams.size(), dbParams.size());
-			Assertions.assertEquals(true, dbParams.containsKey("paramKeyUpdated"));
-			Assertions.assertEquals(false, dbParams.containsKey("paramKey1"));
-			Assertions.assertEquals(false, dbParams.containsKey("paramKey2"));
+			Assertions.assertTrue(dbParams.containsKey("paramKeyUpdated"));
+			Assertions.assertFalse(dbParams.containsKey("paramKey1"));
+			Assertions.assertFalse(dbParams.containsKey("paramKey2"));
 		}
 	}
 
@@ -401,7 +401,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
 		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
 		Assertions.assertNotNull(insertedDocumentDTO);
-		Assertions.assertEquals(false, insertedDocumentDTO.deleted());
+		Assertions.assertFalse(insertedDocumentDTO.deleted());
 
 		documentDao.updateDeleteFlag(insertedDocumentDTO.id());
 
@@ -415,7 +415,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 				boolean deleted = rs.getBoolean(4);
 
 				Assertions.assertEquals(insertedDocumentDTO.id(), id);
-				Assertions.assertEquals(true, deleted);
+				Assertions.assertTrue(deleted);
 			}
 		}
 	}
