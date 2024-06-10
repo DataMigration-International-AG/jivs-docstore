@@ -90,10 +90,10 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	void testGetByCreator() throws JPEPersistenceException {
 		DocumentDTO createdDocument = createAndInsertDocument();
 		docStoreManager.create(createDocumentWithParams());
-		List<DocumentDTO> dbDocument =  docStoreManager.getByCreator(createdDocument.creator());
+		List<DocumentDTO> dbDocument =  docStoreManager.getByCreator(createdDocument.creatorId());
 		assertEquals(2, dbDocument.size());
-		assertEquals(creatorId, dbDocument.getFirst().creator());
-		assertEquals(creatorId, dbDocument.getLast().creator());
+		assertEquals(creatorId, dbDocument.getFirst().creatorId());
+		assertEquals(creatorId, dbDocument.getLast().creatorId());
 	}
 
 	@Test
@@ -106,14 +106,14 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	@Test
 	void testGetByCustomerId() throws JPEPersistenceException {
 		DocumentDTO createdDocument = createAndInsertDocument();
-		List<DocumentDTO> dbDocument =  docStoreManager.getByCustomerId(createdDocument.customerFK());
+		List<DocumentDTO> dbDocument =  docStoreManager.getByCustomerId(createdDocument.customerId());
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
 	void testGetBySystemId() throws JPEPersistenceException {
 		DocumentDTO createdDocument = createAndInsertDocument();
-		List<DocumentDTO> dbDocument =  docStoreManager.getBySystemId(createdDocument.systemFk());
+		List<DocumentDTO> dbDocument =  docStoreManager.getBySystemId(createdDocument.systemId());
 		assertEquals(1, dbDocument.size());
 	}
 

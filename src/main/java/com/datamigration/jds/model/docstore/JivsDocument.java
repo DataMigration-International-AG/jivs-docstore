@@ -7,10 +7,10 @@ import java.util.UUID;
 public class JivsDocument {
 
 	private UUID id;
-	private UUID customerFK;
-	private UUID systemFK;
+	private UUID customerId;
+	private UUID systemId;
 	private UUID caseId;
-	private UUID creator;
+	private UUID creatorId;
 	private byte[] fileBin;
 	private Map<String, String> params;
 	private String filename;
@@ -18,28 +18,28 @@ public class JivsDocument {
 	private boolean deleted;
 	private LocalDateTime created;
 
-	public JivsDocument(byte[] fileBin, String filename, String documentType, UUID creator, UUID customerFK, UUID systemFK,
+	public JivsDocument(byte[] fileBin, String filename, String documentType, UUID creatorId, UUID customerId, UUID systemId,
 		UUID caseId, Map<String, String> params) {
 		this.fileBin = fileBin;
 		this.filename = filename;
 		this.documentType = documentType;
-		this.creator = creator;
-		this.customerFK = customerFK;
-		this.systemFK = systemFK;
+		this.creatorId = creatorId;
+		this.customerId = customerId;
+		this.systemId = systemId;
 		this.caseId = caseId;
 		this.params = params;
 		this.deleted = false;
 		this.created = LocalDateTime.now();
 	}
 
-	public JivsDocument(byte[] fileBin, String filename, String documentType, UUID creator, UUID customerFK, UUID systemFK,
+	public JivsDocument(byte[] fileBin, String filename, String documentType, UUID creatorId, UUID customerId, UUID systemId,
 		UUID caseId, Map<String, String> params, boolean deleted) {
 		this.fileBin = fileBin;
 		this.filename = filename;
 		this.documentType = documentType;
-		this.creator = creator;
-		this.customerFK = customerFK;
-		this.systemFK = systemFK;
+		this.creatorId = creatorId;
+		this.customerId = customerId;
+		this.systemId = systemId;
 		this.caseId = caseId;
 		this.params = params;
 		this.deleted = deleted;
@@ -50,20 +50,20 @@ public class JivsDocument {
 		return id;
 	}
 
-	public UUID getCustomerFK() {
-		return customerFK;
+	public UUID getCustomerId() {
+		return customerId;
 	}
 
-	public UUID getSystemFK() {
-		return systemFK;
+	public UUID getSystemId() {
+		return systemId;
 	}
 
 	public UUID getCaseId() {
 		return caseId;
 	}
 
-	public UUID getCreator() {
-		return creator;
+	public UUID getCreatorId() {
+		return creatorId;
 	}
 
 	public byte[] getFileBin() {
@@ -94,20 +94,20 @@ public class JivsDocument {
 		this.id = id;
 	}
 
-	public void setCustomerFK(UUID customerFK) {
-		this.customerFK = customerFK;
+	public void setCustomerId(UUID customerId) {
+		this.customerId = customerId;
 	}
 
-	public void setSystemFK(UUID systemFK) {
-		this.systemFK = systemFK;
+	public void setSystemId(UUID systemId) {
+		this.systemId = systemId;
 	}
 
 	public void setCaseId(UUID caseId) {
 		this.caseId = caseId;
 	}
 
-	public void setCreator(UUID creator) {
-		this.creator = creator;
+	public void setCreatorId(UUID creatorId) {
+		this.creatorId = creatorId;
 	}
 
 	public void setFileBin(byte[] fileBin) {

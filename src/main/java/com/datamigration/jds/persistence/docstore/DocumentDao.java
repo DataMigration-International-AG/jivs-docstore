@@ -48,17 +48,17 @@ public class DocumentDao implements IDocumentDao {
 			preparedStatement.setBytes(1, documentDTO.fileBin());
 			preparedStatement.setString(2, documentDTO.fileName());
 			preparedStatement.setString(3, documentDTO.documenType());
-			preparedStatement.setObject(4, documentDTO.creator());
+			preparedStatement.setObject(4, documentDTO.creatorId());
 			preparedStatement.setObject(5, documentDTO.created());
-			preparedStatement.setObject(6, documentDTO.customerFK());
-			preparedStatement.setObject(7, documentDTO.systemFk());
+			preparedStatement.setObject(6, documentDTO.customerId());
+			preparedStatement.setObject(7, documentDTO.systemId());
 			preparedStatement.setObject(8, documentDTO.caseId());
 			preparedStatement.setBoolean(9, documentDTO.deleted());
 			try (ResultSet rs = preparedStatement.executeQuery()) {
 				if (rs.next()) {
 					UUID id = UUID.fromString(rs.getString(1));
 					result = new DocumentDTO(id, documentDTO.fileBin(), documentDTO.fileName(), documentDTO.documenType(),
-						documentDTO.creator(), documentDTO.created(), documentDTO.customerFK(), documentDTO.systemFk(),
+						documentDTO.creatorId(), documentDTO.created(), documentDTO.customerId(), documentDTO.systemId(),
 						documentDTO.caseId(), documentDTO.params(), documentDTO.deleted());
 				} else {
 					throw new JPEPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
@@ -263,9 +263,9 @@ public class DocumentDao implements IDocumentDao {
 //			preparedStatement.setBytes(1, documentDTO.fileBin());
 //			preparedStatement.setString(2, documentDTO.fileName());
 //			preparedStatement.setString(3, documentDTO.documenType());
-//			preparedStatement.setObject(4, documentDTO.creator());
-//			preparedStatement.setObject(5, documentDTO.customerFK());
-//			preparedStatement.setObject(6, documentDTO.systemFk());
+//			preparedStatement.setObject(4, documentDTO.creatorId());
+//			preparedStatement.setObject(5, documentDTO.customerId());
+//			preparedStatement.setObject(6, documentDTO.systemId());
 //			preparedStatement.setObject(7, documentDTO.caseId());
 //			preparedStatement.setBoolean(8, documentDTO.deleted());
 //			preparedStatement.executeUpdate();

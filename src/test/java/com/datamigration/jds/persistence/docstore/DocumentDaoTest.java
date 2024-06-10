@@ -73,7 +73,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 				Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
 				Assertions.assertEquals(insertedDocumentDTO.fileName(), fileName);
-				Assertions.assertEquals(insertedDocumentDTO.creator(), creator);
+				Assertions.assertEquals(insertedDocumentDTO.creatorId(), creator);
 				Assertions.assertFalse(deleted);
 			}
 		}
@@ -99,7 +99,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 				Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
 				Assertions.assertEquals(insertedDocumentDTO.fileName(), fileName);
-				Assertions.assertEquals(insertedDocumentDTO.creator(), creator);
+				Assertions.assertEquals(insertedDocumentDTO.creatorId(), creator);
 				Assertions.assertFalse(deleted);
 			}
 		}
@@ -143,7 +143,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 				Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
 				Assertions.assertEquals(insertedDocumentDTO.fileName(), fileName);
-				Assertions.assertEquals(insertedDocumentDTO.creator(), creator);
+				Assertions.assertEquals(insertedDocumentDTO.creatorId(), creator);
 				Assertions.assertEquals(insertedDocumentDTO.deleted(), deleted);
 			}
 		}

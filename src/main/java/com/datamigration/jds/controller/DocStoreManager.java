@@ -79,8 +79,8 @@ public class DocStoreManager {
 	}
 
 	/**
-	 * Gets the documents for the provided creator id
-	 * @param id the creator id of the document
+	 * Gets the documents for the provided creatorId id
+	 * @param id the creatorId id of the document
 	 * @return List of DocumentDTOs
 	 * @throws JPEPersistenceException if there is an error while establishing the database connection
 	 * */

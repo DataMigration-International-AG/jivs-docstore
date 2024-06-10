@@ -7,7 +7,7 @@ public class DTOUtil {
 
 	public static DocumentDTO toDocumentDTO(JivsDocument docStore) {
 		return new DocumentDTO(docStore.getId(), docStore.getFileBin(), docStore.getFilename(), docStore.getDocumentType(),
-			docStore.getCreator(), docStore.getCreated(), docStore.getCustomerFK(), docStore.getSystemFK(),
+			docStore.getCreatorId(), docStore.getCreated(), docStore.getCustomerId(), docStore.getSystemId(),
 			docStore.getCaseId(), docStore.getParams(), docStore.isDeleted());
 	}
 }
