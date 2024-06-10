@@ -2,6 +2,11 @@ package com.datamigration.jds.util;
 
 public interface ITestSQLs {
 
+	String SELECT_JDS_SCHEMA = """
+			SELECT 1 FROM sys.schemas WHERE name = 'jds'
+		""";
+
+
 	String TRUNCATE_DB = """
 		IF EXISTS (SELECT 1 FROM sys.tables WHERE name = 'JIVS-DOCSTORE')
 			DELETE FROM [jds].[JIVS-DOCSTORE];
