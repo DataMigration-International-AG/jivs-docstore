@@ -236,8 +236,8 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getAllAsList() throws JDSPersistenceException {
-		Optional<List<DocumentDTO>> result;
+	public List<DocumentDTO> getAllAsList() throws JDSPersistenceException {
+		List<DocumentDTO> result = new ArrayList<>();
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_ALL_DOCUMENTS_SQL)) {
 			try (ResultSet rs = preparedStatement.executeQuery()) {

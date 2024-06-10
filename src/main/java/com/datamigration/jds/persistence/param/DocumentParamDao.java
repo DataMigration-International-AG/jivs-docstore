@@ -35,7 +35,7 @@ public class DocumentParamDao implements IDocumentParamDao {
 	}
 
 	@Override
-	public Optional<List<JivsDocumentParam>> getAllAsList() throws JDSPersistenceException {
+	public List<JivsDocumentParam> getAllAsList() throws JDSPersistenceException {
 		throw new JDSPersistenceException(ErrorCode.NOT_IMPLEMENTED);
 	}
 

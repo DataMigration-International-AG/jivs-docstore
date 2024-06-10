@@ -20,7 +20,7 @@ public interface IDao<T, U> {
 	 * @return a list of all entities
 	 * @throws JDSPersistenceException if an error occurs during fetch
 	 */
-	Optional<List<T>> getAllAsList() throws JDSPersistenceException;
+	List<T> getAllAsList() throws JDSPersistenceException;
 
 	/**
 	 * Insert the given entity into the database. Returns an entity with an id on success and throws an exception if an
