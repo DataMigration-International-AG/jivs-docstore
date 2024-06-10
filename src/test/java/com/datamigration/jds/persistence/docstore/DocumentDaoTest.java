@@ -1,7 +1,7 @@
 package com.datamigration.jds.persistence.docstore;
 
-import com.datamigration.jds.model.docstore.JivsDocument;
-import com.datamigration.jds.model.docstoreparam.JivsDocumentParam;
+import com.datamigration.jds.model.entity.docstore.JivsDocument;
+import com.datamigration.jds.model.entity.docstoreparam.JivsDocumentParam;
 import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.persistence.DatabaseManager;
 import com.datamigration.jds.persistence.param.DocumentParamDao;

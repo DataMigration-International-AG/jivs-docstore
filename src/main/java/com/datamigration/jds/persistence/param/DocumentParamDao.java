@@ -2,7 +2,7 @@ package com.datamigration.jds.persistence.param;
 
 import static com.datamigration.jds.persistence.DatabaseManager.connect;
 
-import com.datamigration.jds.model.docstoreparam.JivsDocumentParam;
+import com.datamigration.jds.model.entity.docstoreparam.JivsDocumentParam;
 import com.datamigration.jds.util.exceptions.ErrorCode;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.sql.Connection;

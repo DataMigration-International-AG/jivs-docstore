@@ -6,8 +6,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.datamigration.jds.model.docstore.JivsDocument;
-import com.datamigration.jds.model.docstoreparam.JivsDocumentParam;
+import com.datamigration.jds.model.entity.docstore.JivsDocument;
+import com.datamigration.jds.model.entity.docstoreparam.JivsDocumentParam;
 import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.persistence.docstore.DocumentDao;
 import com.datamigration.jds.persistence.docstore.IDocumentDao;

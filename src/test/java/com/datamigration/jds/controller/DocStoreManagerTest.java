@@ -2,7 +2,7 @@ package com.datamigration.jds.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.datamigration.jds.model.docstore.JivsDocument;
+import com.datamigration.jds.model.entity.docstore.JivsDocument;
 import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.persistence.docstore.DocumentDao;
 import com.datamigration.jds.persistence.param.DocumentParamDao;

@@ -1,6 +1,6 @@
 package com.datamigration.jds.persistence.param;
 
-import com.datamigration.jds.model.docstoreparam.JivsDocumentParam;
+import com.datamigration.jds.model.entity.docstoreparam.JivsDocumentParam;
 import com.datamigration.jds.persistence.IDao;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.datamigration.jds.model.docstore;
+package com.datamigration.jds.model.entity.docstore;
 
 import java.time.LocalDateTime;
 import java.util.Map;

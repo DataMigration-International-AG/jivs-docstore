@@ -1,6 +1,6 @@
 package com.datamigration.jds.util;
 
-import com.datamigration.jds.model.docstore.JivsDocument;
+import com.datamigration.jds.model.entity.docstore.JivsDocument;
 import com.datamigration.jds.model.dto.DocumentDTO;
 
 public class DTOUtil {

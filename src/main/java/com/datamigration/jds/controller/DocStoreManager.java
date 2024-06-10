@@ -1,6 +1,6 @@
 package com.datamigration.jds.controller;
 
-import com.datamigration.jds.model.docstore.JivsDocument;
+import com.datamigration.jds.model.entity.docstore.JivsDocument;
 import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.service.DocumentService;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;

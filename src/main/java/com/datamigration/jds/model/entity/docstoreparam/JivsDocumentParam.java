@@ -1,4 +1,4 @@
-package com.datamigration.jds.model.docstoreparam;
+package com.datamigration.jds.model.entity.docstoreparam;
 
 import java.util.Map;
 import java.util.UUID;
