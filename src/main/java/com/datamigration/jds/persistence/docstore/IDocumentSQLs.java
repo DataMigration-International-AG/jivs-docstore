@@ -54,7 +54,7 @@ public interface IDocumentSQLs {
 	String SELECT_DOCUMENT_BY_DOCUMENT_TYPE_SQL = """
 			SELECT *
 			FROM [jds].[JIVS-DOCSTORE]
-			WHERE [DOCUMENT_TYPE] = ?
+			WHERE [DOCUMENT-TYPE] = ?
 			AND DELETED = 0
 		""";
 
@@ -75,21 +75,21 @@ public interface IDocumentSQLs {
 	String SELECT_DOCUMENT_BY_CUSTOMER_FK_SQL = """
 			SELECT *
 			FROM [jds].[JIVS-DOCSTORE]
-			WHERE [CUSTOMER_FK] = ?
+			WHERE [CUSTOMER-FK] = ?
 			AND DELETED = 0
 		""";
 
 	String SELECT_DOCUMENT_BY_SYSTEM_FK_SQL = """
 			SELECT *
 			FROM [jds].[JIVS-DOCSTORE]
-			WHERE [SYSTEM_FKv = ?
+			WHERE [SYSTEM-FK] = ?
 			AND DELETED = 0
 		""";
 
 	String SELECT_DOCUMENT_BY_CASE_ID_SQL = """
 			SELECT *
 			FROM [jds].[JIVS-DOCSTORE]
-			WHERE [CASE_ID] = ?
+			WHERE [CASE-ID] = ?
 			AND DELETED = 0
 		""";
 

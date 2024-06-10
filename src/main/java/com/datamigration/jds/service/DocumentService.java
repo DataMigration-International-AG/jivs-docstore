@@ -30,7 +30,7 @@ public class DocumentService {
 		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(document);
 		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
 
-		if (!document.getParams().isEmpty()) {
+		if (document.getParams() != null && !document.getParams().isEmpty()) {
 			JivsDocumentParam jivsDocumentParams = new JivsDocumentParam(insertedDocumentDTO.id(), document.getParams());
 			documentParamDao.insert(jivsDocumentParams);
 		}
