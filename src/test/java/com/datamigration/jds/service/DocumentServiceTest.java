@@ -14,7 +14,7 @@ import com.datamigration.jds.persistence.docstore.IDocumentDao;
 import com.datamigration.jds.persistence.param.DocumentParamDao;
 import com.datamigration.jds.persistence.param.IDocumentParamDao;
 import com.datamigration.jds.util.DTOUtil;
-import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ class DocumentServiceTest {
 	private final DocumentService documentService = new DocumentService(documentDao, documentParamDao);
 
 	@Test
-	void testInsert() throws JPEPersistenceException {
+	void testInsert() throws JDSPersistenceException {
 		Map<String, String> params = new HashMap<>();
 		params.put("paramKey1", "paramValue1");
 		params.put("paramKey2", "paramValue2");
@@ -55,7 +55,7 @@ class DocumentServiceTest {
 	}
 
 	@Test
-	void testGetById() throws JPEPersistenceException {
+	void testGetById() throws JDSPersistenceException {
 		UUID id = UUID.randomUUID();
 		DocumentDTO documentDTO = new DocumentDTO(id, "Document".getBytes(StandardCharsets.UTF_8),
 			"Document", "JivsDocument", UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
@@ -71,7 +71,7 @@ class DocumentServiceTest {
 	}
 
 	@Test
-	void testGetByFileName() throws JPEPersistenceException {
+	void testGetByFileName() throws JDSPersistenceException {
 		String fileName = "Document1";
 		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
 			fileName, "JivsDocument", UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
@@ -87,7 +87,7 @@ class DocumentServiceTest {
 	}
 
 	@Test
-	void testGetByDocumentType() throws JPEPersistenceException {
+	void testGetByDocumentType() throws JDSPersistenceException {
 		String documentType = "JivsDocument";
 		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
 			"Document", documentType, UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
@@ -107,7 +107,7 @@ class DocumentServiceTest {
 	}
 
 	@Test
-	void testGetByCreator() throws JPEPersistenceException {
+	void testGetByCreator() throws JDSPersistenceException {
 		UUID creatorId = UUID.randomUUID();
 		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
 			"Document", "documentType", creatorId, LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
@@ -127,7 +127,7 @@ class DocumentServiceTest {
 	}
 
 	@Test
-	void testGetByCreatedAt() throws JPEPersistenceException {
+	void testGetByCreatedAt() throws JDSPersistenceException {
 		LocalDateTime createdAt = LocalDateTime.now();
 		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
 			"Document", "documentType", UUID.randomUUID(), createdAt, UUID.randomUUID(), UUID.randomUUID(),
@@ -147,7 +147,7 @@ class DocumentServiceTest {
 	}
 
 	@Test
-	void testGetByCustomerId() throws JPEPersistenceException {
+	void testGetByCustomerId() throws JDSPersistenceException {
 		UUID customerId = UUID.randomUUID();
 		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
 			"Document", "documentType", UUID.randomUUID(), LocalDateTime.now(), customerId, UUID.randomUUID(),
@@ -167,7 +167,7 @@ class DocumentServiceTest {
 	}
 
 	@Test
-	void testGetBySystemId() throws JPEPersistenceException {
+	void testGetBySystemId() throws JDSPersistenceException {
 		UUID systemId = UUID.randomUUID();
 		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
 			"Document", "documentType", UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), systemId,
@@ -187,7 +187,7 @@ class DocumentServiceTest {
 	}
 
 	@Test
-	void testGetByCaseId() throws JPEPersistenceException {
+	void testGetByCaseId() throws JDSPersistenceException {
 		UUID caseId = UUID.randomUUID();
 		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
 			"Document", "documentType", UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
@@ -207,7 +207,7 @@ class DocumentServiceTest {
 	}
 
 	@Test
-	void testGetAllAsList() throws JPEPersistenceException {
+	void testGetAllAsList() throws JDSPersistenceException {
 		DocumentDTO documentDTO = new DocumentDTO(UUID.randomUUID(), "Document".getBytes(StandardCharsets.UTF_8),
 			"Document", "JivsDocument", UUID.randomUUID(), LocalDateTime.now(), UUID.randomUUID(), UUID.randomUUID(),
 			UUID.randomUUID(), null, false);
@@ -226,14 +226,14 @@ class DocumentServiceTest {
 	}
 
 	@Test
-	void testDelete() throws JPEPersistenceException {
+	void testDelete() throws JDSPersistenceException {
 		UUID id = UUID.randomUUID();
 		documentService.delete(id);
 		verify(documentDao, times(1)).updateDeleteFlag(any(UUID.class));
 	}
 
 	@Test
-	void testGetParams() throws JPEPersistenceException {
+	void testGetParams() throws JDSPersistenceException {
 		UUID id = UUID.randomUUID();
 		Map<String, String> params = new HashMap<>();
 		params.put("paramKey1", "paramValue1");
@@ -252,7 +252,7 @@ class DocumentServiceTest {
 	}
 
 	@Test
-	void updateParams() throws JPEPersistenceException {
+	void updateParams() throws JDSPersistenceException {
 		UUID id = UUID.randomUUID();
 		Map<String, String> params = new HashMap<>();
 		params.put("paramKey1", "paramValue1");

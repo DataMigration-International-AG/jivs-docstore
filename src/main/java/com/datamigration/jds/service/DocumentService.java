@@ -6,7 +6,7 @@ import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.persistence.docstore.IDocumentDao;
 import com.datamigration.jds.persistence.param.IDocumentParamDao;
 import com.datamigration.jds.util.DTOUtil;
-import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -32,9 +32,9 @@ public class DocumentService {
 	 *
 	 * @param document the document
 	 * @return the document
-	 * @throws JPEPersistenceException if an error occurs during persisting
+	 * @throws JDSPersistenceException if an error occurs during persisting
 	 */
-	public DocumentDTO insert(JivsDocument document) throws JPEPersistenceException {
+	public DocumentDTO insert(JivsDocument document) throws JDSPersistenceException {
 		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(document);
 		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
 
@@ -52,9 +52,9 @@ public class DocumentService {
 	 *
 	 * @param id the id of the document
 	 * @return the document
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<DocumentDTO> getById(UUID id) throws JPEPersistenceException {
+	public Optional<DocumentDTO> getById(UUID id) throws JDSPersistenceException {
 		Optional<DocumentDTO> documentDTO = documentDao.getById(id);
 		return documentDTO;
 	}
@@ -64,9 +64,9 @@ public class DocumentService {
 	 *
 	 * @param fileName the id of the document
 	 * @return the document
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<DocumentDTO> getByFileName(String fileName) throws JPEPersistenceException {
+	public Optional<DocumentDTO> getByFileName(String fileName) throws JDSPersistenceException {
 		Optional<DocumentDTO> documentDTO = documentDao.getByFileName(fileName);
 		return documentDTO;
 	}
@@ -76,9 +76,9 @@ public class DocumentService {
 	 *
 	 * @param documentType the type of the document
 	 * @return an optional list of documents
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getByDocumentType(String documentType) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getByDocumentType(String documentType) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByDocumentType(documentType);
 		return documentDTOs;
 	}
@@ -88,9 +88,9 @@ public class DocumentService {
 	 *
 	 * @param id the creator id of the document
 	 * @return an optional list of documents
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getByCreator(UUID id) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getByCreator(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCreator(id);
 		return documentDTOs;
 	}
@@ -100,9 +100,9 @@ public class DocumentService {
 	 *
 	 * @param dateTime the date of the document
 	 * @return  an optional list of documents
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getByCreatedAt(LocalDateTime dateTime) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCreatedAt(dateTime);
 		return documentDTOs;
 	}
@@ -112,9 +112,9 @@ public class DocumentService {
 	 *
 	 * @param id the customer id of the document
 	 * @return an optional list of documents
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getByCustomerId(UUID id) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getByCustomerId(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCustomerId(id);
 		return documentDTOs;
 	}
@@ -124,9 +124,9 @@ public class DocumentService {
 	 *
 	 * @param id the system id of the document
 	 * @return an optional list of documents
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getBySystemId(UUID id) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getBySystemId(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentDao.getBySystemId(id);
 		return documentDTOs;
 	}
@@ -136,9 +136,9 @@ public class DocumentService {
 	 *
 	 * @param id the case id of the document
 	 * @return an optional list of documents
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getByCaseId(UUID id) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getByCaseId(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentDao.getByCaseId(id);
 		return documentDTOs;
 	}
@@ -147,9 +147,9 @@ public class DocumentService {
 	 * Gets an optional list of all documents.
 	 *
 	 * @return an optional list of documents
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<List<DocumentDTO>> getAllAsList() throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getAllAsList() throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentDao.getAllAsList();
 		return documentDTOs;
 	}
@@ -159,9 +159,9 @@ public class DocumentService {
 	 *
 	 * @param id the id of the document
 	 * @return the boolean
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public boolean delete(UUID id) throws JPEPersistenceException {
+	public boolean delete(UUID id) throws JDSPersistenceException {
 		boolean deleted = documentDao.updateDeleteFlag(id);
 		return deleted;
 	}
@@ -171,9 +171,9 @@ public class DocumentService {
 	 *
 	 * @param id the id of the document
 	 * @return the param map
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<Map<String, String>> getParams(UUID id) throws JPEPersistenceException {
+	public Optional<Map<String, String>> getParams(UUID id) throws JDSPersistenceException {
 		Optional<Map<String, String>> params = documentParamDao.getParams(id);
 		return params;
 	}
@@ -183,9 +183,9 @@ public class DocumentService {
 	 *
 	 * @param id the id of the document
 	 * @param params the params of the document
-	 * @throws JPEPersistenceException if an error occurs during the get
+	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public void updateParams(UUID id, Map<String, String> params) throws JPEPersistenceException {
+	public void updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException {
 		documentParamDao.updateParams(id, params);
 	}
 }

@@ -3,9 +3,8 @@ package com.datamigration.jds.persistence.param;
 import static com.datamigration.jds.persistence.DatabaseManager.connect;
 
 import com.datamigration.jds.model.docstoreparam.JivsDocumentParam;
-import com.datamigration.jds.persistence.docstore.IDocumentSQLs;
 import com.datamigration.jds.util.exceptions.ErrorCode;
-import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,27 +20,27 @@ import java.util.UUID;
 public class DocumentParamDao implements IDocumentParamDao {
 
 	@Override
-	public void createTables() throws JPEPersistenceException {
+	public void createTables() throws JDSPersistenceException {
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentParamSQLs.CREATE_DOCUMENT_PARAMS_TABLE_SQL)) {
 			preparedStatement.execute();
 		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_CREATE_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_CREATE_ERROR);
 		}
 	}
 
 	@Override
-	public Optional<JivsDocumentParam> getById(UUID id) throws JPEPersistenceException {
+	public Optional<JivsDocumentParam> getById(UUID id) throws JDSPersistenceException {
 		return Optional.empty();
 	}
 
 	@Override
-	public Optional<List<JivsDocumentParam>> getAllAsList() throws JPEPersistenceException {
+	public Optional<List<JivsDocumentParam>> getAllAsList() throws JDSPersistenceException {
 		return Optional.empty();
 	}
 
 	@Override
-	public JivsDocumentParam insert(JivsDocumentParam jivsDocumentParam) throws JPEPersistenceException {
+	public JivsDocumentParam insert(JivsDocumentParam jivsDocumentParam) throws JDSPersistenceException {
 		JivsDocumentParam insertedJivsDocumentParam = null;
 		Map<String, String> resultMap = new HashMap<>();
 
@@ -58,14 +57,14 @@ public class DocumentParamDao implements IDocumentParamDao {
 						resultMap.put(entry.getKey(), entry.getValue());
 
 					} else {
-						throw new JPEPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
+						throw new JDSPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
 					}
 				} catch (SQLException e) {
-					throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+					throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 				}
 
 			} catch (SQLException e) {
-				throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+				throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 			}
 		}
 
@@ -77,13 +76,13 @@ public class DocumentParamDao implements IDocumentParamDao {
 	}
 
 	@Override
-	public void update(JivsDocumentParam jivsDocumentParam) throws JPEPersistenceException {
+	public void update(JivsDocumentParam jivsDocumentParam) throws JDSPersistenceException {
 
 	}
 
 
 	@Override
-	public void updateParams(UUID id, Map<String, String> params) throws JPEPersistenceException {
+	public void updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException {
 		deleteByDocumentId(id);
 
 		for (Entry<String, String> entry : params.entrySet()) {
@@ -95,14 +94,14 @@ public class DocumentParamDao implements IDocumentParamDao {
 				preparedStatement.setString(3, entry.getValue());
 				preparedStatement.executeQuery();
 			} catch (SQLException e) {
-				throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+				throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 			}
 		}
 
 	}
 
 	@Override
-	public Optional<Map<String, String>> getParams(UUID id) throws JPEPersistenceException {
+	public Optional<Map<String, String>> getParams(UUID id) throws JDSPersistenceException {
 		Optional<Map<String, String>> params;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentParamSQLs.SELECT_DOCUMENT_PARAMS_BY_ID)) {
@@ -117,12 +116,12 @@ public class DocumentParamDao implements IDocumentParamDao {
 				params = Optional.of(result);
 			}
 		} catch (Exception e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return params;
 	}
 
-	private void deleteByDocumentId(UUID id) throws JPEPersistenceException {
+	private void deleteByDocumentId(UUID id) throws JDSPersistenceException {
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentParamSQLs.DELETE_BY_DOCUMENT_ID_SQL)) {
 
@@ -130,7 +129,7 @@ public class DocumentParamDao implements IDocumentParamDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 		}
 	}
 }

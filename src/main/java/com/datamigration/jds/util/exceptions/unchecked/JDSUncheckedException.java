@@ -1,34 +1,31 @@
-package com.datamigration.jds.util.exceptions.checked;
+package com.datamigration.jds.util.exceptions.unchecked;
 
 import com.datamigration.jds.util.exceptions.ErrorCode;
 import java.io.Serial;
 
-/**
- * This is the libraries base exception holding the ErrorrCode handling.
- */
-public abstract class JPEException extends Exception {
+public abstract class JDSUncheckedException extends RuntimeException {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private final ErrorCode code;
 
-	public JPEException(ErrorCode code) {
+	public JDSUncheckedException(ErrorCode code) {
 		super(code.getMessage());
 		this.code = code;
 	}
 
-	public JPEException(String message, Throwable cause, ErrorCode code) {
+	public JDSUncheckedException(String message, Throwable cause, ErrorCode code) {
 		super(code.getMessage(message), cause);
 		this.code = code;
 	}
 
-	public JPEException(String message, ErrorCode code) {
+	public JDSUncheckedException(String message, ErrorCode code) {
 		super(code.getMessage(message));
 		this.code = code;
 	}
 
-	public JPEException(Throwable cause, ErrorCode code) {
+	public JDSUncheckedException(Throwable cause, ErrorCode code) {
 		super(code.getMessage(), cause);
 		this.code = code;
 	}
@@ -36,4 +33,5 @@ public abstract class JPEException extends Exception {
 	public ErrorCode getCode() {
 		return this.code;
 	}
+
 }

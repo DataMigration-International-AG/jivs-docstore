@@ -3,7 +3,7 @@ package com.datamigration.jds.controller;
 import com.datamigration.jds.model.docstore.JivsDocument;
 import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.service.DocumentService;
-import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class DocStoreManager {
 		this.documentService = documentService;
 	}
 
-	public DocumentDTO create(JivsDocument jivsDocument) throws JPEPersistenceException {
+	public DocumentDTO create(JivsDocument jivsDocument) throws JDSPersistenceException {
 		DocumentDTO documentDTO = documentService.insert(jivsDocument);
 		return documentDTO;
 	}
@@ -35,9 +35,9 @@ public class DocStoreManager {
 	 * Gets the document by the given id
 	 * @param id the id of the document
 	 * @return DocumentDTO
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public DocumentDTO getById(UUID id) throws JPEPersistenceException {
+	public DocumentDTO getById(UUID id) throws JDSPersistenceException {
 		Optional<DocumentDTO> documentDTO = documentService.getById(id);
 
 		if (documentDTO.isEmpty()) {
@@ -53,9 +53,9 @@ public class DocStoreManager {
 	 * Gets the document by the given filename
 	 * @param fileName the fileName of the document
 	 * @return DocumentDTO
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public DocumentDTO getByFileName(String fileName) throws JPEPersistenceException {
+	public DocumentDTO getByFileName(String fileName) throws JDSPersistenceException {
 		Optional<DocumentDTO> documentDTO = documentService.getByFileName(fileName);
 
 		if (documentDTO.isEmpty()) {
@@ -71,9 +71,9 @@ public class DocStoreManager {
 	 * Gets the documents for the provided document type
 	 * @param documentType the type of the document
 	 * @return List of DocumentDTOs
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getByDocumentType(String documentType) throws JPEPersistenceException {
+	public List<DocumentDTO> getByDocumentType(String documentType) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getByDocumentType(documentType);
 		return getParamsForList(documentDTOs);
 	}
@@ -82,9 +82,9 @@ public class DocStoreManager {
 	 * Gets the documents for the provided creatorId id
 	 * @param id the creatorId id of the document
 	 * @return List of DocumentDTOs
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getByCreator(UUID id) throws JPEPersistenceException {
+	public List<DocumentDTO> getByCreator(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCreator(id);
 		return getParamsForList(documentDTOs);
 	}
@@ -93,9 +93,9 @@ public class DocStoreManager {
 	 * Gets the documents which were created on the same day as the given date
 	 * @param date the date which to filter on
 	 * @return List of DocumentDTOs
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getByCreatedAt(LocalDate date) throws JPEPersistenceException {
+	public List<DocumentDTO> getByCreatedAt(LocalDate date) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCreatedAt(date.atStartOfDay());
 		return getParamsForList(documentDTOs);
 	}
@@ -104,9 +104,9 @@ public class DocStoreManager {
 	 * Gets the documents for the provided customer id
 	 * @param id the customer id of the document
 	 * @return List of DocumentDTOs
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getByCustomerId(UUID id) throws JPEPersistenceException {
+	public List<DocumentDTO> getByCustomerId(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCustomerId(id);
 		return getParamsForList(documentDTOs);
 	}
@@ -115,9 +115,9 @@ public class DocStoreManager {
 	 * Gets the documents for the provided system id
 	 * @param id the system id of the document
 	 * @return List of DocumentDTOs
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getBySystemId(UUID id) throws JPEPersistenceException {
+	public List<DocumentDTO> getBySystemId(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getBySystemId(id);
 		return getParamsForList(documentDTOs);
 	}
@@ -126,9 +126,9 @@ public class DocStoreManager {
 	 * Gets the document for the provided case id
 	 * @param id the case id of the document
 	 * @return List of DocumentDTOs
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getByCaseId(UUID id) throws JPEPersistenceException {
+	public List<DocumentDTO> getByCaseId(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getByCaseId(id);
 		return getParamsForList(documentDTOs);
 	}
@@ -136,9 +136,9 @@ public class DocStoreManager {
 	/**
 	 * Gets all documents
 	 * @return List of DocumentDTOs
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<DocumentDTO> getAllAsList() throws JPEPersistenceException {
+	public List<DocumentDTO> getAllAsList() throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> documentDTOs = documentService.getAllAsList();
 		return getParamsForList(documentDTOs);
 	}
@@ -147,18 +147,18 @@ public class DocStoreManager {
 	 * Updates the documents params
 	 * @param id the id of the document
 	 * @param params the params map of the document
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public void updateParams(UUID id, Map<String, String> params) throws JPEPersistenceException {
+	public void updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException {
 		documentService.updateParams(id, params);
 	}
 
 	/**
 	 * Does not delete the document immediately. It sets the delete flag for the given document
 	 * @param id the id of the document
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public boolean delete(UUID id) throws JPEPersistenceException {
+	public boolean delete(UUID id) throws JDSPersistenceException {
 		boolean deleted = documentService.delete(id);
 
 		if (!deleted) {
@@ -169,7 +169,7 @@ public class DocStoreManager {
 	}
 
 	private List<DocumentDTO> getParamsForList(Optional<List<DocumentDTO>> documentDTOs)
-		throws JPEPersistenceException {
+		throws JDSPersistenceException {
 		List<DocumentDTO> documentDTOList = new ArrayList<>();
 		if (documentDTOs.isPresent()) {
 			for (DocumentDTO documentDTO : documentDTOs.get()) {
@@ -180,7 +180,7 @@ public class DocStoreManager {
 		return documentDTOList;
 	}
 
-	private DocumentDTO getDocumentParams(DocumentDTO documentDTO) throws JPEPersistenceException {
+	private DocumentDTO getDocumentParams(DocumentDTO documentDTO) throws JDSPersistenceException {
 		Optional<Map<String, String>> result = documentService.getParams(documentDTO.id());
 		result.ifPresent(map -> documentDTO.params().putAll(map));
 		return documentDTO;

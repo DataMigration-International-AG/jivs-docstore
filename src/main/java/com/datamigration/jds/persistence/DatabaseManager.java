@@ -9,7 +9,7 @@ import com.datamigration.jds.persistence.param.DocumentParamDao;
 import com.datamigration.jds.persistence.param.IDocumentParamDao;
 import com.datamigration.jds.util.DatabaseConfig;
 import com.datamigration.jds.util.exceptions.ErrorCode;
-import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -48,9 +48,9 @@ public class DatabaseManager {
 	 * This function establishes a connection to the database using the provided database configuration.
 	 *
 	 * @return Connection object representing the established database connection
-	 * @throws JPEPersistenceException if there is an error while establishing the database connection
+	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 */
-	public static Connection connect() throws JPEPersistenceException {
+	public static Connection connect() throws JDSPersistenceException {
 		Connection result;
 		try {
 			if (databaseConfig.getDbUrl() != null && databaseConfig.getDbUsername() != null
@@ -61,10 +61,10 @@ public class DatabaseManager {
 			} else {
 				logger.error("{} : dbUrl={}, dbUser={}, pwdWasSet={}", ErrorCode.DB_CONFIG_ERROR.getTitle(),
 					databaseConfig.getDbUrl(), databaseConfig.getDbUsername(), databaseConfig.getDbPassword() != null);
-				throw new JPEPersistenceException(ErrorCode.DB_CONFIG_ERROR);
+				throw new JDSPersistenceException(ErrorCode.DB_CONFIG_ERROR);
 			}
 		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_CONNECT_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_CONNECT_ERROR);
 		}
 		return result;
 	}
@@ -72,18 +72,18 @@ public class DatabaseManager {
 	/**
 	 * Creates the JDS schema by delegating the call to the dbDao object.
 	 *
-	 * @throws JPEPersistenceException if there is an error during the creation of the JPE schema
+	 * @throws JDSPersistenceException if there is an error during the creation of the JPE schema
 	 */
-	public void createJDSSchema() throws JPEPersistenceException {
+	public void createJDSSchema() throws JDSPersistenceException {
 		dbDao.createJDSSchema();
 	}
 
 	/**
 	 * createTables - A method to create tables in the database.
 	 *
-	 * @throws JPEPersistenceException exception thrown if there is an issue with persistence
+	 * @throws JDSPersistenceException exception thrown if there is an issue with persistence
 	 */
-	public void createTables() throws JPEPersistenceException {
+	public void createTables() throws JDSPersistenceException {
 		documentDao.createTables();
 		documentParamDao.createTables();
 		logger.debug("Tables created");

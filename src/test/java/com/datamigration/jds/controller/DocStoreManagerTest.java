@@ -8,7 +8,7 @@ import com.datamigration.jds.persistence.docstore.DocumentDao;
 import com.datamigration.jds.persistence.param.DocumentParamDao;
 import com.datamigration.jds.service.DocumentService;
 import com.datamigration.jds.util.BaseSingletonTest;
-import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -42,7 +42,7 @@ class DocStoreManagerTest extends BaseSingletonTest {
 		truncateDb();
 	}
 
-	private DocumentDTO createAndInsertDocument() throws JPEPersistenceException {
+	private DocumentDTO createAndInsertDocument() throws JDSPersistenceException {
 		JivsDocument jivsDocument = createDocument();
 		DocumentDTO createdDocument = docStoreManager.create(jivsDocument);
 		assertNotNull(createdDocument);
@@ -51,14 +51,14 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	}
 
 	@Test
-	void testCreateDocument() throws JPEPersistenceException {
+	void testCreateDocument() throws JDSPersistenceException {
 		DocumentDTO createdDocument = createAndInsertDocument();
 		assertNotNull(createdDocument);
 		assertNotNull(createdDocument.id());
 	}
 
 	@Test
-	void testGetById() throws JPEPersistenceException {
+	void testGetById() throws JDSPersistenceException {
 		DocumentDTO createdDocument = createAndInsertDocument();
 		DocumentDTO dbDocument =  docStoreManager.getById(createdDocument.id());
 		assertNotNull(dbDocument);
@@ -66,7 +66,7 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	}
 
 	@Test
-	void testGetByFileName() throws JPEPersistenceException {
+	void testGetByFileName() throws JDSPersistenceException {
 		DocumentDTO createdDocument = createAndInsertDocument();
 		DocumentDTO dbDocument =  docStoreManager.getByFileName("Document1");
 		assertNotNull(dbDocument);
@@ -74,20 +74,20 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	}
 
 	@Test
-	void testGetByDocumentType() throws JPEPersistenceException {
+	void testGetByDocumentType() throws JDSPersistenceException {
 		createAndInsertDocument();
 		List<DocumentDTO> dbDocument =  docStoreManager.getByDocumentType("JIVSDOCUMENT");
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
-	void testGetByDocumentTypeNotFound() throws JPEPersistenceException {
+	void testGetByDocumentTypeNotFound() throws JDSPersistenceException {
 		List<DocumentDTO> dbDocument =  docStoreManager.getByDocumentType("some_kind_of_non_existent_document_type");
 		assertEquals(0, dbDocument.size());
 	}
 
 	@Test
-	void testGetByCreator() throws JPEPersistenceException {
+	void testGetByCreator() throws JDSPersistenceException {
 		DocumentDTO createdDocument = createAndInsertDocument();
 		docStoreManager.create(createDocumentWithParams());
 		List<DocumentDTO> dbDocument =  docStoreManager.getByCreator(createdDocument.creatorId());
@@ -97,35 +97,35 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	}
 
 	@Test
-	void testGetByCreatedAt() throws JPEPersistenceException {
+	void testGetByCreatedAt() throws JDSPersistenceException {
 		createAndInsertDocument();
 		List<DocumentDTO> dbDocument =  docStoreManager.getByCreatedAt(LocalDate.now());
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
-	void testGetByCustomerId() throws JPEPersistenceException {
+	void testGetByCustomerId() throws JDSPersistenceException {
 		DocumentDTO createdDocument = createAndInsertDocument();
 		List<DocumentDTO> dbDocument =  docStoreManager.getByCustomerId(createdDocument.customerId());
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
-	void testGetBySystemId() throws JPEPersistenceException {
+	void testGetBySystemId() throws JDSPersistenceException {
 		DocumentDTO createdDocument = createAndInsertDocument();
 		List<DocumentDTO> dbDocument =  docStoreManager.getBySystemId(createdDocument.systemId());
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
-	void testGetByCaseId() throws JPEPersistenceException {
+	void testGetByCaseId() throws JDSPersistenceException {
 		DocumentDTO createdDocument = createAndInsertDocument();
 		List<DocumentDTO> dbDocument =  docStoreManager.getByCaseId(createdDocument.caseId());
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
-	void testGetAllAsList() throws JPEPersistenceException {
+	void testGetAllAsList() throws JDSPersistenceException {
 		createAndInsertDocument();
 		docStoreManager.create(createDocumentWithParams());
 		List<DocumentDTO> dbDocument =  docStoreManager.getAllAsList();
@@ -133,7 +133,7 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	}
 
 	@Test
-	void testUpdateParams() throws JPEPersistenceException {
+	void testUpdateParams() throws JDSPersistenceException {
 		DocumentDTO createdDocument = docStoreManager.create(createDocumentWithParams());
 		Map<String, String> newParams = new HashMap<>();
 		newParams.put("paramKeyUpdated", "paramValueUpdated");
@@ -145,7 +145,7 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	}
 
 	@Test
-	void testDelete() throws JPEPersistenceException {
+	void testDelete() throws JDSPersistenceException {
 		DocumentDTO createdDocument = docStoreManager.create(createDocumentWithParams());
 		boolean deleteFlag = docStoreManager.delete(createdDocument.id());
 		assertTrue(deleteFlag);

@@ -9,7 +9,7 @@ import com.datamigration.jds.persistence.param.IDocumentParamDao;
 import com.datamigration.jds.util.BaseSingletonTest;
 import com.datamigration.jds.util.DTOUtil;
 import com.datamigration.jds.util.ITestSQLs;
-import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -55,7 +55,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	@Test
 	void afterInsertDocument_thereShouldBeADocument()
-		throws JPEPersistenceException, NoDriverFoundException, SQLException {
+		throws JDSPersistenceException, NoDriverFoundException, SQLException {
 
 		JivsDocument jivsDocument = createDocument();
 		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
@@ -81,7 +81,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	@Test
 	void afterInsertDocumentParams_thereShouldBeADocumentParams()
-		throws JPEPersistenceException, NoDriverFoundException, SQLException {
+		throws JDSPersistenceException, NoDriverFoundException, SQLException {
 
 		JivsDocument jivsDocument = createDocumentWithParams();
 		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
@@ -125,7 +125,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 	}
 
 	@Test
-	void afterGetByFileName_thereShouldBeTheDocumentWithTheFileName() throws JPEPersistenceException, SQLException {
+	void afterGetByFileName_thereShouldBeTheDocumentWithTheFileName() throws JDSPersistenceException, SQLException {
 		JivsDocument jivsDocument = createDocumentWithParams();
 		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
 		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
@@ -151,7 +151,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	@Test
 	void afterGetByDocumentType_thereShouldBeTheDocumentsWithTheDocumentType()
-		throws JPEPersistenceException, SQLException {
+		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
 		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
@@ -183,7 +183,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	@Test
 	void afterGetByCreator_thereShouldBeTheDocumentsOfTheCreator()
-		throws JPEPersistenceException, SQLException {
+		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
 		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
@@ -214,7 +214,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	@Test
 	void afterGetByCreatedAt_thereShouldBeTheDocumentsOfDate()
-		throws JPEPersistenceException, SQLException {
+		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
 		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
@@ -242,7 +242,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	@Test
 	void afterGetByCustomerFK_thereShouldBeTheDocumentsOfTheCustomer()
-		throws JPEPersistenceException, SQLException {
+		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
 		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
@@ -273,7 +273,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	@Test
 	void afterGetBySystemFK_thereShouldBeTheDocumentsOfTheSystem()
-		throws JPEPersistenceException, SQLException {
+		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
 		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
@@ -304,7 +304,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	@Test
 	void afterGetByCaseID_thereShouldBeTheDocumentsOfTheCase()
-		throws JPEPersistenceException, SQLException {
+		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
 		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
@@ -335,7 +335,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	@Test
 	void afterGetAllByList_thereShouldBeTheDocuments()
-	throws JPEPersistenceException, SQLException {
+	throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument1 = createDocument();
 		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
@@ -362,7 +362,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	@Test
 	void afterUpdateDocumentParams_theDatabaseDocumentParamsShouldBeUpdated()
-		throws JPEPersistenceException, SQLException {
+		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument = createDocumentWithParams();
 		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
@@ -395,7 +395,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	@Test
 	void afterSoftDelete_theDatabaseDeleteFlagShouldBeTrue()
-		throws JPEPersistenceException, SQLException {
+		throws JDSPersistenceException, SQLException {
 
 		JivsDocument jivsDocument = createDocument();
 		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);

@@ -2,8 +2,8 @@ package com.datamigration.jds;
 
 import com.datamigration.jds.persistence.DatabaseManager;
 import com.datamigration.jds.util.DatabaseConfig;
-import com.datamigration.jds.util.exceptions.checked.JPEException;
-import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import com.datamigration.jds.util.exceptions.checked.JDSException;
+import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,9 +15,9 @@ public class JivsDocStore {
 	 * Load configuration and create required tables in the database.
 	 *
 	 * @param configPath path to the configuration file
-	 * @throws JPEPersistenceException if an error occurs during the initialization of the database
+	 * @throws JDSPersistenceException if an error occurs during the initialization of the database
 	 */
-	public static void initializeDatabase(String configPath) throws JPEPersistenceException {
+	public static void initializeDatabase(String configPath) throws JDSPersistenceException {
 		DatabaseConfig.getInstance(configPath);
 		DatabaseManager databaseManager = DatabaseManager.getInstance();
 		databaseManager.createJDSSchema();
@@ -27,7 +27,7 @@ public class JivsDocStore {
 	public static void main(String[] args) {
 		try {
 			initializeDatabase("config.properties");
-		} catch (JPEException e) {
+		} catch (JDSException e) {
 			logger.error("Error running main class", e);
 		}
 	}

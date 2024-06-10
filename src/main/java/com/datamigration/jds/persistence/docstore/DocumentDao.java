@@ -4,7 +4,7 @@ import static com.datamigration.jds.persistence.DatabaseManager.connect;
 
 import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.util.exceptions.ErrorCode;
-import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
+import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,20 +27,20 @@ public class DocumentDao implements IDocumentDao {
 	/**
 	 * createTables - A method to create tables in the database.
 	 *
-	 * @throws JPEPersistenceException exception thrown if there is an issue with persistence
+	 * @throws JDSPersistenceException exception thrown if there is an issue with persistence
 	 */
 	@Override
-	public void createTables() throws JPEPersistenceException {
+	public void createTables() throws JDSPersistenceException {
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.CREATE_DOCSTORE_TABLE_SQL)) {
 			preparedStatement.execute();
 		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_CREATE_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_CREATE_ERROR);
 		}
 	}
 
 	@Override
-	public DocumentDTO insert(DocumentDTO documentDTO) throws JPEPersistenceException {
+	public DocumentDTO insert(DocumentDTO documentDTO) throws JDSPersistenceException {
 		DocumentDTO result;
 
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
@@ -61,24 +61,24 @@ public class DocumentDao implements IDocumentDao {
 						documentDTO.creatorId(), documentDTO.created(), documentDTO.customerId(), documentDTO.systemId(),
 						documentDTO.caseId(), documentDTO.params(), documentDTO.deleted());
 				} else {
-					throw new JPEPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
+					throw new JDSPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
 				}
 			} catch (SQLException e) {
-				throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+				throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 			}
 		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 		}
 		return result;
 	}
 
 	@Override
-	public void update(DocumentDTO documentDTO) throws JPEPersistenceException {
+	public void update(DocumentDTO documentDTO) throws JDSPersistenceException {
 
 	}
 
 	@Override
-	public Optional<DocumentDTO> getById(UUID id) throws JPEPersistenceException {
+	public Optional<DocumentDTO> getById(UUID id) throws JDSPersistenceException {
 		Optional<DocumentDTO> result = Optional.empty();
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_ID)) {
@@ -90,13 +90,13 @@ public class DocumentDao implements IDocumentDao {
 				}
 			}
 		} catch (Exception e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getByDocumentType(String documentType) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getByDocumentType(String documentType) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_DOCUMENT_TYPE_SQL)) {
@@ -110,13 +110,13 @@ public class DocumentDao implements IDocumentDao {
 				result = Optional.of(list);
 			}
 		} catch (Exception e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
 	}
 
 	@Override
-	public Optional<DocumentDTO> getByFileName(String fileName) throws JPEPersistenceException {
+	public Optional<DocumentDTO> getByFileName(String fileName) throws JDSPersistenceException {
 		Optional<DocumentDTO> result = Optional.empty();
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_FILENAME_SQL)) {
@@ -128,13 +128,13 @@ public class DocumentDao implements IDocumentDao {
 				}
 			}
 		} catch (Exception e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getByCreator(UUID id) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getByCreator(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CREATOR_SQL)) {
@@ -148,13 +148,13 @@ public class DocumentDao implements IDocumentDao {
 				result = Optional.of(list);
 			}
 		} catch (Exception e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getByCreatedAt(LocalDateTime dateTime) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CREATED_SQL)) {
@@ -168,13 +168,13 @@ public class DocumentDao implements IDocumentDao {
 				result = Optional.of(list);
 			}
 		} catch (Exception e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getByCustomerId(UUID id) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getByCustomerId(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CUSTOMER_FK_SQL)) {
@@ -188,13 +188,13 @@ public class DocumentDao implements IDocumentDao {
 				result = Optional.of(list);
 			}
 		} catch (Exception e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getBySystemId(UUID id) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getBySystemId(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_SYSTEM_FK_SQL)) {
@@ -208,13 +208,13 @@ public class DocumentDao implements IDocumentDao {
 				result = Optional.of(list);
 			}
 		} catch (Exception e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getByCaseId(UUID id) throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getByCaseId(UUID id) throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CASE_ID_SQL)) {
@@ -227,16 +227,16 @@ public class DocumentDao implements IDocumentDao {
 				}
 				result = Optional.of(processList);
 			} catch (SQLException e) {
-				throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+				throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 			}
 		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
 	}
 
 	@Override
-	public Optional<List<DocumentDTO>> getAllAsList() throws JPEPersistenceException {
+	public Optional<List<DocumentDTO>> getAllAsList() throws JDSPersistenceException {
 		Optional<List<DocumentDTO>> result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_ALL_DOCUMENTS_SQL)) {
@@ -248,16 +248,16 @@ public class DocumentDao implements IDocumentDao {
 				}
 				result = Optional.of(processList);
 			} catch (SQLException e) {
-				throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+				throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 			}
 		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_READ_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 		}
 		return result;
 	}
 
 	@Override
-	public boolean updateDeleteFlag(UUID id) throws JPEPersistenceException {
+	public boolean updateDeleteFlag(UUID id) throws JDSPersistenceException {
 		int result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.UPDATE_DOCUMENT_DELETE_FLAG_SQL)) {
@@ -265,7 +265,7 @@ public class DocumentDao implements IDocumentDao {
 			preparedStatement.setObject(2, id);
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
+			throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 		}
 		return result == 1;
 	}

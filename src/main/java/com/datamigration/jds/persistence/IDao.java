@@ -1,10 +1,8 @@
 package com.datamigration.jds.persistence;
 
-import com.datamigration.jds.util.exceptions.checked.JPEPersistenceException;
-import java.time.LocalDateTime;
+import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * This interface defines the basic CRUD operations for a database entity.
@@ -14,15 +12,15 @@ import java.util.UUID;
  */
 public interface IDao<T, U> {
 
-	Optional<T> getById(U id) throws JPEPersistenceException;
+	Optional<T> getById(U id) throws JDSPersistenceException;
 
 	/**
 	 * Get all entities from the database. Returns an empty list if no entry was found.
 	 *
 	 * @return a list of all entities
-	 * @throws JPEPersistenceException if an error occurs during fetch
+	 * @throws JDSPersistenceException if an error occurs during fetch
 	 */
-	Optional<List<T>> getAllAsList() throws JPEPersistenceException;
+	Optional<List<T>> getAllAsList() throws JDSPersistenceException;
 
 	/**
 	 * Insert the given entity into the database. Returns an entity with an id on success and throws an exception if an
@@ -30,15 +28,15 @@ public interface IDao<T, U> {
 	 *
 	 * @param t the entity to insert
 	 * @return the inserted entity with an id
-	 * @throws JPEPersistenceException if an error occurs during persisting
+	 * @throws JDSPersistenceException if an error occurs during persisting
 	 */
-	T insert(T t) throws JPEPersistenceException;
+	T insert(T t) throws JDSPersistenceException;
 
 	/**
 	 * Update the given entity in the database. Throws an exception if an error occurs.
 	 *
 	 * @param t the entity to update
-	 * @throws JPEPersistenceException if an error occurs during persisting
+	 * @throws JDSPersistenceException if an error occurs during persisting
 	 */
-	void update(T t) throws JPEPersistenceException;
+	void update(T t) throws JDSPersistenceException;
 }
