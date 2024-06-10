@@ -302,11 +302,11 @@ public class DocumentDao implements IDocumentDao {
 		String fileName = rs.getString(3);
 		String fileType = rs.getString(4);
 		UUID creator = UUID.fromString(rs.getString(5));
-		LocalDateTime created = rs.getObject(3, LocalDateTime.class);
-		UUID customerFK = UUID.fromString(rs.getString(6));
-		UUID systemFK = UUID.fromString(rs.getString(7));
-		UUID caseId = UUID.fromString(rs.getString(8));
-		boolean deleted = rs.getBoolean(9);
+		LocalDateTime created = rs.getObject(6, LocalDateTime.class);
+		UUID customerFK = UUID.fromString(rs.getString(7));
+		UUID systemFK = UUID.fromString(rs.getString(8));
+		UUID caseId = UUID.fromString(rs.getString(9));
+		boolean deleted = rs.getBoolean(10);
 		Map<String, String> params = new HashMap<>();
 
 		DocumentDTO documentDTO = new DocumentDTO(id, fileBin, fileName, fileType, creator, created, customerFK,
