@@ -82,7 +82,7 @@ public class DocumentParamDao implements IDocumentParamDao {
 
 
 	@Override
-	public void updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException {
+	public Map<String, String> updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException {
 		deleteByDocumentId(id);
 
 		for (Entry<String, String> entry : params.entrySet()) {
@@ -98,22 +98,21 @@ public class DocumentParamDao implements IDocumentParamDao {
 			}
 		}
 
+		return params;
 	}
 
 	@Override
-	public Optional<Map<String, String>> getParams(UUID id) throws JDSPersistenceException {
-		Optional<Map<String, String>> params;
+	public Map<String, String> getParams(UUID id) throws JDSPersistenceException {
+		Map<String, String> params = new HashMap<>();
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentParamSQLs.SELECT_DOCUMENT_PARAMS_BY_ID)) {
 			preparedStatement.setObject(1, id);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
-				Map<String, String> result = new HashMap<>();
 				while (rs.next()) {
 					String key = rs.getString(1);
 					String value = rs.getString(2);
-					result.put(key, value);
+					params.put(key, value);
 				}
-				params = Optional.of(result);
 			}
 		} catch (Exception e) {
 			throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);

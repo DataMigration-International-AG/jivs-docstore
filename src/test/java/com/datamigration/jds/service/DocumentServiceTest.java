@@ -231,16 +231,15 @@ class DocumentServiceTest {
 		params.put("paramKey1", "paramValue1");
 		params.put("paramKey2", "paramValue2");
 
-		when(documentParamDao.getParams(id)).thenReturn(Optional.of(params));
+		when(documentParamDao.getParams(id)).thenReturn(params);
 
-		Optional<Map<String, String>> result = documentService.getParams(id);
+		Map<String, String> result = documentService.getParams(id);
 
-		Assertions.assertTrue(result.isPresent());
-		Assertions.assertTrue(result.get().containsKey("paramKey1"));
-		Assertions.assertTrue(result.get().containsKey("paramKey2"));
-		Assertions.assertTrue(result.get().containsValue("paramValue1"));
-		Assertions.assertTrue(result.get().containsValue("paramValue2"));
-		Assertions.assertEquals(2, result.get().size());
+		Assertions.assertTrue(result.containsKey("paramKey1"));
+		Assertions.assertTrue(result.containsKey("paramKey2"));
+		Assertions.assertTrue(result.containsValue("paramValue1"));
+		Assertions.assertTrue(result.containsValue("paramValue2"));
+		Assertions.assertEquals(2, result.size());
 	}
 
 	@Test
@@ -248,7 +247,9 @@ class DocumentServiceTest {
 		UUID id = UUID.randomUUID();
 		Map<String, String> params = new HashMap<>();
 		params.put("paramKey1", "paramValue1");
-		documentService.updateParams(id, params);
+		when(documentParamDao.updateParams(id, params)).thenReturn(params);
+		Map<String, String> updatedParams = documentService.updateParams(id, params);
 		verify(documentParamDao, times(1)).updateParams(any(UUID.class), any(Map.class));
+		Assertions.assertTrue(updatedParams.containsKey("paramKey1"));
 	}
 }

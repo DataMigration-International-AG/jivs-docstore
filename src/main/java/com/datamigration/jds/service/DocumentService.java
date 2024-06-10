@@ -167,14 +167,14 @@ public class DocumentService {
 	}
 
 	/**
-	 * Gets an optional list of documents by the document type.
+	 * Gets the params of the document.
 	 *
 	 * @param id the id of the document
 	 * @return the param map
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public Optional<Map<String, String>> getParams(UUID id) throws JDSPersistenceException {
-		Optional<Map<String, String>> params = documentParamDao.getParams(id);
+	public Map<String, String> getParams(UUID id) throws JDSPersistenceException {
+		Map<String, String> params = documentParamDao.getParams(id);
 		return params;
 	}
 
@@ -183,9 +183,11 @@ public class DocumentService {
 	 *
 	 * @param id the id of the document
 	 * @param params the params of the document
+	 * @return param map
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public void updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException {
-		documentParamDao.updateParams(id, params);
+	public Map<String, String> updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException {
+		Map<String, String> result = documentParamDao.updateParams(id, params);
+		return result;
 	}
 }
