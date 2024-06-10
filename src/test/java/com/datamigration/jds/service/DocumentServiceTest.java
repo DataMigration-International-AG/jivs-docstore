@@ -42,7 +42,7 @@ class DocumentServiceTest {
 		ArgumentCaptor<DocumentDTO> documentDTOCaptor = ArgumentCaptor.forClass(DocumentDTO.class);
 		JivsDocument jivsDocument = new JivsDocument("Document".getBytes(StandardCharsets.UTF_8),
 			"Document", "JivsDocument", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
-			UUID.randomUUID(), params, false);
+			UUID.randomUUID(), params);
 		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
 
 		when(documentDao.insert(documentDTOCaptor.capture())).thenReturn(documentDTO);

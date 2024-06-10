@@ -53,7 +53,7 @@ public class DocumentDao implements IDocumentDao {
 			preparedStatement.setObject(6, documentDTO.customerId());
 			preparedStatement.setObject(7, documentDTO.systemId());
 			preparedStatement.setObject(8, documentDTO.caseId());
-			preparedStatement.setBoolean(9, documentDTO.deleted());
+			preparedStatement.setBoolean(9, false);
 			try (ResultSet rs = preparedStatement.executeQuery()) {
 				if (rs.next()) {
 					UUID id = UUID.fromString(rs.getString(1));

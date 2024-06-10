@@ -28,21 +28,6 @@ public class JivsDocument {
 		this.systemId = systemId;
 		this.caseId = caseId;
 		this.params = params;
-		this.deleted = false;
-		this.created = LocalDateTime.now();
-	}
-
-	public JivsDocument(byte[] fileBin, String filename, String documentType, UUID creatorId, UUID customerId, UUID systemId,
-		UUID caseId, Map<String, String> params, boolean deleted) {
-		this.fileBin = fileBin;
-		this.filename = filename;
-		this.documentType = documentType;
-		this.creatorId = creatorId;
-		this.customerId = customerId;
-		this.systemId = systemId;
-		this.caseId = caseId;
-		this.params = params;
-		this.deleted = deleted;
 		this.created = LocalDateTime.now();
 	}
 
