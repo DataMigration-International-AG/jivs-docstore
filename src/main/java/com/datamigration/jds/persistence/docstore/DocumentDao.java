@@ -49,7 +49,7 @@ public class DocumentDao implements IDocumentDao {
 			preparedStatement.setString(2, documentDTO.fileName());
 			preparedStatement.setString(3, documentDTO.documenType());
 			preparedStatement.setObject(4, documentDTO.creator());
-			preparedStatement.setObject(5, LocalDateTime.now());
+			preparedStatement.setObject(5, documentDTO.created());
 			preparedStatement.setObject(6, documentDTO.customerFK());
 			preparedStatement.setObject(7, documentDTO.systemFk());
 			preparedStatement.setObject(8, documentDTO.caseId());

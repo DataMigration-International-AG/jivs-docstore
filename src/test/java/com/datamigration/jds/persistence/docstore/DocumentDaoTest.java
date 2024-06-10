@@ -31,6 +31,8 @@ class DocumentDaoTest extends BaseSingletonTest {
 	private static final IDocumentParamDao documentParamDao = new DocumentParamDao();
 	private final String DOCUMENT_TYPE = "Completeness";
 	private final UUID creatorId = UUID.randomUUID();
+	private final UUID customerId = UUID.randomUUID();
+	private final UUID systemId = UUID.randomUUID();
 
 	@AfterEach
 	public void afterEach() {
@@ -39,7 +41,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 
 	private JivsDocument createDocument() {
 		return new JivsDocument("Document".getBytes(StandardCharsets.UTF_8), "Document1", DOCUMENT_TYPE,
-			creatorId, UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), null, false);
+			creatorId, customerId, systemId, UUID.randomUUID(), null);
 	}
 
 	private JivsDocument createDocumentWithParams() {
@@ -48,11 +50,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 		params.put("paramKey2", "paramValue2");
 
 		return new JivsDocument("Document".getBytes(StandardCharsets.UTF_8), "Document2", DOCUMENT_TYPE,
-			creatorId, UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), params, false);
-	}
-
-	@Test
-	void createTables() {
+			creatorId, customerId, systemId, UUID.randomUUID(), params);
 	}
 
 	@Test
@@ -76,7 +74,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 				Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
 				Assertions.assertEquals(insertedDocumentDTO.fileName(), fileName);
 				Assertions.assertEquals(insertedDocumentDTO.creator(), creator);
-				Assertions.assertEquals(insertedDocumentDTO.deleted(), deleted);
+				Assertions.assertEquals(false, deleted);
 			}
 		}
 	}
@@ -102,7 +100,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 				Assertions.assertEquals(insertedDocumentDTO.id(), dbId);
 				Assertions.assertEquals(insertedDocumentDTO.fileName(), fileName);
 				Assertions.assertEquals(insertedDocumentDTO.creator(), creator);
-				Assertions.assertEquals(insertedDocumentDTO.deleted(), deleted);
+				Assertions.assertEquals(false, deleted);
 			}
 		}
 
@@ -215,19 +213,124 @@ class DocumentDaoTest extends BaseSingletonTest {
 	}
 
 	@Test
-	void getByCreatedAt() {
+	void afterGetByCreatedAt_thereShouldBeTheDocumentsOfDate()
+		throws JPEPersistenceException, SQLException {
+
+		JivsDocument jivsDocument1 = createDocument();
+		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
+		DocumentDTO insertedDocumentDTO1 = documentDao.insert(documentDTO1);
+
+		JivsDocument jivsDocument2 = createDocumentWithParams();
+		DocumentDTO documentDTO2 = DTOUtil.toDocumentDTO(jivsDocument2);
+		DocumentDTO insertedDocumentDTO2 = documentDao.insert(documentDTO2);
+
+		Assertions.assertNotNull(insertedDocumentDTO1);
+		Assertions.assertNotNull(insertedDocumentDTO2);
+
+		try (Connection connection = DatabaseManager.getInstance().connect()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(IDocumentSQLs.SELECT_DOCUMENT_BY_CREATED_SQL);
+			preparedStatement.setObject(1, insertedDocumentDTO1.created());
+			ResultSet rs = preparedStatement.executeQuery();
+			List<UUID> ids = new ArrayList<>();
+			while (rs.next()) {
+				UUID dbId = UUID.fromString(rs.getString(1));
+				ids.add(dbId);
+			}
+			Assertions.assertEquals(2, ids.size());
+		}
 	}
 
 	@Test
-	void getByCustomerId() {
+	void afterGetByCustomerFK_thereShouldBeTheDocumentsOfTheCustomer()
+		throws JPEPersistenceException, SQLException {
+
+		JivsDocument jivsDocument1 = createDocument();
+		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
+		DocumentDTO insertedDocumentDTO1 = documentDao.insert(documentDTO1);
+
+		JivsDocument jivsDocument2 = createDocumentWithParams();
+		DocumentDTO documentDTO2 = DTOUtil.toDocumentDTO(jivsDocument2);
+		DocumentDTO insertedDocumentDTO2 = documentDao.insert(documentDTO2);
+
+		Assertions.assertNotNull(insertedDocumentDTO1);
+		Assertions.assertNotNull(insertedDocumentDTO2);
+
+		try (Connection connection = DatabaseManager.getInstance().connect()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_CUSTOMER_FK_SQL);
+			preparedStatement.setObject(1, customerId);
+			ResultSet rs = preparedStatement.executeQuery();
+			List<UUID> ids = new ArrayList<>();
+			while (rs.next()) {
+				UUID dbId = UUID.fromString(rs.getString(1));
+				ids.add(dbId);
+				UUID customerId = UUID.fromString(rs.getString(2));
+
+				Assertions.assertEquals(this.customerId, customerId);
+			}
+			Assertions.assertEquals(2, ids.size());
+		}
 	}
 
 	@Test
-	void getBySystemId() {
+	void afterGetBySystemFK_thereShouldBeTheDocumentsOfTheSystem()
+		throws JPEPersistenceException, SQLException {
+
+		JivsDocument jivsDocument1 = createDocument();
+		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
+		DocumentDTO insertedDocumentDTO1 = documentDao.insert(documentDTO1);
+
+		JivsDocument jivsDocument2 = createDocumentWithParams();
+		DocumentDTO documentDTO2 = DTOUtil.toDocumentDTO(jivsDocument2);
+		DocumentDTO insertedDocumentDTO2 = documentDao.insert(documentDTO2);
+
+		Assertions.assertNotNull(insertedDocumentDTO1);
+		Assertions.assertNotNull(insertedDocumentDTO2);
+
+		try (Connection connection = DatabaseManager.getInstance().connect()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_SYSTEM_FK_SQL);
+			preparedStatement.setObject(1, systemId);
+			ResultSet rs = preparedStatement.executeQuery();
+			List<UUID> ids = new ArrayList<>();
+			while (rs.next()) {
+				UUID dbId = UUID.fromString(rs.getString(1));
+				ids.add(dbId);
+				UUID systemId = UUID.fromString(rs.getString(2));
+
+				Assertions.assertEquals(this.systemId, systemId);
+			}
+			Assertions.assertEquals(2, ids.size());
+		}
 	}
 
 	@Test
-	void getByCaseId() {
+	void afterGetByCaseID_thereShouldBeTheDocumentsOfTheCase()
+		throws JPEPersistenceException, SQLException {
+
+		JivsDocument jivsDocument1 = createDocument();
+		DocumentDTO documentDTO1 = DTOUtil.toDocumentDTO(jivsDocument1);
+		DocumentDTO insertedDocumentDTO1 = documentDao.insert(documentDTO1);
+
+		JivsDocument jivsDocument2 = createDocumentWithParams();
+		DocumentDTO documentDTO2 = DTOUtil.toDocumentDTO(jivsDocument2);
+		DocumentDTO insertedDocumentDTO2 = documentDao.insert(documentDTO2);
+
+		Assertions.assertNotNull(insertedDocumentDTO1);
+		Assertions.assertNotNull(insertedDocumentDTO2);
+
+		try (Connection connection = DatabaseManager.getInstance().connect()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_CASE_ID_SQL);
+			preparedStatement.setObject(1, insertedDocumentDTO1.caseId());
+			ResultSet rs = preparedStatement.executeQuery();
+			List<UUID> ids = new ArrayList<>();
+			while (rs.next()) {
+				UUID dbId = UUID.fromString(rs.getString(1));
+				ids.add(dbId);
+				UUID caseID = UUID.fromString(rs.getString(2));
+
+				Assertions.assertEquals(insertedDocumentDTO1.caseId(), caseID);
+			}
+			Assertions.assertEquals(1, ids.size());
+		}
 	}
 
 	@Test
@@ -291,10 +394,29 @@ class DocumentDaoTest extends BaseSingletonTest {
 	}
 
 	@Test
-	void updateParams() {
-	}
+	void afterSoftDelete_theDatabaseDeleteFlagShouldBeTrue()
+		throws JPEPersistenceException, SQLException {
 
-	@Test
-	void updateDeleteFlag() {
+		JivsDocument jivsDocument = createDocument();
+		DocumentDTO documentDTO = DTOUtil.toDocumentDTO(jivsDocument);
+		DocumentDTO insertedDocumentDTO = documentDao.insert(documentDTO);
+		Assertions.assertNotNull(insertedDocumentDTO);
+		Assertions.assertEquals(false, insertedDocumentDTO.deleted());
+
+		documentDao.updateDeleteFlag(insertedDocumentDTO.id());
+
+		try (Connection connection = DatabaseManager.getInstance().connect()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_ID_SQL);
+			preparedStatement.setObject(1, insertedDocumentDTO.id());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+				UUID id = UUID.fromString(rs.getString(1));
+				boolean deleted = rs.getBoolean(4);
+
+				Assertions.assertEquals(insertedDocumentDTO.id(), id);
+				Assertions.assertEquals(true, deleted);
+			}
+		}
 	}
 }

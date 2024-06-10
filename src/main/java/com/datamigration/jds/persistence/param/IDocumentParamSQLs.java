@@ -10,7 +10,7 @@ public interface IDocumentParamSQLs {
 		        primary key,
 		 	[DOCUMENT-ID] uniqueidentifier
 				constraint [JIVS-DOCUMENT-PARAM-JIVS-DOCSTORE-ID-fk]
-					references [jds].[JIVS-DOCSTORE],
+					references [jds].[JIVS-DOCSTORE] ON DELETE CASCADE,
 		    [KEY] nvarchar(100) not null,
 		    [VALUE] nvarchar(max) not null
 		)

@@ -19,6 +19,20 @@ public class JivsDocument {
 	private LocalDateTime created;
 
 	public JivsDocument(byte[] fileBin, String filename, String documentType, UUID creator, UUID customerFK, UUID systemFK,
+		UUID caseId, Map<String, String> params) {
+		this.fileBin = fileBin;
+		this.filename = filename;
+		this.documentType = documentType;
+		this.creator = creator;
+		this.customerFK = customerFK;
+		this.systemFK = systemFK;
+		this.caseId = caseId;
+		this.params = params;
+		this.deleted = false;
+		this.created = LocalDateTime.now();
+	}
+
+	public JivsDocument(byte[] fileBin, String filename, String documentType, UUID creator, UUID customerFK, UUID systemFK,
 		UUID caseId, Map<String, String> params, boolean deleted) {
 		this.fileBin = fileBin;
 		this.filename = filename;
@@ -29,6 +43,7 @@ public class JivsDocument {
 		this.caseId = caseId;
 		this.params = params;
 		this.deleted = deleted;
+		this.created = LocalDateTime.now();
 	}
 
 	public UUID getId() {

@@ -68,7 +68,7 @@ public interface IDocumentSQLs {
 	String SELECT_DOCUMENT_BY_CREATED_SQL = """
 			SELECT *
 			FROM [jds].[JIVS-DOCSTORE]
-			WHERE CREATED = ?
+			WHERE datediff(day, CREATED, ?) = 0
 			AND DELETED = 0
 		""";
 
