@@ -8,12 +8,10 @@ import static org.mockito.Mockito.when;
 
 import com.datamigration.jds.model.entity.docstore.JivsDocument;
 import com.datamigration.jds.model.entity.docstoreparam.JivsDocumentParam;
-import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.persistence.docstore.DocumentDao;
 import com.datamigration.jds.persistence.docstore.IDocumentDao;
 import com.datamigration.jds.persistence.param.DocumentParamDao;
 import com.datamigration.jds.persistence.param.IDocumentParamDao;
-import com.datamigration.jds.util.DTOUtil;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;

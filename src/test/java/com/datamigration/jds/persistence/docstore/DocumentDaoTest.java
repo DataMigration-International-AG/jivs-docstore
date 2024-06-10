@@ -2,12 +2,10 @@ package com.datamigration.jds.persistence.docstore;
 
 import com.datamigration.jds.model.entity.docstore.JivsDocument;
 import com.datamigration.jds.model.entity.docstoreparam.JivsDocumentParam;
-import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.persistence.DatabaseManager;
 import com.datamigration.jds.persistence.param.DocumentParamDao;
 import com.datamigration.jds.persistence.param.IDocumentParamDao;
 import com.datamigration.jds.util.BaseSingletonTest;
-import com.datamigration.jds.util.DTOUtil;
 import com.datamigration.jds.util.ITestSQLs;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.nio.charset.StandardCharsets;

@@ -1,6 +1,5 @@
 package com.datamigration.jds.persistence.docstore;
 
-import com.datamigration.jds.model.dto.DocumentDTO;
 import com.datamigration.jds.model.entity.docstore.JivsDocument;
 import com.datamigration.jds.persistence.IDao;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
