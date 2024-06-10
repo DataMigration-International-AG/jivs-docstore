@@ -229,7 +229,7 @@ class DocumentServiceTest {
 	void testDelete() throws JDSPersistenceException {
 		UUID id = UUID.randomUUID();
 		documentService.delete(id);
-		verify(documentDao, times(1)).updateDeleteFlag(any(UUID.class));
+		verify(documentDao, times(1)).setDeleteFlagTrue(any(UUID.class));
 	}
 
 	@Test

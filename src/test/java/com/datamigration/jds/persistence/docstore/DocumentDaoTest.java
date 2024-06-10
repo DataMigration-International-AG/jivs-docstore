@@ -403,7 +403,7 @@ class DocumentDaoTest extends BaseSingletonTest {
 		Assertions.assertNotNull(insertedDocumentDTO);
 		Assertions.assertFalse(insertedDocumentDTO.deleted());
 
-		documentDao.updateDeleteFlag(insertedDocumentDTO.id());
+		documentDao.setDeleteFlagTrue(insertedDocumentDTO.id());
 
 		try (Connection connection = DatabaseManager.getInstance().connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(ITestSQLs.SELECT_DOCUMENT_BY_ID_SQL);

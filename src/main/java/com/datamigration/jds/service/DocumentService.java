@@ -162,7 +162,7 @@ public class DocumentService {
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
 	public boolean delete(UUID id) throws JDSPersistenceException {
-		boolean deleted = documentDao.updateDeleteFlag(id);
+		boolean deleted = documentDao.setDeleteFlagTrue(id);
 		return deleted;
 	}
 

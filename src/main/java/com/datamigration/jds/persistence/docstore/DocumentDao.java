@@ -257,7 +257,7 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public boolean updateDeleteFlag(UUID id) throws JDSPersistenceException {
+	public boolean setDeleteFlagTrue(UUID id) throws JDSPersistenceException {
 		int result;
 		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.UPDATE_DOCUMENT_DELETE_FLAG_SQL)) {
