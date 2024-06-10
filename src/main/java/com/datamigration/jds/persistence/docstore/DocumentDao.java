@@ -256,25 +256,6 @@ public class DocumentDao implements IDocumentDao {
 		return result;
 	}
 
-//	@Override
-//	public void update(DocumentDTO documentDTO) throws JPEPersistenceException {
-//		try (Connection connection = connect(); PreparedStatement preparedStatement = connection.prepareStatement(
-//			IDocumentSQLs.UPDATE)) {
-//			preparedStatement.setBytes(1, documentDTO.fileBin());
-//			preparedStatement.setString(2, documentDTO.fileName());
-//			preparedStatement.setString(3, documentDTO.documenType());
-//			preparedStatement.setObject(4, documentDTO.creatorId());
-//			preparedStatement.setObject(5, documentDTO.customerId());
-//			preparedStatement.setObject(6, documentDTO.systemId());
-//			preparedStatement.setObject(7, documentDTO.caseId());
-//			preparedStatement.setBoolean(8, documentDTO.deleted());
-//			preparedStatement.executeUpdate();
-//		} catch (SQLException e) {
-//			throw new JPEPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
-//		}
-//	}
-
-
 	@Override
 	public boolean updateDeleteFlag(UUID id) throws JPEPersistenceException {
 		int result;
