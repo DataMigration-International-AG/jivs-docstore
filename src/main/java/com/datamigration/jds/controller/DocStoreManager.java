@@ -45,7 +45,7 @@ public class DocStoreManager {
 			return null;
 		}
 
-		DocumentDTO documentDTOWithParams = getDocumentParams(documentDTO.get());
+		DocumentDTO documentDTOWithParams = addParamsToDocument(documentDTO.get());
 		return documentDTOWithParams;
 	}
 
@@ -63,7 +63,7 @@ public class DocStoreManager {
 			return null;
 		}
 
-		DocumentDTO documentDTOWithParams = getDocumentParams(documentDTO.get());
+		DocumentDTO documentDTOWithParams = addParamsToDocument(documentDTO.get());
 		return documentDTOWithParams;
 	}
 
@@ -173,13 +173,13 @@ public class DocStoreManager {
 	private List<DocumentDTO> getDocumentWithParams(List<DocumentDTO> documentDTOList) throws JDSPersistenceException {
 		List<DocumentDTO> result = new ArrayList<>();
 		for (DocumentDTO documentDTO : documentDTOList) {
-			DocumentDTO documentDTOWithParams = getDocumentParams(documentDTO);
+			DocumentDTO documentDTOWithParams = addParamsToDocument(documentDTO);
 			result.add(documentDTOWithParams);
 		}
 		return result;
 	}
 
-	private DocumentDTO getDocumentParams(DocumentDTO documentDTO) throws JDSPersistenceException {
+	private DocumentDTO addParamsToDocument(DocumentDTO documentDTO) throws JDSPersistenceException {
 		Map<String, String> result = documentService.getParams(documentDTO.id());
 		if (!result.isEmpty()) {
 			documentDTO.params().putAll(result);
