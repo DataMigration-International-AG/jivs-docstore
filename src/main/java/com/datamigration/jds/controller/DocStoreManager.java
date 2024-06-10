@@ -108,10 +108,6 @@ public class DocStoreManager {
 		return documentDTO;
 	}
 
-	public void update(JivsDocument jivsDocument) throws JPEPersistenceException {
-		documentService.update(jivsDocument);
-	}
-
 	public void updateParams(UUID id, Map<String, String> params) throws JPEPersistenceException {
 		documentService.updateParams(id, params);
 	}
