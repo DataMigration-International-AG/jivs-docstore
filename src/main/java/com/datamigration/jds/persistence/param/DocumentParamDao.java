@@ -31,12 +31,12 @@ public class DocumentParamDao implements IDocumentParamDao {
 
 	@Override
 	public Optional<JivsDocumentParam> getById(UUID id) throws JDSPersistenceException {
-		return Optional.empty();
+		throw new JDSPersistenceException(ErrorCode.NOT_IMPLEMENTED);
 	}
 
 	@Override
 	public Optional<List<JivsDocumentParam>> getAllAsList() throws JDSPersistenceException {
-		return Optional.empty();
+		throw new JDSPersistenceException(ErrorCode.NOT_IMPLEMENTED);
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class DocumentParamDao implements IDocumentParamDao {
 
 	@Override
 	public void update(JivsDocumentParam jivsDocumentParam) throws JDSPersistenceException {
-
+		throw new JDSPersistenceException(ErrorCode.NOT_IMPLEMENTED);
 	}
 
 

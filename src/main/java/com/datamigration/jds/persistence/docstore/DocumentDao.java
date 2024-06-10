@@ -74,7 +74,7 @@ public class DocumentDao implements IDocumentDao {
 
 	@Override
 	public void update(DocumentDTO documentDTO) throws JDSPersistenceException {
-
+		throw new JDSPersistenceException(ErrorCode.NOT_IMPLEMENTED);
 	}
 
 	@Override
