@@ -74,8 +74,8 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<JivsDocument> getByDocumentType(String documentType) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentDao.getByDocumentType(documentType);
+	public List<JivsDocument> getByDocumentTypeAsList(String documentType) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getByDocumentTypeAsList(documentType);
 		return documents;
 	}
 
@@ -86,8 +86,8 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<JivsDocument> getByCreator(UUID id) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentDao.getByCreator(id);
+	public List<JivsDocument> getByCreatorAsList(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getByCreatorAsList(id);
 		return documents;
 	}
 
@@ -98,8 +98,8 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<JivsDocument> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentDao.getByCreatedAt(dateTime);
+	public List<JivsDocument> getByCreatedAtAsList(LocalDateTime dateTime) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getByCreatedAtAsList(dateTime);
 		return documents;
 	}
 
@@ -110,8 +110,8 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<JivsDocument> getByCustomerId(UUID id) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentDao.getByCustomerId(id);
+	public List<JivsDocument> getByCustomerIdAsList(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getByCustomerIdAsList(id);
 		return documents;
 	}
 
@@ -122,8 +122,8 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<JivsDocument> getBySystemId(UUID id) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentDao.getBySystemId(id);
+	public List<JivsDocument> getBySystemIdAsList(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getBySystemIdAsList(id);
 		return documents;
 	}
 
@@ -134,8 +134,8 @@ public class DocumentService {
 	 * @return a list of documents
 	 * @throws JDSPersistenceException if an error occurs during the get
 	 */
-	public List<JivsDocument> getByCaseId(UUID id) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentDao.getByCaseId(id);
+	public List<JivsDocument> getByCaseIdAsList(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentDao.getByCaseIdAsList(id);
 		return documents;
 	}
 

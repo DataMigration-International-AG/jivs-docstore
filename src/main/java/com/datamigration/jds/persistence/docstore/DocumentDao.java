@@ -102,7 +102,7 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public List<JivsDocument> getByDocumentType(String documentType) throws JDSPersistenceException {
+	public List<JivsDocument> getByDocumentTypeAsList(String documentType) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
 		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_DOCUMENT_TYPE_SQL)) {
@@ -140,7 +140,7 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public List<JivsDocument> getByCreator(UUID id) throws JDSPersistenceException {
+	public List<JivsDocument> getByCreatorAsList(UUID id) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
 		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CREATOR_SQL)) {
@@ -159,7 +159,7 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public List<JivsDocument> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException {
+	public List<JivsDocument> getByCreatedAtAsList(LocalDateTime dateTime) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
 		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CREATED_SQL)) {
@@ -178,7 +178,7 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public List<JivsDocument> getByCustomerId(UUID id) throws JDSPersistenceException {
+	public List<JivsDocument> getByCustomerIdAsList(UUID id) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
 		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CUSTOMER_FK_SQL)) {
@@ -197,7 +197,7 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public List<JivsDocument> getBySystemId(UUID id) throws JDSPersistenceException {
+	public List<JivsDocument> getBySystemIdAsList(UUID id) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
 		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_SYSTEM_FK_SQL)) {
@@ -216,7 +216,7 @@ public class DocumentDao implements IDocumentDao {
 	}
 
 	@Override
-	public List<JivsDocument> getByCaseId(UUID id) throws JDSPersistenceException {
+	public List<JivsDocument> getByCaseIdAsList(UUID id) throws JDSPersistenceException {
 		List<JivsDocument> result = new ArrayList<>();
 		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
 			IDocumentSQLs.SELECT_DOCUMENT_BY_CASE_ID_SQL)) {

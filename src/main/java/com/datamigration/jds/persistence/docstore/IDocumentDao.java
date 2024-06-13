@@ -17,19 +17,19 @@ public interface IDocumentDao extends IDao<JivsDocument, UUID> {
 	 */
 	void createTables() throws JDSPersistenceException;
 
-	List<JivsDocument> getByDocumentType(String documentType) throws JDSPersistenceException;
+	List<JivsDocument> getByDocumentTypeAsList(String documentType) throws JDSPersistenceException;
 
 	Optional<JivsDocument> getByFileName(String fileName) throws JDSPersistenceException;
 
-	List<JivsDocument> getByCreator(UUID id) throws JDSPersistenceException;
+	List<JivsDocument> getByCreatorAsList(UUID id) throws JDSPersistenceException;
 
-	List<JivsDocument> getByCreatedAt(LocalDateTime dateTime) throws JDSPersistenceException;
+	List<JivsDocument> getByCreatedAtAsList(LocalDateTime dateTime) throws JDSPersistenceException;
 
-	List<JivsDocument> getByCustomerId(UUID id) throws JDSPersistenceException;
+	List<JivsDocument> getByCustomerIdAsList(UUID id) throws JDSPersistenceException;
 
-	List<JivsDocument> getBySystemId(UUID id) throws JDSPersistenceException;
+	List<JivsDocument> getBySystemIdAsList(UUID id) throws JDSPersistenceException;
 
-	List<JivsDocument> getByCaseId(UUID id) throws JDSPersistenceException;
+	List<JivsDocument> getByCaseIdAsList(UUID id) throws JDSPersistenceException;
 
 	/**
 	 * Soft delete, sets the deleted flag of  the entity by the id in the database.

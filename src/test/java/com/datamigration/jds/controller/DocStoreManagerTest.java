@@ -75,13 +75,13 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	@Test
 	void testGetByDocumentType() throws JDSPersistenceException {
 		createAndInsertDocument();
-		List<JivsDocument> dbDocument =  docStoreManager.getByDocumentType("JIVSDOCUMENT");
+		List<JivsDocument> dbDocument =  docStoreManager.getByDocumentTypeAsList("JIVSDOCUMENT");
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
 	void testGetByDocumentTypeNotFound() throws JDSPersistenceException {
-		List<JivsDocument> dbDocument =  docStoreManager.getByDocumentType("some_kind_of_non_existent_document_type");
+		List<JivsDocument> dbDocument =  docStoreManager.getByDocumentTypeAsList("some_kind_of_non_existent_document_type");
 		assertEquals(0, dbDocument.size());
 	}
 
@@ -89,7 +89,7 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	void testGetByCreator() throws JDSPersistenceException {
 		JivsDocument createdDocument = createAndInsertDocument();
 		docStoreManager.create(createDocumentWithParams());
-		List<JivsDocument> dbDocument =  docStoreManager.getByCreator(createdDocument.getCreatorId());
+		List<JivsDocument> dbDocument =  docStoreManager.getByCreatorAsList(createdDocument.getCreatorId());
 		assertEquals(2, dbDocument.size());
 		assertEquals(creatorId, dbDocument.getFirst().getCreatorId());
 		assertEquals(creatorId, dbDocument.getLast().getCreatorId());
@@ -98,28 +98,28 @@ class DocStoreManagerTest extends BaseSingletonTest {
 	@Test
 	void testGetByCreatedAt() throws JDSPersistenceException {
 		createAndInsertDocument();
-		List<JivsDocument> dbDocument =  docStoreManager.getByCreatedAt(LocalDate.now());
+		List<JivsDocument> dbDocument =  docStoreManager.getByCreatedAtAsList(LocalDate.now());
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
 	void testGetByCustomerId() throws JDSPersistenceException {
 		JivsDocument createdDocument = createAndInsertDocument();
-		List<JivsDocument> dbDocument =  docStoreManager.getByCustomerId(createdDocument.getCustomerId());
+		List<JivsDocument> dbDocument =  docStoreManager.getByCustomerIdAsList(createdDocument.getCustomerId());
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
 	void testGetBySystemId() throws JDSPersistenceException {
 		JivsDocument createdDocument = createAndInsertDocument();
-		List<JivsDocument> dbDocument =  docStoreManager.getBySystemId(createdDocument.getSystemId());
+		List<JivsDocument> dbDocument =  docStoreManager.getBySystemIdAsList(createdDocument.getSystemId());
 		assertEquals(1, dbDocument.size());
 	}
 
 	@Test
 	void testGetByCaseId() throws JDSPersistenceException {
 		JivsDocument createdDocument = createAndInsertDocument();
-		List<JivsDocument> dbDocument =  docStoreManager.getByCaseId(createdDocument.getCaseId());
+		List<JivsDocument> dbDocument =  docStoreManager.getByCaseIdAsList(createdDocument.getCaseId());
 		assertEquals(1, dbDocument.size());
 	}
 

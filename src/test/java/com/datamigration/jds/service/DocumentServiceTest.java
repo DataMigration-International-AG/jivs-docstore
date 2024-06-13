@@ -94,9 +94,9 @@ class DocumentServiceTest {
 		List<JivsDocument> documentList = new ArrayList<>();
 		documentList.add(jivsDocument);
 
-		when(documentDao.getByDocumentType(documentType)).thenReturn(documentList);
+		when(documentDao.getByDocumentTypeAsList(documentType)).thenReturn(documentList);
 
-		List<JivsDocument> result = documentService.getByDocumentType(documentType);
+		List<JivsDocument> result = documentService.getByDocumentTypeAsList(documentType);
 
 		Assertions.assertEquals(1, result.size());
 		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
@@ -114,9 +114,9 @@ class DocumentServiceTest {
 		List<JivsDocument> documentList = new ArrayList<>();
 		documentList.add(jivsDocument);
 
-		when(documentDao.getByCreator(creatorId)).thenReturn(documentList);
+		when(documentDao.getByCreatorAsList(creatorId)).thenReturn(documentList);
 
-		List<JivsDocument> result = documentService.getByCreator(creatorId);
+		List<JivsDocument> result = documentService.getByCreatorAsList(creatorId);
 
 		Assertions.assertEquals(1, result.size());
 		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
@@ -136,9 +136,9 @@ class DocumentServiceTest {
 		documentList.add(jivsDocument);
 
 
-		when(documentDao.getByCreatedAt(createdAt)).thenReturn(documentList);
+		when(documentDao.getByCreatedAtAsList(createdAt)).thenReturn(documentList);
 
-		List<JivsDocument> result = documentService.getByCreatedAt(createdAt);
+		List<JivsDocument> result = documentService.getByCreatedAtAsList(createdAt);
 
 		Assertions.assertEquals(1, result.size());
 		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
@@ -155,9 +155,9 @@ class DocumentServiceTest {
 		List<JivsDocument> documentList = new ArrayList<>();
 		documentList.add(jivsDocument);
 
-		when(documentDao.getByCustomerId(customerId)).thenReturn(documentList);
+		when(documentDao.getByCustomerIdAsList(customerId)).thenReturn(documentList);
 
-		List<JivsDocument> result = documentService.getByCustomerId(customerId);
+		List<JivsDocument> result = documentService.getByCustomerIdAsList(customerId);
 
 		Assertions.assertEquals(1, result.size());
 		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
@@ -175,9 +175,9 @@ class DocumentServiceTest {
 		documentList.add(jivsDocument);
 
 
-		when(documentDao.getBySystemId(systemId)).thenReturn(documentList);
+		when(documentDao.getBySystemIdAsList(systemId)).thenReturn(documentList);
 
-		List<JivsDocument> result = documentService.getBySystemId(systemId);
+		List<JivsDocument> result = documentService.getBySystemIdAsList(systemId);
 
 		Assertions.assertEquals(1, result.size());
 		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());
@@ -194,9 +194,9 @@ class DocumentServiceTest {
 		List<JivsDocument> documentList = new ArrayList<>();
 		documentList.add(jivsDocument);
 
-		when(documentDao.getByCaseId(caseId)).thenReturn(documentList);
+		when(documentDao.getByCaseIdAsList(caseId)).thenReturn(documentList);
 
-		List<JivsDocument> result = documentService.getByCaseId(caseId);
+		List<JivsDocument> result = documentService.getByCaseIdAsList(caseId);
 
 		Assertions.assertEquals(1, result.size());
 		Assertions.assertEquals(jivsDocument.getId(), result.getFirst().getId());

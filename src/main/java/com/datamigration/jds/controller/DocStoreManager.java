@@ -72,8 +72,8 @@ public class DocStoreManager {
 	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<JivsDocument> getByDocumentType(String documentType) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentService.getByDocumentType(documentType);
+	public List<JivsDocument> getByDocumentTypeAsList(String documentType) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getByDocumentTypeAsList(documentType);
 		return getDocumentWithParams(documents);
 	}
 
@@ -83,8 +83,8 @@ public class DocStoreManager {
 	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<JivsDocument> getByCreator(UUID id) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentService.getByCreator(id);
+	public List<JivsDocument> getByCreatorAsList(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getByCreatorAsList(id);
 		return getDocumentWithParams(documents);
 	}
 
@@ -94,8 +94,8 @@ public class DocStoreManager {
 	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<JivsDocument> getByCreatedAt(LocalDate date) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentService.getByCreatedAt(date.atStartOfDay());
+	public List<JivsDocument> getByCreatedAtAsList(LocalDate date) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getByCreatedAtAsList(date.atStartOfDay());
 		return getDocumentWithParams(documents);
 	}
 
@@ -105,8 +105,8 @@ public class DocStoreManager {
 	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<JivsDocument> getByCustomerId(UUID id) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentService.getByCustomerId(id);
+	public List<JivsDocument> getByCustomerIdAsList(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getByCustomerIdAsList(id);
 		return getDocumentWithParams(documents);
 	}
 
@@ -116,8 +116,8 @@ public class DocStoreManager {
 	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<JivsDocument> getBySystemId(UUID id) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentService.getBySystemId(id);
+	public List<JivsDocument> getBySystemIdAsList(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getBySystemIdAsList(id);
 		return getDocumentWithParams(documents);
 	}
 
@@ -127,8 +127,8 @@ public class DocStoreManager {
 	 * @return List of documents
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public List<JivsDocument> getByCaseId(UUID id) throws JDSPersistenceException {
-		List<JivsDocument> documents = documentService.getByCaseId(id);
+	public List<JivsDocument> getByCaseIdAsList(UUID id) throws JDSPersistenceException {
+		List<JivsDocument> documents = documentService.getByCaseIdAsList(id);
 		return getDocumentWithParams(documents);
 	}
 
