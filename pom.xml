@@ -13,10 +13,7 @@
     <java.version>21</java.version>
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
-    <version.resteasy>6.2.8.Final</version.resteasy>
-    <version.hibernate>6.4.4.Final</version.hibernate>
     <version.log4j>2.23.1</version.log4j>
-    <version.jackson>2.17.1</version.jackson>
     <intellij.coverage.agent.version>1.0.750</intellij.coverage.agent.version>
     <intellij.agent.options>${project.basedir}/.qodana/code-coverage/output.ic,true,true,true,false</intellij.agent.options>
   </properties>
@@ -95,42 +92,6 @@
   </build>
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-servlet-initializer -->
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-servlet-initializer</artifactId>
-      <version>${version.resteasy}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-client -->
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-client</artifactId>
-      <version>${version.resteasy}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-core -->
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-core</artifactId>
-      <version>${version.resteasy}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jboss</groupId>
-          <artifactId>jandex</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-jaxb-provider -->
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jaxb-provider</artifactId>
-      <version>${version.resteasy}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-jackson2-provider -->
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jackson2-provider</artifactId>
-      <version>${version.resteasy}</version>
-    </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -155,66 +116,11 @@
       <artifactId>mssql-jdbc</artifactId>
       <version>12.6.1.jre11</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>${version.jackson}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.jaxrs</groupId>
-      <artifactId>jackson-jaxrs-json-provider</artifactId>
-      <version>${version.jackson}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-core</artifactId>
-      <version>${version.jackson}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-      <version>${version.jackson}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
-    <dependency>
-      <groupId>org.hibernate.orm</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>${version.hibernate}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-hikaricp -->
-    <dependency>
-      <groupId>org.hibernate.orm</groupId>
-      <artifactId>hibernate-hikaricp</artifactId>
-      <version>${version.hibernate}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
-    <dependency>
-      <groupId>javax.xml.bind</groupId>
-      <artifactId>jaxb-api</artifactId>
-      <version>2.3.1</version>
-    </dependency>
     <!-- https://mvnrepository.com/artifact/org.eclipse.microprofile.openapi/microprofile-openapi-api -->
     <dependency>
       <groupId>org.eclipse.microprofile.openapi</groupId>
       <artifactId>microprofile-openapi-api</artifactId>
       <version>3.1.1</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/io.undertow/undertow-core -->
-    <dependency>
-      <groupId>io.undertow</groupId>
-      <artifactId>undertow-core</artifactId>
-      <version>2.3.13.Final</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-undertow -->
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-undertow</artifactId>
-      <version>${version.resteasy}</version>
     </dependency>
     <dependency>
       <groupId>com.datamigration</groupId>
