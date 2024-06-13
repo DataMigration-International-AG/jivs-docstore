@@ -146,12 +146,10 @@ public class DocStoreManager {
 	 * Updates the documents params
 	 * @param id the id of the document
 	 * @param params the params map of the document
-	 * @return param map
 	 * @throws JDSPersistenceException if there is an error while establishing the database connection
 	 * */
-	public Map<String, String> updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException {
-		Map<String, String> result = documentService.updateParams(id, params);
-		return result;
+	public void updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException {
+		documentService.updateParams(id, params);
 	}
 
 	/**

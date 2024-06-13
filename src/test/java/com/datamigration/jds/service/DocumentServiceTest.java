@@ -250,9 +250,7 @@ class DocumentServiceTest {
 		UUID id = UUID.randomUUID();
 		Map<String, String> params = new HashMap<>();
 		params.put("paramKey1", "paramValue1");
-		when(documentParamDao.updateParams(id, params)).thenReturn(params);
-		Map<String, String> updatedParams = documentService.updateParams(id, params);
+		documentService.updateParams(id, params);
 		verify(documentParamDao, times(1)).updateParams(any(UUID.class), any(Map.class));
-		Assertions.assertTrue(updatedParams.containsKey("paramKey1"));
 	}
 }

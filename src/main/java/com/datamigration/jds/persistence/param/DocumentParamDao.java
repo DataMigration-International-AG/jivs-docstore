@@ -90,7 +90,7 @@ public class DocumentParamDao implements IDocumentParamDao {
 
 
 	@Override
-	public Map<String, String> updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException {
+	public void updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException {
 		deleteByDocumentId(id);
 
 		for (Entry<String, String> entry : params.entrySet()) {
@@ -108,7 +108,6 @@ public class DocumentParamDao implements IDocumentParamDao {
 			}
 		}
 
-		return params;
 	}
 
 	@Override

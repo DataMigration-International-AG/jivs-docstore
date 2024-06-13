@@ -15,10 +15,9 @@ public interface IDocumentParamDao extends IDao<JivsDocumentParam, UUID> {
 	 *
 	 * @param id     the id of the entity
 	 * @param params the params of the entity
-	 * @return param map
 	 * @throws JDSPersistenceException if an error occurs during persisting
 	 */
-	Map<String, String> updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException;
+	void updateParams(UUID id, Map<String, String> params) throws JDSPersistenceException;
 
 	Map<String, String> getParams(UUID id) throws JDSPersistenceException;
 }
