@@ -24,7 +24,7 @@ jobs:
       - name: Validate Maven Wrapper
         run: mvn --version
       - name: Run Tests
-        run: mvn test
+        run: mvn test -s $GITHUB_WORKSPACE/.github/workflows/settings.xml
         env:
           USER_NAME: ${{ secrets.GH_PIPELINE_USER_NAME }}
           ACCESS_TOKEN: ${{ secrets.GH_PIPELINE_TOKEN }}
