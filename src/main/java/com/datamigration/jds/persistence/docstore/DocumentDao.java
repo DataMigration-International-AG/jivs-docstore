@@ -47,7 +47,7 @@ public class DocumentDao implements IDocumentDao {
 		JivsDocument result;
 
 		try (Connection connection =  DatabaseManager.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
-			IDocumentSQLs.INSERT_DOCUMENT_SQL, Statement.RETURN_GENERATED_KEYS)) {
+			IDocumentSQLs.INSERT_DOCUMENT_SQL)) {
 			preparedStatement.setBytes(1, document.getFileBin());
 			preparedStatement.setString(2, document.getFilename());
 			preparedStatement.setString(3, document.getDocumentType());
@@ -63,12 +63,9 @@ public class DocumentDao implements IDocumentDao {
 					document.setId(id);
 					result = document;
 				} else {
-					logger.error("Document could not be inserted.");
+					logger.error("Document could not be inserted, no ID generated.");
 					throw new JDSPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
 				}
-			} catch (SQLException e) {
-				logger.error(e.getMessage(), e);
-				throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 			}
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
@@ -226,9 +223,6 @@ public class DocumentDao implements IDocumentDao {
 					JivsDocument document = createDocument(rs);
 					result.add(document);
 				}
-			} catch (SQLException e) {
-				logger.error(e.getMessage(), e);
-				throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 			}
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
@@ -247,9 +241,6 @@ public class DocumentDao implements IDocumentDao {
 					JivsDocument document = createDocument(rs);
 					result.add(document);
 				}
-			} catch (SQLException e) {
-				logger.error(e.getMessage(), e);
-				throw new JDSPersistenceException(e, ErrorCode.DB_READ_ERROR);
 			}
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);

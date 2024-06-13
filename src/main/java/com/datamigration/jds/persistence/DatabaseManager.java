@@ -68,11 +68,11 @@ public class DatabaseManager {
 				result = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 				logger.debug("Connected to {}", result.getMetaData().getURL());
 			} else {
-				logger.error("{} : dbUrl={}, dbUser={}, pwdWasSet={}", ErrorCode.DB_CONFIG_ERROR.getTitle(),
-					dbUrl, dbUsername, dbPassword != null);
+				logger.error("Missing parameter to create a connection.");
 				throw new JDSPersistenceException(ErrorCode.DB_CONFIG_ERROR);
 			}
 		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
 			throw new JDSPersistenceException(e, ErrorCode.DB_CONNECT_ERROR);
 		}
 		return result;

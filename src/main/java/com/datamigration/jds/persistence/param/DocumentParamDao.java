@@ -53,7 +53,7 @@ public class DocumentParamDao implements IDocumentParamDao {
 		for (Entry<String, String> entry : jivsDocumentParam.getParams().entrySet()) {
 			try (Connection connection = DatabaseManager
 				.getInstance().connect(); PreparedStatement preparedStatement = connection.prepareStatement(
-				IDocumentParamSQLs.INSERT_PARAMS_SQL, Statement.RETURN_GENERATED_KEYS)) {
+				IDocumentParamSQLs.INSERT_PARAMS_SQL)) {
 
 				preparedStatement.setObject(1, jivsDocumentParam.getDocumentId());
 				preparedStatement.setString(2, entry.getKey());
@@ -65,9 +65,6 @@ public class DocumentParamDao implements IDocumentParamDao {
 						logger.error("No params inserted for document {}", jivsDocumentParam.getDocumentId());
 						throw new JDSPersistenceException(ErrorCode.DB_NO_RESULT_ERROR);
 					}
-				} catch (SQLException e) {
-					logger.error(e.getMessage(), e);
-					throw new JDSPersistenceException(e, ErrorCode.DB_WRITE_ERROR);
 				}
 
 			} catch (SQLException e) {
