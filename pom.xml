@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.datamigration</groupId>
-  <artifactId>CHANGEME</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <artifactId>jivs-docstore</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
 
   <properties>
     <java.version>21</java.version>
@@ -21,8 +21,17 @@
     <intellij.agent.options>${project.basedir}/.qodana/code-coverage/output.ic,true,true,true,false</intellij.agent.options>
   </properties>
   <scm>
-    <developerConnection>scm:git:https://github.com/DataMigration-International-AG/CHANGEME.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/DataMigration-International-AG/jivs-docstore.git</developerConnection>
   </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>
+        https://maven.pkg.github.com/datamigration-international-ag/jivs-docstore</url>
+    </repository>
+  </distributionManagement>
 
   <build>
     <plugins>
@@ -207,6 +216,11 @@
       <artifactId>resteasy-undertow</artifactId>
       <version>${version.resteasy}</version>
     </dependency>
+    <dependency>
+      <groupId>com.datamigration</groupId>
+      <artifactId>jivs-config</artifactId>
+      <version>1.2.1</version>
+    </dependency>
 
     <!-- Test dependencies -->
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
@@ -235,6 +249,12 @@
       <groupId>org.testcontainers</groupId>
       <artifactId>mssqlserver</artifactId>
       <version>1.19.7</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.12.0</version>
       <scope>test</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
