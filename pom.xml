@@ -14,7 +14,7 @@
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
     <version.log4j>2.23.1</version.log4j>
-    <intellij.coverage.agent.version>1.0.750</intellij.coverage.agent.version>
+    <intellij.coverage.agent.version>1.0.755</intellij.coverage.agent.version>
     <intellij.agent.options>${project.basedir}/.qodana/code-coverage/output.ic,true,true,true,false</intellij.agent.options>
   </properties>
   <scm>
