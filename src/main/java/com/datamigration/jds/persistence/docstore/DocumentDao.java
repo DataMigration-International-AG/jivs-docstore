@@ -285,8 +285,14 @@ public class DocumentDao implements IDocumentDao {
 		UUID creator = UUID.fromString(rs.getString(5));
 		LocalDateTime created = rs.getObject(6, LocalDateTime.class);
 		UUID customerFK = UUID.fromString(rs.getString(7));
-		UUID systemFK = UUID.fromString(rs.getString(8));
-		UUID caseId = UUID.fromString(rs.getString(9));
+		UUID systemFK = null;
+		if (rs.getString(8) != null) {
+			systemFK = UUID.fromString(rs.getString(8));
+		}
+		UUID caseId = null;
+		if (rs.getString(9) != null) {
+			systemFK = UUID.fromString(rs.getString(9));
+		}
 		boolean deleted = rs.getBoolean(10);
 		Map<String, String> params = new HashMap<>();
 
