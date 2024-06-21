@@ -8,7 +8,7 @@ public interface IDocumentSQLs {
 				    ID            uniqueidentifier default newsequentialid() not null
 				        constraint [JIVS-DOCSTORE-pk]
 				        primary key,
-				 	[FILE-BIN] nvarchar(max) not null,
+				 	[FILE-BIN] varbinary(max) not null,
 				 	FILENAME nvarchar(260) not null,
 				 	[DOCUMENT-TYPE] varchar(40) not null,
 				 	CREATOR UNIQUEIDENTIFIER not null,
