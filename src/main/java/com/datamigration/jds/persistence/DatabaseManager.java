@@ -61,9 +61,9 @@ public class DatabaseManager {
 	public Connection connect() throws JDSPersistenceException {
 		Connection result;
 		try {
-			String dbUrl = config.getOptionalValue("jpe.mssql.url", String.class).orElse(null);
-			String dbUsername = config.getOptionalValue("jpe.mssql.username", String.class).orElse(null);
-			String dbPassword = config.getOptionalValue("jpe.mssql.password", String.class).orElse(null);
+			String dbUrl = config.getOptionalValue("jds.mssql.url", String.class).orElse(null);
+			String dbUsername = config.getOptionalValue("jds.mssql.username", String.class).orElse(null);
+			String dbPassword = config.getOptionalValue("jds.mssql.password", String.class).orElse(null);
 			if (dbUrl != null && dbUsername != null && dbPassword != null) {
 				result = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 				logger.debug("Connected to {}", result.getMetaData().getURL());
@@ -98,4 +98,13 @@ public class DatabaseManager {
 		logger.debug("Tables created");
 	}
 
+	/**
+	 * Load configuration and create required tables in the database.
+	 *
+	 * @throws JDSPersistenceException if an error occurs during the initialization of the database
+	 */
+	public void initializeDatabase() throws JDSPersistenceException {
+		createJDSSchema();
+		createTables();
+	}
 }

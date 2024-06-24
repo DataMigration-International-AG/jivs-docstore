@@ -1,6 +1,9 @@
 package com.datamigration.jds.controller;
 
 import com.datamigration.jds.model.entity.docstore.JivsDocument;
+import com.datamigration.jds.persistence.DatabaseManager;
+import com.datamigration.jds.persistence.docstore.DocumentDao;
+import com.datamigration.jds.persistence.param.DocumentParamDao;
 import com.datamigration.jds.service.DocumentService;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.time.LocalDate;
@@ -19,10 +22,22 @@ public class DocStoreManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(DocStoreManager.class);
 
+	private static DocStoreManager INSTANCE;
 	private final DocumentService documentService;
 
-	public DocStoreManager(DocumentService documentService) {
+	private DocStoreManager(DocumentService documentService) {
 		this.documentService = documentService;
+	}
+
+	public static DocStoreManager getInstance() throws JDSPersistenceException {
+		if (INSTANCE == null) {
+			INSTANCE = new DocStoreManager(new DocumentService(
+				new DocumentDao(),
+				new DocumentParamDao()));
+			DatabaseManager databaseManager = DatabaseManager.getInstance();
+			databaseManager.initializeDatabase();
+		}
+		return INSTANCE;
 	}
 
 	public JivsDocument create(JivsDocument jivsDocument) throws JDSPersistenceException {

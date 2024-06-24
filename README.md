@@ -1,3 +1,31 @@
-# CHANGEME
+# Jivs-Docstore
+### Requirements
+- Java 21
+- MSSQL Database
 
-Note: Please change everything that is marked with `changeme`
+### Dependency
+```xml
+<dependency>
+  <groupId>com.datamigration</groupId>
+  <artifactId>jivs-process-engine</artifactId>
+  <version>1.0.1</version>
+</dependency>
+```
+
+### Configuration
+The following config values need to be:
+```properties
+# Database username
+jds.mssql.username=
+# Database password
+jds.mssql.password=
+# Database jdbc url
+jds.mssql.url=
+```
+
+### How to use
+The class DocStoreManager can be used to use the functionalities from this lib.
+```java
+DocStoreManager docStoreManager = DocStoreManager.getInstance();
+JivsDocument insertedDocument = docStoreManager.create(jivsDocument);
+```
