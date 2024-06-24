@@ -291,7 +291,7 @@ public class DocumentDao implements IDocumentDao {
 		}
 		UUID caseId = null;
 		if (rs.getString(9) != null) {
-			systemFK = UUID.fromString(rs.getString(9));
+			caseId = UUID.fromString(rs.getString(9));
 		}
 		boolean deleted = rs.getBoolean(10);
 		Map<String, String> params = new HashMap<>();
