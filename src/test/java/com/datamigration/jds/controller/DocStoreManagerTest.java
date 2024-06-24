@@ -3,10 +3,7 @@ package com.datamigration.jds.controller;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.datamigration.jds.model.entity.docstore.JivsDocument;
-import com.datamigration.jds.persistence.docstore.DocumentDao;
-import com.datamigration.jds.persistence.param.DocumentParamDao;
-import com.datamigration.jds.service.DocumentService;
-import com.datamigration.jds.util.BaseSingletonTest;
+import com.datamigration.jds.util.JDSTest;
 import com.datamigration.jds.util.exceptions.checked.JDSPersistenceException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -17,10 +14,12 @@ import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-class DocStoreManagerTest extends BaseSingletonTest {
+class DocStoreManagerTest extends JDSTest {
 
-	private final DocStoreManager docStoreManager = new DocStoreManager(new DocumentService(new DocumentDao(), new DocumentParamDao()));
+	private final DocStoreManager docStoreManager = DocStoreManager.getInstance();
 	private final UUID creatorId = UUID.randomUUID();
+
+	private DocStoreManagerTest() throws JDSPersistenceException {}
 
 	private JivsDocument createDocument() {
 		return new JivsDocument("Document".getBytes(StandardCharsets.UTF_8), "Document1", "JIVSDOCUMENT",

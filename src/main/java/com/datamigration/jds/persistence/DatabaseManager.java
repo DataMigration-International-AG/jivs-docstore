@@ -98,4 +98,13 @@ public class DatabaseManager {
 		logger.debug("Tables created");
 	}
 
+	/**
+	 * Load configuration and create required tables in the database.
+	 *
+	 * @throws JDSPersistenceException if an error occurs during the initialization of the database
+	 */
+	public void initializeDatabase() throws JDSPersistenceException {
+		createJDSSchema();
+		createTables();
+	}
 }
