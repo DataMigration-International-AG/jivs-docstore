@@ -7,7 +7,7 @@
 ```xml
 <dependency>
   <groupId>com.datamigration</groupId>
-  <artifactId>jivs-process-engine</artifactId>
+  <artifactId>jivs-docstore</artifactId>
   <version>1.0.1</version>
 </dependency>
 ```
